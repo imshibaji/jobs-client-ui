@@ -1,0 +1,18 @@
+---
+import Hero from '@/components/front/about/Hero.astro';
+import VisionMission from '@/components/front/about/VisionMission.astro';
+import HowItWorks from '@/components/front/about/HowItWorks.astro';
+import Layout from '../layouts/Base.astro';
+import Stories from '@/components/front/about/Stories.astro';
+import TrustedEmployer from '@/components/front/about/TrustedEmployer.astro';
+---
+
+<Layout title="JobsForWomen.com – Empowering">
+    <Hero />
+    <main class="max-w-7xl mx-auto px-6 md:px-8 py-14">
+        <VisionMission />
+        <HowItWorks />
+        <Stories />
+        <TrustedEmployer />
+    </main>
+</Layout>

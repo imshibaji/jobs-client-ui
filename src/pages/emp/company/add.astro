@@ -1,0 +1,12 @@
+---
+import EmployeeLayout from "@/layouts/EmpLayout.astro";
+import Card from "@/components/Card.astro";
+import CompanyDetailsForm from "@/components/back/CompanyDetailsForm.astro";
+---
+<EmployeeLayout>
+  <Card>
+    <div class="flex flex-col sm:flex-row gap-4 sm:gap-10">
+      <CompanyDetailsForm />
+    </div>
+  </Card>
+</EmployeeLayout>

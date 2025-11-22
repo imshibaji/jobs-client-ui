@@ -1,0 +1,33 @@
+---
+import StoryItem from "./StoryItem.astro";
+
+const stories = [
+  {
+    title: "Anjali's Journey to Tech Leadership",
+    description: "Anjali started as a junior developer and faced many challenges in a male-dominated environment. Through persistence, networking, and continuous skill development, she rose to a senior tech manager role in just 5 years.",
+    link: "#"
+  },
+  {
+    title: "Riya's UX Design Breakthrough",
+    description: "Riya began her journey with little experience in UX design but leveraged online courses, mentorships, and projects to become a lead UX designer within a year.",
+    link: "#"
+  },
+  {
+    title: "Mehak's Career Transition: From Intern to Full-Time",
+    description: "Mehak started her career as an intern and quickly rose to a full-time role. Her dedication and hard work led to a successful career transition.",
+    link: "#"
+  }
+]
+---
+
+<!-- Success Stories Section -->
+<section class="bg-white rounded-xl shadow p-6 mb-6">
+  <h3 class="text-lg font-semibold text-purple-700 mb-4">Success Stories</h3>
+  <div class="grid md:grid-cols-3 gap-4">
+    {
+      stories.map(story => (
+        <StoryItem story={story} />
+      ))
+    }
+  </div>
+</section>

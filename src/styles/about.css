@@ -1,0 +1,48 @@
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  color: theme('colors.text');
+}
+h1, h2, h3, h4, h5 {
+  font-family: "Poppins", sans-serif;
+}
+
+/* Custom utility for header (sticky, blur, border) */
+.header-sticky {
+  /* backdrop-filter:blur(6px); - Needs manual addition as utility is not yet standard */
+  backdrop-filter: blur(6px);
+}
+
+/* Custom styles for the company carousel animation */
+.company-track {
+  animation: scrollCompanies 60s linear infinite;
+}
+@keyframes scrollCompanies {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Vision/Mission specific styles (complex ::before/::after) - hard to convert to Tailwind */
+.vm {
+  position: relative;
+  overflow: hidden;
+}
+.vm::before, .vm::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.08;
+}
+.vm::before {
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle at 20% 20%, theme('colors.purple-700'), transparent);
+  top: -20px;
+  left: -15px;
+}
+.vm::after {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at 80% 80%, theme('colors.purple-500'), transparent);
+  bottom: -15px;
+  right: -10px;
+}

@@ -1,0 +1,19 @@
+---
+import Footer from "@/components/Footer.astro";
+import TopBar from "@/components/TopBar.astro";
+import "@/styles/global.css";
+
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{Astro.props.title || "Astro Basics"}</title>
+</head>
+<body class="font-sans text-gray-800 antialiased">
+  <TopBar />
+    <slot />
+  <Footer />
+</body>
+</html>

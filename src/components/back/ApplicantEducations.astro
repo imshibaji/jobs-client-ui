@@ -1,0 +1,29 @@
+---
+import Card from "../Card.astro";
+import { PenLine, Trash2 } from "@lucide/astro";
+---
+
+<Card title="Update Your Education" class="w-full">
+    <a slot="header-actions" href="/applicant/education" class="btn btn-primary px-6">Add Education</a>
+    <table class="w-full text-sm">
+        <thead class="text-left text-xs text-gray-500 uppercase border-b">
+            <tr>
+                <th class="py-3 pr-6 text-center md:w-[200px]">Actions</th>
+                <th class="py-3 pr-6">Degree</th>
+                <th class="py-3 pr-6">Institution</th>
+                <th class="py-3 pr-6">Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="py-3 pr-6 flex gap-1 justify-center">
+                    <button class="btn btn-link"><PenLine /></button>
+                    <button class="btn btn-link-danger"><Trash2 /></button>
+                </td>
+                <td class="py-3 pr-6">Bachelor of Science in Computer Science</td>
+                <td class="py-3 pr-6">University of California, Los Angeles</td>
+                <td class="py-3 pr-6">2020</td>
+            </tr>
+        </tbody>
+    </table>
+</Card>

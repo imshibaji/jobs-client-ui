@@ -1,0 +1,42 @@
+---
+import EmployeeLayout from "@/layouts/UserLayout.astro";
+import Card from "@/components/Card.astro";
+import PageHeader from "../_parts/PageHeader.astro";
+import Growths from "./_parts/Growths.astro";
+import Stories from "./_parts/Stories.astro";
+
+const growth = [
+  {
+    title: "Advanced Digital Marketing",
+    description: "Master advanced marketing techniques and analytics to boost your career.",
+  },
+  {
+    title: "Leadership Skills for Women",
+    description: "Develop essential leadership skills and strategies for workplace success.",
+  },
+  {
+    title: "UI/UX Design Fundamentals",
+    description: "Learn design principles to create impactful user experiences.",
+  },
+]
+
+const stories = [
+    {
+        title: "Anjali's Journey to Tech Leadership",
+        description: "Anjali started as a junior developer and faced many challenges in a male-dominated environment. Through persistence, networking, and continuous skill development, she rose to a senior tech manager role in just 5 years.",
+        link: "#",
+    },
+    {
+        title: "Riya's UX Design Breakthrough",
+        description: "Riya began her journey with little experience in UX design but leveraged online courses, mentorships, and projects to become a lead UX designer within a year.",
+        link: "#",
+    },
+]
+---
+<EmployeeLayout>
+  <PageHeader />
+  <Card title="Career Growth">
+    <Growths growth={growth} />
+  </Card>
+  <Stories stories={stories}/>
+</EmployeeLayout>

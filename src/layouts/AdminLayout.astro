@@ -1,0 +1,82 @@
+---
+import "@/styles/global.css";
+import Sidebar from "@/components/back/Sidebar.astro";
+import TopBar from "@/components/back/TopBar.astro";
+import { BriefcaseBusiness, Building, FileStack, LayoutDashboard, Settings, SquareLibrary, SquareMenu, Users } from "@lucide/astro";
+
+const menus = [
+    {
+        name: "Dashboard",
+        icon: LayoutDashboard,
+        link: "/admin",
+    },
+        {
+        name: "All Applications",
+        icon: SquareMenu,
+        link: "/admin/applications",
+    },
+    {
+        name: "All Jobs",
+        icon: BriefcaseBusiness,
+        link: "/admin/jobs",
+    },
+    {
+        name: "All Applicants",
+        icon: FileStack,
+        link: "/admin/applicants",
+    },
+    {
+        name: "All Companies",
+        icon: Building,
+        link: "/admin/companies",
+    },
+    {
+        name: "All Articles",
+        icon: SquareLibrary,
+        link: "/admin/articles",
+    },
+    {
+        name: "All Users",
+        icon: Users,
+        link: "/admin/users",
+    },
+]
+
+const settings = {
+    name: "Settings",
+    icon: Settings,
+    link: "/admin/settings",
+}
+const profileLink = "/admin/profile";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{Astro.props.title || "Astro Dashboard"}</title>
+</head>
+<body class="bg-gray-50 font-sans">
+    <Sidebar menus={menus} settings={settings} />
+    <TopBar profileLink={profileLink} />
+    <main class="pt-20 p-6 lg:ml-64 transition-all duration-300 bg-lavender min-h-dvh">
+        <slot />
+    </main>
+
+    <!-- Sidebar Toggle Script -->
+    <script is:inline>
+        const sidebar = document.getElementById('sidebar');
+        const openBtn = document.getElementById('openSidebar');
+        const closeBtn = document.getElementById('closeSidebar');
+
+        openBtn.addEventListener('click', () => {
+            sidebar.classList.remove('-translate-x-full');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+        });
+    </script>
+</body>
+</html>

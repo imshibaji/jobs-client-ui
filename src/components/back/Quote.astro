@@ -1,0 +1,12 @@
+---
+export interface Props {
+    title?: string
+    description?: string
+}
+const { title, description } = Astro.props
+---
+
+<div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg">
+    <h4 class="font-semibold text-purple-700 mb-2">{title || "Bright Side Corner 🌟"}</h4>
+    <p class="text-gray-700 text-sm">{description || "One door closes, ten open — keep going! Every step brings you closer to your dream job."}</p>
+</div>

@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #FF6F61;
+    --color-secondary: #4A90E2;
+    --color-accent: #50E3C2;
+    --color-background: #F5F5F5;
+    --color-text: #333333;
+    --color-purple: #7B2CBF;
+    --color-purple-2: #9D4EDD;
+    --color-lavender: #F8F5FF;
+    --color-muted: #6b6b6b;
+
+    --font-family-sans: Inter, system-ui, sans-serif;
+    --font-family-headline: Poppins, sans-serif;
+
+    --card-shadow: 0 8px 30px rgba(123, 44, 191, 0.08);
+    --radius: 14px;
+}
+
+.btn {
+    @apply flex items-center justify-center px-4;
+
+}
+.btn-primary {
+    @apply bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200;
+}
+
+.btn-secondary {
+    @apply bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200;
+}
+
+.btn-accent {
+    @apply bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200;
+}
+
+.btn-outline {
+    @apply border border-violet-600 text-violet-600 py-2 rounded-lg hover:bg-violet-600 hover:text-white transition duration-200;
+}
+
+.btn-outline-accent {
+    @apply border border-violet-600 text-violet-600 py-2 rounded-lg hover:bg-violet-600 hover:text-white transition duration-200;
+}
+
+.btn-outline-secondary {
+    @apply border border-violet-600 text-violet-600 py-2 rounded-lg hover:bg-violet-600 hover:text-white transition duration-200;
+}
+
+.btn-outline-primary {
+    @apply border border-violet-600 text-violet-600 py-2 rounded-lg hover:bg-violet-600 hover:text-white transition duration-200;
+}
+
+.btn-warning {
+    @apply bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition duration-200;
+}
+
+.btn-danger {
+    @apply bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition duration-200;
+}
+
+.btn-success {
+    @apply bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition duration-200;
+}
+
+.btn-info {
+    @apply bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200;
+}
+
+.btn-muted {
+    @apply bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition duration-200;
+}
+
+.btn-link {
+    @apply text-violet-600 py-2 rounded-lg hover:bg-violet-600 hover:text-white transition duration-200;
+}
+
+.btn-link-accent {
+    @apply text-violet-600 py-2 rounded-lg hover:bg-violet-600 hover:text-white transition duration-200;
+}
+
+.btn-link-secondary {
+    @apply text-violet-600 py-2 rounded-lg hover:bg-violet-600 hover:text-white transition duration-200;
+}
+
+.btn-link-primary {
+    @apply text-violet-600 py-2 rounded-lg hover:bg-violet-600 hover:text-white transition duration-200;
+}
+.btn-link-warning {
+    @apply text-orange-600 py-2 rounded-lg hover:bg-orange-600 hover:text-white transition duration-200;
+}
+.btn-link-danger {
+    @apply text-red-600 py-2 rounded-lg hover:bg-red-600 hover:text-white transition duration-200;
+}
+.btn-link-success {
+    @apply text-green-600 py-2 rounded-lg hover:bg-green-600 hover:text-white transition duration-200;
+}
+.btn-link-info {
+    @apply text-blue-600 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition duration-200;
+}
+.btn-link-muted {
+    @apply text-gray-600 py-2 rounded-lg hover:bg-gray-600 hover:text-white transition duration-200;
+}   
+.btn-disabled {
+    @apply bg-gray-600 text-white py-2 rounded-lg;
+}
+
+.input {
+    @apply rounded-md border border-gray-300 px-4 py-2 focus:border-violet-500 focus:ring-violet-500;
+}
+
+.input-primary {
+    @apply rounded-md border border-gray-300 px-4 py-2 focus:border-violet-500 focus:ring-violet-500;
+}
+.input-bordered {
+    @apply rounded-md border border-transparent px-4 py-2  focus:border-violet-500 focus:ring-violet-500 ;
+}
+
+.badge {
+    @apply inline-block px-4 py-2 rounded-lg font-semibold;
+}
+
+.badge-primary {
+    @apply bg-violet-100 text-violet-800;
+}
+
+.badge-secondary {
+    @apply bg-violet-100 text-violet-800;
+}
+
+.badge-accent {
+    @apply bg-violet-100 text-violet-800;
+}
+
+.badge-danger {
+    @apply bg-red-100 text-red-800;
+}
+
+.badge-success {
+    @apply bg-green-100 text-green-800;
+}
+
+.badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+}
+
+.badge-info {
+    @apply bg-blue-100 text-blue-800;
+}
+
+.badge-muted {
+    @apply bg-gray-100 text-gray-800;
+}
+

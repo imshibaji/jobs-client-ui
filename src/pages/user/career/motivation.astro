@@ -1,0 +1,54 @@
+---
+import EmployeeLayout from "@/layouts/UserLayout.astro";
+import PageHeader from "../_parts/PageHeader.astro";
+import Stories from "./_parts/Stories.astro";
+import Careers from "./_parts/Careers.astro";
+import Card from "@/components/Card.astro";
+import Quote from "@/components/back/Quote.astro";
+
+const growth = [
+  {
+    title: "Advanced Digital Marketing",
+    description: "Master advanced marketing techniques and analytics to boost your career.",
+  },
+  {
+    title: "Leadership Skills for Women",
+    description: "Develop essential leadership skills and strategies for workplace success.",
+  },
+  {
+    title: "UI/UX Design Fundamentals",
+    description: "Learn design principles to create impactful user experiences.",
+  },
+]
+
+const stories = [
+    {
+        title: "Anjali's Journey to Tech Leadership",
+        description: "Anjali started as a junior developer and faced many challenges in a male-dominated environment. Through persistence, networking, and continuous skill development, she rose to a senior tech manager role in just 5 years.",
+        link: "#",
+    },
+    {
+        title: "Riya's UX Design Breakthrough",
+        description: "Riya began her journey with little experience in UX design but leveraged online courses, mentorships, and projects to become a lead UX designer within a year.",
+        link: "#",
+    },
+]
+---
+<EmployeeLayout>
+  <PageHeader />
+  <Careers careers={growth} />
+  <Card>
+    <div class="mb-4">
+      <div class="badge badge-primary">Test Badge</div>
+      <div class="badge badge-secondary">Test Badge</div>
+      <div class="badge badge-accent">Test Badge</div>
+      <div class="badge badge-info">Test Badge</div>
+      <div class="badge badge-success">Test Badge</div>
+      <div class="badge badge-warning">Test Badge</div>
+      <div class="badge badge-danger">Test Badge</div>
+    </div>
+    <Quote />
+  </Card>
+  
+  <Stories stories={stories} />
+</EmployeeLayout>

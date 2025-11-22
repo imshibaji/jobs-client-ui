@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Base.astro';
+import JobPostForm from '@/components/react/JobPostForm';
+const title = "Post a Job - JobsForWomen.com";
+---
+<Layout title={title}>
+    <JobPostForm client:load />
+</Layout>

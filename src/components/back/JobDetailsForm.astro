@@ -1,0 +1,82 @@
+<!-- Job Details -->
+<div class="flex flex-col gap-4 w-full">
+    <h3 class="text-left text-purple-700 font-headline text-2xl font-bold">Job Details</h3>
+    <div class="flex flex-col gap-2">
+        <label for="title">Job Title</label>
+        <input type="text" placeholder="Job Title" id="title" name="title" class="rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
+    </div>
+    <div class="flex flex-col sm:flex-row gap-2">
+            <div class="flex flex-col gap-2 w-full sm:w-1/2">
+                <label for="job_type">Job Type</label>
+                <select id="job_type" name="job_type" class="rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500">
+                    <option value="Full Time">Full Time</option>
+                    <option value="Part Time">Part Time</option>
+                    <option value="Hybrid">Hybrid</option>
+                    <option value="Remote">Remote</option>
+                    <option value="Internship">Internship</option>
+                    <option value="Contract">Contract</option>
+                    <option value="Temporary">Temporary</option>
+                    <option value="Volunteer">Volunteer</option>
+                </select>
+            </div>
+            <div class="flex flex-col gap-2 w-full sm:w-1/2">
+                <label for="company">Company Name</label>
+                <select id="company" name="company" class="rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500">
+                    <option value="Company 1">Company 1</option>
+                    <option value="Company 2">Company 2</option>
+                    <option value="Company 3">Company 3</option>
+                </select>
+            </div>
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="description">Description</label>
+        <textarea id="description" rows="4" placeholder="Job Description" name="description" class="rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500"></textarea>
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="location">Location</label>
+        <input type="text" placeholder="City, State, Country" id="location" name="location" class="rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="salary">Salary Range</label>
+        <div class="flex justify-between gap-2">
+        <input type="number" placeholder="Minimum Salary" id="min_salary" name="min_salary" class="w-2/5 rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
+        <span class="flex items-center text-2xl">TO</span>
+        <input type="number" placeholder="Maximum Salary" id="max_salary" name="max_salary" class="w-2/5 rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
+        <span class="flex items-center text-2xl">IN</span>
+        <input type="text" placeholder="Currency Code" id="max_salary" name="max_salary" class="w-1/5 rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
+        </div>
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="qualification">Qualification</label>
+        <input type="text" placeholder="Qualification" id="qualification" name="qualification" class="rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
+    </div>
+    <div class="flex flex-col justify-between gap-2">
+        <label for="experience">Experience Required</label>
+        <div class="flex flex-col gap-6">
+        <div class="flex justify-between gap-2">
+            <span class="flex items-center text-xl">Minimum</span>
+            <div class="flex justify-between gap-2 w-full">
+            <input type="number" placeholder="Years" id="years" name="years" class="w-1/2 rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
+            <span class="flex items-center text-2xl">+</span>
+            <input type="number" placeholder="Months" id="months" name="months" class="w-1/2 rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
+            </div>
+        </div>
+        <!-- <span class="w-12"></span> -->
+        <div class="flex justify-between gap-2">
+            <span class="flex items-center text-xl">Maximum</span>
+            <div class="flex justify-between gap-2 w-full">
+            <input type="number" placeholder="Years" id="years" name="years" class="w-1/2 rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
+            <span class="flex items-center text-2xl">+</span>
+            <input type="number" placeholder="Months" id="months" name="months" class="w-1/2 rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="skills">Skills</label>
+        <input type="text" placeholder="Key Skills" id="skills" name="skills" class="rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
+    </div>
+    <div class="flex flex-col gap-2 py-4">
+      <button type="submit" class="bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200">Post Job</button>
+    </div>
+</div>

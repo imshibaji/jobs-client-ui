@@ -1,0 +1,30 @@
+---
+import { User } from "@/utils/user";
+export interface Props {
+  user?: User
+  profileLink?: string
+}
+const { user, profileLink } = Astro.props;
+---
+
+<!-- Topbar -->
+  <header class="fixed top-0 left-0 right-0 bg-white shadow px-6 py-4 flex items-center justify-between z-30 h-16 lg:left-64 transition-all">
+    <div class="flex items-center space-x-4">
+      <!-- Mobile Menu Button -->
+      <button id="openSidebar" class="text-purple-700 text-2xl lg:hidden focus:outline-none">
+        ☰
+      </button>
+      <h1 class="text-xl font-semibold text-gray-800">Dashboard</h1>
+    </div>
+
+    <div class="flex items-center space-x-4">
+      <a class="flex items-center space-x-2" href={ (profileLink || '/profile/')+ (user?.id || "")}>
+        <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=80&q=80"
+            alt="Profile" class="w-10 h-10 rounded-full border-2 border-purple-600">
+        <div class="hidden sm:block">
+          <p class="font-medium text-gray-800">{ user?.name || "Mahak Tiwari" }</p>
+          <p class="text-xs text-gray-500">{ user?.role || "HR Manager" }</p>
+        </div>
+      </a>
+    </div>
+  </header>

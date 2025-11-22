@@ -1,0 +1,56 @@
+  <!-- ░░ HERO ░░ -->
+  <section class="relative bg-gray-100">
+    <!-- background image (replace URL) -->
+    <div class="absolute inset-0 -z-10 bg-[url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-20"></div>
+    <div class="mx-auto max-w-3xl px-4 py-20 text-center md:px-0">
+      <h1 class="mb-4 text-3xl font-extrabold text-purple-700 md:text-4xl">
+        Empowering Women. One Job at a Time.
+      </h1>
+      <p class="mb-8 text-lg text-gray-700">
+        Discover thousands of roles designed for your goals, your pace, your power.
+      </p>
+
+      <!-- Search bar -->
+      <form class="mb-4 flex flex-col items-stretch gap-3 md:flex-row">
+        <input
+          type="text"
+          placeholder="Job title or skill"
+          class="flex-1 rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500"
+        />
+        <select
+          class="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500 md:w-64">
+          <option>Select location</option>
+          <option>Remote</option>
+          <option>Bangalore</option>
+          <option>Mumbai</option>
+        </select>
+        <button
+          type="submit"
+          class="rounded-md bg-purple-600 px-6 py-2 font-medium text-white hover:bg-purple-700">
+          Search
+        </button>
+      </form>
+
+      <!-- Quick filters -->
+      <div class="mb-10 flex flex-wrap justify-center gap-2 text-sm">
+        <span class="cursor-pointer rounded-full bg-purple-50 px-3 py-1 hover:bg-purple-100">Remote</span>
+        <span class="cursor-pointer rounded-full bg-purple-50 px-3 py-1 hover:bg-purple-100">Work‑from‑Home</span>
+        <span class="cursor-pointer rounded-full bg-purple-50 px-3 py-1 hover:bg-purple-100">Part‑Time</span>
+        <span class="cursor-pointer rounded-full bg-purple-50 px-3 py-1 hover:bg-purple-100">Entry‑Level</span>
+        <span class="cursor-pointer rounded-full bg-purple-50 px-3 py-1 hover:bg-purple-100">Tech</span>
+        <span class="cursor-pointer rounded-full bg-purple-50 px-3 py-1 hover:bg-purple-100">Marketing</span>
+      </div>
+
+      <!-- CTA buttons -->
+      <div class="flex flex-col items-center gap-3 md:flex-row md:justify-center">
+        <a href="#"
+           class="w-full rounded-md bg-purple-600 px-6 py-3 text-center font-medium text-white hover:bg-purple-700 md:w-auto">
+          Create Profile
+        </a>
+        <a href="#"
+           class="w-full rounded-md border border-purple-600 px-6 py-3 text-center font-medium text-purple-600 hover:bg-purple-50 md:w-auto">
+          Post a Job
+        </a>
+      </div>
+    </div>
+  </section>

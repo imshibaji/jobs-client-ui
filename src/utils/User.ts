@@ -1,0 +1,1 @@
+export type User = import("better-auth").User & { role: string };

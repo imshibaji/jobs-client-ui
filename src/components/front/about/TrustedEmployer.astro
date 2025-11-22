@@ -1,0 +1,54 @@
+<div class="trusted-container mt-16">
+    <h3 class="text-purple-700 font-headline text-2xl font-bold mb-5 text-center">Trusted Employers</h3>
+    <div class="trusted py-6 bg-gradient-to-br from-purple-700 to-purple-500 rounded-xl overflow-hidden">
+      <div class="company-carousel overflow-hidden relative">
+        <div class="company-track flex gap-5 md:gap-8 min-w-full">
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>Accenture</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>TCS</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>Infosys</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>IBM</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>Cognizant</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>Capgemini</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>Wipro</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>HCL</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>Oracle</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>Deloitte</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>EY</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>PwC</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>KPMG</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>Tech Mahindra</em></div>
+
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>Accenture</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>TCS</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>Infosys</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>IBM</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>Cognizant</em></div>
+          <div class="company-card min-w-[140px] text-center italic font-medium text-white p-0"><em>Capgemini</em></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<style is:inline>
+/* Animations on scroll - Kept original JS-dependent classes */
+.fade-in{opacity:0; transform:translateY(14px); transition:all 0.7s ease-out;}
+.show.fade-in{opacity:1; transform:translateY(0);}
+.slide-up{opacity:0; transform:translateY(14px); transition:all 0.7s ease-out;}
+.show.slide-up{opacity:1; transform:translateY(0);}
+</style>
+
+<script is:inline>
+// Original Intersection Observer script for animations
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:0.15});
+document.querySelectorAll('.fade-in, .slide-up').forEach(el=>{
+  observer.observe(el);
+});
+</script>

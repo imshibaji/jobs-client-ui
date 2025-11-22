@@ -1,0 +1,72 @@
+---
+import "@/styles/global.css";
+import Sidebar from "@/components/back/Sidebar.astro";
+import TopBar from "@/components/back/TopBar.astro";
+import { Container, LayoutDashboard, Settings, ShieldCheck, Sparkles, Sprout } from "@lucide/astro";
+
+const menus = [
+    {
+        name: "Dashboard",
+        icon: LayoutDashboard,
+        link: "/user",
+    },
+    {
+        name: "All Jobs",
+        icon: Container,
+        link: "/user/jobs",
+    },
+    {
+        name: "Career Growth",
+        icon: Sprout,
+        link: "/user/career/growth",
+    },
+    {
+        name: "Empowerment & Motivation",
+        icon: Sparkles,
+        link: "/user/career/motivation",
+    },
+    {
+        name: "Trust & Safety",
+        icon: ShieldCheck,
+        link: "/user/trust-safety",
+    },
+]
+const profileLink = "/user/profile";
+
+const settings = {
+    name: "Settings",
+    icon: Settings,
+    link: profileLink,
+}
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{Astro.props.title || "Astro Dashboard"}</title>
+</head>
+<body class="bg-gray-50 font-sans">
+    <Sidebar menus={menus}  settings={settings}/>
+    <TopBar profileLink={profileLink} />
+    <main class="pt-20 p-6 lg:ml-64 transition-all duration-300 bg-lavender min-h-dvh">
+        <slot />
+    </main>
+
+    <!-- Sidebar Toggle Script -->
+    <script is:inline>
+        const sidebar = document.getElementById('sidebar');
+        const openBtn = document.getElementById('openSidebar');
+        const closeBtn = document.getElementById('closeSidebar');
+
+        openBtn.addEventListener('click', () => {
+            sidebar.classList.remove('-translate-x-full');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+        });
+    </script>
+</body>
+</html>
