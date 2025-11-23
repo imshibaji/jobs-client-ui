@@ -15,9 +15,15 @@ export default function LoginForm() {
       alert("Login failed: " + error.message);
       return;
     }
-    if (data.access_token) {
-      console.log("Login success:", data);
+    if (data) {
+      console.log("Login successful:", data);
+      // alert("Login successful!");
+      if(data.role == 'admin') {
+        window.location.href = '/admin'; // Example redirect
+        return;
+      }
       window.location.href = '/user'; // Example redirect
+      return;
     }
   };
 

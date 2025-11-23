@@ -1,5 +1,6 @@
 ---
-import { User } from "@/utils/user";
+import { User } from "@/utils/User";
+import { BASE_URL } from "astro:env/client";
 export interface Props {
   user?: User
   profileLink?: string
@@ -18,9 +19,8 @@ const { user, profileLink } = Astro.props;
     </div>
 
     <div class="flex items-center space-x-4">
-      <a class="flex items-center space-x-2" href={ (profileLink || '/profile/')+ (user?.id || "")}>
-        <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=80&q=80"
-            alt="Profile" class="w-10 h-10 rounded-full border-2 border-purple-600">
+      <a class="flex items-center space-x-2" href={ (profileLink || '/profile')}>
+        <img src={ BASE_URL+ `/file/image/view?filename=${user?.image || "logo.jpg"}`} alt="Profile" class="w-10 h-10 rounded-full border-2 border-purple-600">
         <div class="hidden sm:block">
           <p class="font-medium text-gray-800">{ user?.name || "Mahak Tiwari" }</p>
           <p class="text-xs text-gray-500">{ user?.role || "HR Manager" }</p>
