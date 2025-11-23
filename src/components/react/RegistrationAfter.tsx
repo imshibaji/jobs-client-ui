@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function RegistrationForm() {
+export default function RegistrationAfter() {
   const [role, setRole] = useState("candidate");
 
   return (
@@ -9,7 +9,7 @@ export default function RegistrationForm() {
         <img className="rounded-2xl" src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=80" />
       </div>
       <div className="bg-white shadow-lg rounded-2xl p-6 sm:p-8 w-full max-w-md sm:max-w-lg">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-6">Register on Job Platform</h2>
+        <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-6">Details on Job Platform</h2>
 
         {/* Role Selector */}
         <div className="flex flex-row justify-around gap-2 sm:gap-4 mb-6">
@@ -35,10 +35,9 @@ export default function RegistrationForm() {
         <form className="space-y-3 sm:space-y-4">
           {role === "candidate" ? (
             <>
-              <input type="email" placeholder="Email" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-              <input type="password" placeholder="Password" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-              <hr className="border-gray-300 mt-3 mb-3" />
               <input type="text" placeholder="Full Name" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
+              <input type="email" placeholder="Email" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
+              <input type="text" placeholder="Phone Number" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
               <input type="text" placeholder="Skills" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
               <input type="number" placeholder="Experience (Years)" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
               <input type="text" placeholder="Preferred Job Location" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
@@ -47,8 +46,6 @@ export default function RegistrationForm() {
           ) : (
             <>
               <input type="email" placeholder="Email" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-              <input type="password" placeholder="Password" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-              <hr className="border-gray-300 mt-3 mb-3" />
               <input type="text" placeholder="Company Name" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
               <input type="text" placeholder="Recruiter Name" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
               <input type="text" placeholder="Company Website" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
@@ -61,22 +58,6 @@ export default function RegistrationForm() {
             Register
           </button>
         </form>
-
-        {/* Divider */}
-        <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300">
-          <p className="text-center font-semibold mx-4 mb-0">OR</p>
-        </div>
-
-        {/* Social Login */}
-        <div className="flex gap-2">
-          <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200">
-            <i className="fab fa-facebook-f mr-2"></i> Register with Facebook
-          </button>
-          <button className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition duration-200">
-            <i className="fab fa-google mr-2"></i> Register with Google
-          </button>
-        </div>
-
       </div>
     </div>
   );

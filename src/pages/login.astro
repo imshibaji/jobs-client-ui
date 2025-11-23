@@ -1,8 +1,11 @@
 ---
-import Layout from '../layouts/Base.astro';
-import LoginForm from '@/components/react/LoginForm';
+export const prerender = false;
+
+import Layout from "../layouts/Base.astro";
+import LoginForm from "@/components/react/LoginForm";
 const title = "Login - JobsForWomen.com";
 ---
+
 <Layout title={title}>
     <LoginForm client:load />
 </Layout>

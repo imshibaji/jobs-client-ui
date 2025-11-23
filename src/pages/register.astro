@@ -1,8 +1,9 @@
 ---
 import Layout from '../layouts/Base.astro';
-import RegistrationForm from '@/components/react/RegistrationForm';
-const title = "Login - JobsForWomen.com";
+import Registration from '@/components/react/Register';
+
+const title = "Register - JobsForWomen.com";
 ---
 <Layout title={title}>
-    <RegistrationForm client:load />
+    <Registration client:load />
 </Layout>

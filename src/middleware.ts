@@ -1,8 +1,11 @@
 import { defineMiddleware, sequence } from "astro:middleware";
 
 // `context` and `next` are automatically typed
-const first = defineMiddleware((context, next) => {
-    return next();
+const first = defineMiddleware(async (context, next) => {
+    if(context.url.pathname.startsWith("/user") && !context.cookies.has("token")) {
+        return context.redirect("/login");
+    }
+    return await next();
 });
 
 const second = defineMiddleware((context, next) => {

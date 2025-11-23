@@ -1,1 +1,7 @@
-export type User = import("better-auth").User & { role: string };
+export type User = { 
+    name: string, 
+    email: string, 
+    phoneNumber: string, 
+    image: string, 
+    role: string 
+};
