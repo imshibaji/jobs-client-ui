@@ -50,7 +50,7 @@ export default function ProfileForm({ user, token }: { user: User, token: string
     <div className="flex flex-col md:flex-row gap-4 md:gap-10 items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="w-full md:w-1/2">
         <ImageUpload user={user} token={token} />
-        <ChangePassword user={user} token={token} />
+        <ChangePassword token={token} />
       </div>
       <div className="bg-white shadow-lg rounded-2xl p-8 sm:p-8 w-full sm:max-w-1/2">
         <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-6">Profile Settings</h2>

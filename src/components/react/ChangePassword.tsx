@@ -1,7 +1,8 @@
 import { User } from "@/utils/User";
+import { BASE_URL } from "astro:env/client";
 import { useState } from "react";
 
-export default function ChangePassword({ user, token }: { user: User, token: string }) {
+export default function ChangePassword({ token }: { token: string }) {
     // Change Password
     const [changePassForm, setChangePassForm] = useState({
         password: '',
@@ -14,7 +15,27 @@ export default function ChangePassword({ user, token }: { user: User, token: str
             alert("Passwords do not match");
             return;
         }
-        console.log(changePassForm);
+        // console.log(changePassForm);
+
+        // Here you would typically handle the form submission, e.g., using fetch
+        fetch(BASE_URL + '/auth/change-password', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              newPassword: changePassForm.password
+            }),
+        }).then(response => response.json()).then(data => {
+            console.log(data);
+
+            // Update the user object in the parent component
+            alert('Password changed successfully!');
+        }).catch(error => {
+            console.error(error);
+            alert('Error changing password');
+        });
     };
     return (
         <div className="bg-white shadow-lg rounded-2xl p-8 sm:p-8 w-full mt-5">
