@@ -1,9 +1,9 @@
 import login from "./login";
-import profile from "./profile";
 import register from "./register";
+import tokenToUser from "./tokenToUser";
 
 export const server = {
     register,
     login,
-    profile,
+    tokenToUser
 };

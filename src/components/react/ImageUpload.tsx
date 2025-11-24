@@ -3,7 +3,7 @@ import { BASE_URL } from "astro:env/client";
 import { useState, useEffect } from "react";
 
 export function ImageUpload({user, token}:{user?:User, token?:string}) {
-    const initialImage = user?.image ? `${BASE_URL}/file/image/view?filename=${user?.image}` : "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=80";
+    const initialImage = user?.image ? `${BASE_URL}/file/image/view?filename=${user?.image}` : "/logo.jpeg";
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string>(initialImage);
 

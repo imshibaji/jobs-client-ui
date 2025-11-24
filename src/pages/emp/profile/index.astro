@@ -1,7 +1,19 @@
 ---
 import ProfileForm from "@/components/react/ProfileForm";
 import EmployeeLayout from "@/layouts/EmpLayout.astro";
+import { APP_URL } from "astro:env/server";
+import { User } from "@/utils/types/User";
+
+const token = Astro.cookies.get('token')?.value as string;
+const { id } = Astro.cookies.get('user')?.json() as User;
+const user = await fetch(APP_URL + `/users/${id}`, {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${Astro.cookies.get('token')?.value}`
+  }
+}).then(res => res.json());
 ---
 <EmployeeLayout>
-  <ProfileForm client:load />
+  <ProfileForm token={token} user={user} client:load />
 </EmployeeLayout>

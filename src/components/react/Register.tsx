@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Hero from "./Hero";
+import { actions } from "astro:actions";
 
 export default function Registration() {
     const [formData, setFormData] = useState({
@@ -10,13 +11,37 @@ export default function Registration() {
         confirmPassword: ''
     });
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (formData.password !== formData.confirmPassword) {
             alert("Passwords do not match");
             return;
         }
         console.log(formData);
+
+        // Here you would typically handle the form submission, e.g., using fetch
+        const { data, error } = await actions.register({
+          name: formData.name!,
+          email: formData.email,
+          phoneNumber: formData.phone,
+          password: formData.password,
+          role: 'user',
+          image: '',
+        });
+
+        if (error) {
+            alert('Registration failed!');
+            return;
+        }
+
+        if (data) {
+            // console.log('Registration successful:', data);
+            // localStorage.setItem('userToken', data.access_token);
+            alert('Registration successful!');
+            window.location.href = '/register-after';
+        } else {
+            alert('Registration failed!');
+        }
     }
 
 

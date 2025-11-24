@@ -12,7 +12,7 @@ export default function LoginForm() {
     const { data, error } = await actions.login({ email, password, rememberMe });
     if (error) {
       console.error("Login error:", error);
-      alert("Login failed: " + error.message);
+      alert("Login failed! Please check your credentials and try again.");
       return;
     }
     if (data) {

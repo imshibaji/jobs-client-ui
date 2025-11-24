@@ -1,5 +1,7 @@
-import { User } from "@/utils/User";
+import { User } from "@/utils/types/User";
+import { verifyToken } from "@/utils/verifyToken";
 import { defineAction } from "astro:actions";
+import { APP_URL } from "astro:env/server";
 import { z } from "astro:schema";
 
 
@@ -17,6 +19,30 @@ export default defineAction({
         twitterId: z.string().optional(),
     }),
     handler: async (user: User, context) => {
-        return user;
+        const token = context.cookies.get('token')?.value as string;
+
+        const response = await fetch(APP_URL + '/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(user),
+        }).then(response => response.json());
+
+        const extract = await verifyToken(response.access_token);
+        
+        // Set the cookie
+        const expDate = new Date(extract?.exp! * 1000);
+        console.log(expDate);
+
+        context.cookies.set('token', response.access_token, {
+            path: '/',
+            httpOnly: true,
+            secure: true,
+            expires: expDate,
+        });
+
+        return response;
     }
 });
