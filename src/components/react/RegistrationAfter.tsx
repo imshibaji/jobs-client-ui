@@ -3,12 +3,12 @@ import { Company } from "@/utils/types/Company";
 import { actions } from "astro:actions";
 import { useEffect, useState } from "react";
 
-export default function RegistrationAfter() {
+export default function RegistrationAfter({token}: {token?: string}) {
   const [role, setRole] = useState("candidate");
   const [applicantForm, setApplicantForm] = useState<Applicant>({
     name: '',
     email: '',
-    phone: '',
+    phoneNumber: '',
     skills: '',
     experience: '',
     location: '',
@@ -33,11 +33,11 @@ export default function RegistrationAfter() {
   }, []);
 
   const init = async () => {
-    const token = localStorage.getItem('userToken');
+    const tokenData = token || localStorage.getItem('userToken');
     const jobPostData = localStorage.getItem('jobPost');
     const jobPost = JSON.parse(jobPostData!);
     
-    if(!token) {
+    if(!tokenData) {
       window.location.href = '/login';
       return;
     }
@@ -70,7 +70,7 @@ export default function RegistrationAfter() {
       setApplicantForm({
         name: data.name,
         email: data.email,
-        phone: data.phoneNumber,
+        phoneNumber: data.phoneNumber,
         skills: '',
         experience: '',
         location: '',
@@ -124,7 +124,7 @@ export default function RegistrationAfter() {
             <form onSubmit={applicantFormSubmit} className="space-y-3 sm:space-y-4">
               <input value={applicantForm.name} onChange={(e) => setApplicantForm({ ...applicantForm, name: e.target.value })} type="text" placeholder="Full Name" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
               <input value={applicantForm.email} onChange={(e) => setApplicantForm({ ...applicantForm, email: e.target.value })} type="email" placeholder="Email" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-              <input value={applicantForm.phone} onChange={(e) => setApplicantForm({ ...applicantForm, phone: e.target.value })} type="text" placeholder="Phone Number" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
+              <input value={applicantForm.phoneNumber} onChange={(e) => setApplicantForm({ ...applicantForm, phoneNumber: e.target.value })} type="text" placeholder="Phone Number" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
               <input value={applicantForm.skills} onChange={(e) => setApplicantForm({ ...applicantForm, skills: e.target.value })} type="text" placeholder="Skills" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
               <input value={applicantForm.experience} onChange={(e) => setApplicantForm({ ...applicantForm, experience: e.target.value })} type="number" placeholder="Experience (Years)" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
               <input value={applicantForm.location} onChange={(e) => setApplicantForm({ ...applicantForm, location: e.target.value })} type="text" placeholder="Preferred Job Location" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
