@@ -5,15 +5,14 @@ import { z } from "astro:schema";
 
 export default defineAction({
     input: z.object({
-        token: z.string(),
+        token: z.string().min(3),
     }),
-    handler: async ({ token }) => {
+    handler: async ({ token }: { token: string }) => {        
         const jwtToken = await verifyToken(token);
         if(jwtToken) {
             const userData = jwtToken?.user as User;
             userData.id = jwtToken?.sub;
-            return userData;
+            return userData as User;
         }
-        return null;
     },
 });

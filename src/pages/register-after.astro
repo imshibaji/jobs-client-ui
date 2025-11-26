@@ -2,10 +2,8 @@
 import Layout from '../layouts/Base.astro';
 import RegistrationAfter from '@/components/react/RegistrationAfter';
 
-const token = Astro.cookies.get('userToken')?.value as string;
-
 const title = "Details - JobsForWomen.com";
 ---
 <Layout title={title}>
-    <RegistrationAfter token={token} client:load />
+    <RegistrationAfter client:load />
 </Layout>

@@ -12,20 +12,17 @@ export default defineAction({
         phoneNumber: z.string().min(10),
         password: z.string().min(8),
         role: z.string(),
-        image: z.string(),
+        image: z.string().optional(),
         instagramId: z.string().optional(),
         linkedinId: z.string().optional(),
         githubId: z.string().optional(),
         twitterId: z.string().optional(),
     }),
     handler: async (user: User, context) => {
-        const token = context.cookies.get('token')?.value as string;
-
         const response = await fetch(APP_URL + '/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(user),
         }).then(response => response.json());
@@ -41,6 +38,18 @@ export default defineAction({
             httpOnly: true,
             secure: true,
             expires: expDate,
+        });
+
+        // Update the user object / This error ignored because the user is not defined
+        user.id = extract?.sub;
+        console.log(user);
+
+        // Set the cookie
+        context.cookies.set('user', JSON.stringify(user), {
+            path: '/',
+            httpOnly: true,
+            secure: true,
+            expires: expDate,    
         });
 
         return response;

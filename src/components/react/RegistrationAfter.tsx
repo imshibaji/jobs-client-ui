@@ -1,94 +1,56 @@
-import { Applicant } from "@/utils/types/Applicant";
-import { Company } from "@/utils/types/Company";
-import { actions } from "astro:actions";
 import { useEffect, useState } from "react";
+import ApplicantForm from "./ApplicantForm";
+import CompanyForm from "./CompanyForm";
+import { actions } from "astro:actions";
+import { Applicant } from "@/utils/types/Applicant";
+import { User } from "@/utils/types/User";
 
-export default function RegistrationAfter({token}: {token?: string}) {
+export default function RegistrationAfter() {
   const [role, setRole] = useState("candidate");
-  const [applicantForm, setApplicantForm] = useState<Applicant>({
-    name: '',
-    email: '',
-    phoneNumber: '',
-    skills: '',
-    experience: '',
-    location: '',
-    resume: null
-  });
-  const [recruiterForm, setRecruiterForm] = useState<Company>({
-    companyName: '',
-    email: '',
-    phoneNumber: '',
-    recruiterName: '',
-    companyWebsite: '',
-    industryType: '',
-    companySize: '',
-    companyLocation: '',
-    companyDescription: '',
-    companyLogo: ''
-  });
-
+  const [token, setToken] = useState("");
+  const [applicant, setApplicant] = useState({} as Applicant);
+  const [jobPost, setJobPost] = useState({});
 
   useEffect(() => {
     init();
   }, []);
 
-  const init = async () => {
-    const tokenData = token || localStorage.getItem('userToken');
+  const init = async () => {  
+    const token = localStorage.getItem('userToken');
     const jobPostData = localStorage.getItem('jobPost');
-    const jobPost = JSON.parse(jobPostData!);
-    
-    if(!tokenData) {
-      window.location.href = '/login';
+
+    if(!token) {
+      window.location.href = '/register';
       return;
-    }
-    if(!jobPostData) {
-      window.location.href = '/post-job';
-      return;
-    }
+    }else{
+      setToken(token);
+      const { data } = await actions.tokenToUser({token}) as { data: User };
+      console.log(data);
 
-    // Company Data Filling
-    if(jobPost) {
-      setRecruiterForm({
-        companyName: jobPost.companyName,
-        email: jobPost.companyEmail,
-        phoneNumber: jobPost.phoneNumber,
-        recruiterName: jobPost.recruiterName,
-        companyWebsite: jobPost.companyWebsite,
-        industryType: jobPost.industryType,
-        companySize: jobPost.companySize,
-        companyLocation: jobPost.companyLocation,
-        companyDescription: jobPost.companyDescription,
-        companyLogo: jobPost.companyLogo
-      });
-    }
-
-    const { data, error } = await actions.tokenToUser({ token: token! });
-    console.log(data);
-
-    // Candidate Data Filling
-    if(data) {
-      setApplicantForm({
+      if(!data) {
+        alert('You are not logged in! Please login.');
+        window.location.href = '/login';
+        return;
+      }
+      setApplicant({
         name: data.name,
         email: data.email,
         phoneNumber: data.phoneNumber,
         skills: '',
         experience: '',
         location: '',
-        resume: null
+        resume: null,
+        userId: Number(data.id)
       });
-    }
-    
-  }
 
-  const applicantFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
+      // Set Job Post for Company
+      const companyData = JSON.parse(jobPostData ?? '{}');
+      setJobPost({
+        ...companyData,
+        userId: data.id
+      });
+    } 
   }
-
-  const recruiterFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  }
-
 
   return (
     <div className="min-h-[738px] bg-lavender flex items-center justify-center px-4 sm:px-6 lg:px-8 py-10">
@@ -121,31 +83,9 @@ export default function RegistrationAfter({token}: {token?: string}) {
         {/* Form Fields */}
         <div className="space-y-3 sm:space-y-4">
           {role === "candidate" ? (
-            <form onSubmit={applicantFormSubmit} className="space-y-3 sm:space-y-4">
-              <input value={applicantForm.name} onChange={(e) => setApplicantForm({ ...applicantForm, name: e.target.value })} type="text" placeholder="Full Name" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-              <input value={applicantForm.email} onChange={(e) => setApplicantForm({ ...applicantForm, email: e.target.value })} type="email" placeholder="Email" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-              <input value={applicantForm.phoneNumber} onChange={(e) => setApplicantForm({ ...applicantForm, phoneNumber: e.target.value })} type="text" placeholder="Phone Number" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-              <input value={applicantForm.skills} onChange={(e) => setApplicantForm({ ...applicantForm, skills: e.target.value })} type="text" placeholder="Skills" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
-              <input value={applicantForm.experience} onChange={(e) => setApplicantForm({ ...applicantForm, experience: e.target.value })} type="number" placeholder="Experience (Years)" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
-              <input value={applicantForm.location} onChange={(e) => setApplicantForm({ ...applicantForm, location: e.target.value })} type="text" placeholder="Preferred Job Location" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
-              <input onChange={(e) => setApplicantForm({ ...applicantForm, resume: e.target.files?.[0] ?? null })} type="file" accept=".pdf,.docx" className="w-full text-sm border bg-gray-200 border-gray-400 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 font-semibold" />
-              <button type="submit" className="w-full bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200">
-                Register as Candidate
-              </button>
-            </form>
+            <ApplicantForm token={token} applicant={applicant} />
           ) : (
-            <form onSubmit={recruiterFormSubmit} className="space-y-3 sm:space-y-4">
-              <input value={recruiterForm.companyName} onChange={(e) => setRecruiterForm({ ...recruiterForm, companyName: e.target.value })} type="text" placeholder="Company Name" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-              <input value={recruiterForm.email} onChange={(e) => setRecruiterForm({ ...recruiterForm, email: e.target.value })} type="email" placeholder="Email" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-              <input value={recruiterForm.phoneNumber} onChange={(e) => setRecruiterForm({ ...recruiterForm, phoneNumber: e.target.value })} type="text" placeholder="Phone Number" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-              <input value={recruiterForm.recruiterName} onChange={(e) => setRecruiterForm({ ...recruiterForm, recruiterName: e.target.value })} type="text" placeholder="Recruiter Name" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-              <input value={recruiterForm.companyWebsite} onChange={(e) => setRecruiterForm({ ...recruiterForm, companyWebsite: e.target.value })} type="text" placeholder="Company Website" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
-              <input value={recruiterForm.industryType} onChange={(e) => setRecruiterForm({ ...recruiterForm, industryType: e.target.value })} type="text" placeholder="Industry Type" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
-              <input value={recruiterForm.companyLocation} onChange={(e) => setRecruiterForm({ ...recruiterForm, companyLocation: e.target.value })} type="text" placeholder="Office Location" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
-              <button type="submit" className="w-full bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200">
-                Register as Recruiter
-              </button>
-            </form>
+            <CompanyForm token={token} jobPost={jobPost} />
           )}
         </div>
       </div>

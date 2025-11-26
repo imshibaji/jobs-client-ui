@@ -1,7 +1,7 @@
 export interface Company {
     id?: number;
     companyName: string;
-    email: string;
+    companyEmail: string;
     phoneNumber: string;
     recruiterName: string;
     companyWebsite: string;
@@ -17,20 +17,19 @@ export interface Job {
     id?: number;
     title: string;
     description: string;
-    location: string;
-    salary: string;
-    companyName: string;
-    companyEmail: string;
-    phoneNumber: string;
-    recruiterName: string;
-    companyWebsite: string;
-    industryType: string;
-    companySize: string;
-    companyLocation: string;
-    companyDescription: string;
-    companyLogo: string;
-    userId?: number;
+    requirements: string;
+    responsibilities: string;
+    benefits: string;
+    skills?: string;
+    location?: string;
+    salary?: string;
+    salaryType?: string;
+    salaryRange?: string;
+    employmentType: string;
+    experience?: string;
+    isRemote?: boolean;
     companyId?: number;
+    userId?: number;
 }
 
 export interface Application {

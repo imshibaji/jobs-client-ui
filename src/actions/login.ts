@@ -2,7 +2,7 @@ import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
 import { APP_URL } from "astro:env/server";
 import { verifyToken } from "@/utils/verifyToken";
-import { User } from "@/utils/User";
+import { User } from "@/utils/types/User";
 
 export default defineAction({
     input: z.object({

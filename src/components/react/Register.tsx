@@ -26,7 +26,6 @@ export default function Registration() {
           phoneNumber: formData.phone,
           password: formData.password,
           role: 'user',
-          image: '',
         });
 
         if (error) {
@@ -36,7 +35,7 @@ export default function Registration() {
 
         if (data) {
             // console.log('Registration successful:', data);
-            // localStorage.setItem('userToken', data.access_token);
+            localStorage.setItem('userToken', data.access_token);
             alert('Registration successful!');
             window.location.href = '/register-after';
         } else {
