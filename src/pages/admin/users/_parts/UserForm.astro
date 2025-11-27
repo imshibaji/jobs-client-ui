@@ -1,0 +1,159 @@
+---
+const { 
+    name = '', 
+    email = '', 
+    phoneNumber = '', 
+    role = 'user', 
+    status = 'active', 
+    instagramId = '', 
+    facebookId = '', 
+    youtubeId = '', 
+    linkedinId = '', 
+    githubId = '',
+    backUrl = '/admin/users', // The URL to return to on cancel
+    isEdit = false, // New prop: true if used for editing, false for creating
+    initialImageUrl = "https://placehold.co/128x128/f3f4f6/374151?text=User" // New prop for current image
+} = Astro.props;
+---
+<!-- LEFT COLUMN: Image Upload (1/3 width) -->
+<div class="lg:col-span-1 border-r pr-6 border-gray-100">
+    <h3 class="text-lg font-semibold text-gray-800 mb-4">Profile Image</h3>
+    <div class="flex flex-col items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <!-- Image Placeholder/Preview - Uses initialImageUrl if provided -->
+        <img 
+            id="profileImagePreview"
+            src={initialImageUrl} 
+            alt="Profile Preview" 
+            class="w-32 h-32 rounded-full object-cover mb-4 border-4 border-white shadow-md bg-white"
+        />
+        
+        <!-- File Input -->
+        <label for="imageFile" class="cursor-pointer bg-violet-500 hover:bg-violet-600 text-white text-sm font-medium py-2 px-4 rounded-lg transition duration-150 ease-in-out">
+            {isEdit ? 'Change Photo' : 'Upload Photo'}
+        </label>
+        <input 
+            type="file" 
+            id="imageFile" 
+            name="imageFile" 
+            accept="image/*" 
+            class="hidden" 
+            onchange="document.getElementById('profileImagePreview').src = window.URL.createObjectURL(this.files[0])"
+        />
+        
+        {isEdit && <p class="text-xs text-gray-400 mt-2">Leave empty to keep current photo</p>}
+    </div>
+    
+    <!-- Role and Status Dropdowns -->
+    <div class="mt-6 space-y-4">
+        <div>
+            <label for="role" class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+            <select id="role" name="role" required class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm">
+              <option value="user" selected={role === 'user'}>User</option>
+              <option value="employer" selected={role === 'employer'}>Employer</option>
+              <option value="editor" selected={role === 'editor'}>Editor</option>
+              <option value="admin" selected={role === 'admin'}>Admin</option>
+            </select>
+        </div>
+        <div>
+            <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+            <select id="status" name="status" required class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm">
+              <option value="active" selected={status === 'active'}>Active</option>
+              <option value="inactive" selected={status === 'inactive'}>Inactive</option>
+              <option value="suspended" selected={status === 'suspended'}>Suspended</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- RIGHT COLUMNS: Main User Info and Social Media (2/3 width) -->
+<div class="lg:col-span-2 space-y-6">
+    
+    <!-- Basic Information Header -->
+    <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Basic Information</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Name -->
+        <div>
+            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <input type="text" id="name" name="name" required class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" value={name} />
+        </div>
+        <!-- Email -->
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" id="email" name="email" required class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" value={email} />
+        </div>
+        <!-- Phone Number -->
+        <div>
+            <label for="phoneNumber" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" value={phoneNumber} />
+        </div>
+        <!-- Spacer/Empty slot for alignment -->
+        <div></div> 
+    </div>
+
+    <!-- Security Header -->
+    <h3 class="text-lg font-semibold text-gray-800 mt-8 border-b pb-2">
+        Security
+        {isEdit && <span class="text-xs font-normal text-gray-500 ml-2">(Leave blank to keep current password)</span>}
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Password -->
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">{isEdit ? 'New Password' : 'Password'}</label>
+            <!-- Password field is required ONLY if not editing -->
+            <input type="password" id="password" name="password" required={!isEdit} class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" />
+        </div>
+        <!-- Confirm Password -->
+        <div>
+            <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">{isEdit ? 'Confirm New Password' : 'Confirm Password'}</label>
+            <!-- Confirm Password field is required ONLY if not editing -->
+            <input type="password" id="confirmPassword" name="confirmPassword" required={!isEdit} class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" />
+        </div>
+    </div>
+
+    <!-- Social Media Header -->
+    <h3 class="text-lg font-semibold text-gray-800 mt-8 border-b pb-2">Social Media / Links</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Instagram Id -->
+        <div>
+            <label for="instagramId" class="block text-sm font-medium text-gray-700 mb-1">Instagram Id</label>
+            <input type="text" id="instagramId" name="instagramId" class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" value={instagramId} />
+        </div>
+        <!-- Facebook Id -->
+        <div>
+            <label for="facebookId" class="block text-sm font-medium text-gray-700 mb-1">Facebook Id</label>
+            <input type="text" id="facebookId" name="facebookId" class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" value={facebookId} />
+        </div>
+        <!-- Youtube Id -->
+        <div>
+            <label for="youtubeId" class="block text-sm font-medium text-gray-700 mb-1">Youtube Id</label>
+            <input type="text" id="youtubeId" name="youtubeId" class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" value={youtubeId} />
+        </div>
+        <!-- LinkedIn Id -->
+        <div>
+            <label for="linkedinId" class="block text-sm font-medium text-gray-700 mb-1">LinkedIn Id</label>
+            <input type="text" id="linkedinId" name="linkedinId" class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" value={linkedinId} />
+        </div>
+        <!-- Github Id -->
+        <div>
+            <label for="githubId" class="block text-sm font-medium text-gray-700 mb-1">Github Id</label>
+            <input type="text" id="githubId" name="githubId" class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" value={githubId} />
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex gap-4 pt-6 border-t mt-8">
+        <button 
+            type="submit" 
+            class="flex-1 bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-150 ease-in-out"
+        >
+            {isEdit ? 'Update User' : 'Save User'}
+        </button>
+        <a 
+            href={backUrl}
+            type="button" 
+            class="flex-1 text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-150 ease-in-out"
+        >
+            Cancel
+        </a>
+    </div>
+</div>

@@ -3,6 +3,7 @@ import AdminLayout from "@/layouts/AdminLayout.astro";
 import { useHttpClient } from "@/utils/useHttpClient";
 import { User } from "@/utils/types/User";
 import { APP_URL } from "astro:env/server";
+import UserForm from "../_parts/UserForm.astro";
 
 const { id } = Astro.params;
 const token = Astro.cookies.get('token')?.value as string;
@@ -151,127 +152,23 @@ if (Astro.request.method === 'POST') {
       
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        <!-- LEFT COLUMN: Image & Status -->
-        <div class="lg:col-span-1 border-r pr-6 border-gray-100">
-            <h3 class="text-lg font-semibold text-gray-800 mb-4">Profile Image</h3>
-            <div class="flex flex-col items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <!-- Image Preview (Shows existing user image by default) -->
-                <img 
-                    id="profileImagePreview"
-                    src={user.image ? `${APP_URL}/file/view?filename=${user.image}` : "https://placehold.co/128x128/f3f4f6/374151?text=User"} 
-                    alt="Profile Preview" 
-                    class="w-32 h-32 rounded-full object-cover mb-4 border-4 border-white shadow-md bg-white"
-                />
-                
-                <label for="imageFile" class="cursor-pointer bg-violet-500 hover:bg-violet-600 text-white text-sm font-medium py-2 px-4 rounded-lg transition duration-150 ease-in-out">
-                    Change Photo
-                </label>
-                <input 
-                    type="file" 
-                    id="imageFile" 
-                    name="imageFile" 
-                    accept="image/*" 
-                    class="hidden" 
-                    onchange="document.getElementById('profileImagePreview').src = window.URL.createObjectURL(this.files[0])"
-                />
-                <p class="text-xs text-gray-400 mt-2">Leave empty to keep current photo</p>
-            </div>
-            
-            <div class="mt-6 space-y-4">
-                <div>
-                    <label for="role" class="block text-sm font-medium text-gray-700 mb-1">Role</label>
-                    <select id="role" name="role" required class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm">
-                      <option value="user" selected={user.role === 'user'}>User</option>
-                      <option value="employer" selected={user.role === 'employer'}>Employer</option>
-                      <option value="editor" selected={user.role === 'editor'}>Editor</option>
-                      <option value="admin" selected={user.role === 'admin'}>Admin</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                    <select id="status" name="status" required class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm">
-                      <option value="active" selected={user.status === 'active'}>Active</option>
-                      <option value="inactive" selected={user.status === 'inactive'}>Inactive</option>
-                      <option value="suspended" selected={user.status === 'suspended'}>Suspended</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <!-- RIGHT COLUMNS: Info -->
-        <div class="lg:col-span-2 space-y-6">
-            
-            <!-- Basic Information -->
-            <h3 class="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Basic Information</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                    <input type="text" id="name" name="name" value={user.name} required class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" />
-                </div>
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" id="email" name="email" value={user.email} required class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" />
-                </div>
-                <div>
-                    <label for="phoneNumber" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                    <input type="text" id="phoneNumber" name="phoneNumber" value={user.phoneNumber} class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" />
-                </div>
-            </div>
-
-            <!-- Security (Optional Update) -->
-            <h3 class="text-lg font-semibold text-gray-800 mt-8 border-b pb-2">Security <span class="text-xs font-normal text-gray-500 ml-2">(Leave blank to keep current password)</span></h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
-                    <input type="password" id="password" name="password" placeholder="••••••••" class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" />
-                </div>
-                <div>
-                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••" class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" />
-                </div>
-            </div>
-
-            <!-- Social Media / Links -->
-            <h3 class="text-lg font-semibold text-gray-800 mt-8 border-b pb-2">Social Media / Links</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                    <label for="instagramId" class="block text-sm font-medium text-gray-700 mb-1">Instagram Id</label>
-                    <input type="text" id="instagramId" name="instagramId" value={user.instagramId} class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" />
-                </div>
-                <div>
-                    <label for="facebookId" class="block text-sm font-medium text-gray-700 mb-1">Facebook Id</label>
-                    <input type="text" id="facebookId" name="facebookId" value={user.facebookId} class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" />
-                </div>
-                <div>
-                    <label for="youtubeId" class="block text-sm font-medium text-gray-700 mb-1">Youtube Id</label>
-                    <input type="text" id="youtubeId" name="youtubeId" value={user.youtubeId} class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" />
-                </div>
-                <div>
-                    <label for="linkedinId" class="block text-sm font-medium text-gray-700 mb-1">LinkedIn Id</label>
-                    <input type="text" id="linkedinId" name="linkedinId" value={user.linkedinId} class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" />
-                </div>
-                <div>
-                    <label for="githubId" class="block text-sm font-medium text-gray-700 mb-1">Github Id</label>
-                    <input type="text" id="githubId" name="githubId" value={user.githubId} class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-sm" />
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex gap-4 pt-6 border-t mt-8">
-                <button 
-                    type="submit" 
-                    class="flex-1 bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-150 ease-in-out"
-                >
-                    Update User
-                </button>
-                <a 
-                    href={backUrl}
-                    class="flex-1 text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-150 ease-in-out"
-                >
-                    Cancel
-                </a>
-            </div>
-        </div>
+        <UserForm
+            name={user.name}
+            email={user.email}
+            phoneNumber={user.phoneNumber}
+            password={user.password}
+            confirmPassword={user.password}
+            role={user.role}
+            status={user.status}
+            instagramId={user.instagramId}
+            facebookId={user.facebookId}
+            youtubeId={user.youtubeId}
+            linkedinId={user.linkedinId}
+            githubId={user.githubId}
+            backUrl={backUrl}
+            isEdit={true}
+            initialImageUrl={user.image ? `${APP_URL}/file/view?filename=${user.image}` : "https://placehold.co/128x128/f3f4f6/374151?text=User"}
+        />
         
       </div>
     </form>

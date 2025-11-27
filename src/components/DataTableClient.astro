@@ -1,0 +1,367 @@
+---
+// NOTE: Renamed to be more generic, assuming this will be used for various data types.
+// We keep the old filename as requested, but the component logic is now a generic data table.
+
+// Define a generic structure for the data items
+interface Item {
+    [key: string]: any;
+    id: string; // 'id' is required for action links
+}
+
+// Define the structure for table headers/columns
+interface ItemHeader {
+    key: string;       // The data key to display (e.g., 'name', 'email')
+    label: string;     // The column title to show in the header
+    classes?: string;  // Optional classes for the <td> element
+    hiddenOnMobile?: boolean; // Optional: Hide column on small screens
+}
+
+interface Props {
+  // Serialized data array (formerly usersJson)
+  itemsJson: string; 
+  // Serialized array of header definitions
+  itemHeadersJson: string; 
+  // Serialized array of keys to search against (e.g., ['name', 'email'])
+  searchKeysJson: string;
+  // Page Title
+  title: string;
+  // Base URL for actions (e.g., '/admin/users')
+  actionBaseUrl: string;
+  // Create button text
+  actionButtonLabel: string;
+  // Create button link (e.g., '/admin/users/create')
+  actionButtonHref: string;
+  // Items per page
+  itemsPerPage?: number;
+}
+const { 
+    itemsJson, 
+    itemHeadersJson, 
+    searchKeysJson,
+    title,
+    actionBaseUrl,
+    actionButtonLabel,
+    actionButtonHref,
+    itemsPerPage = 10,
+} = Astro.props;
+
+// NOTE: Specific utility functions like getRoleClasses are removed from Astro 
+// frontmatter and kept only in the client-side <script> for dynamic rendering.
+
+// This component uses dynamic rendering on the client side, so we only need
+// the structure here.
+
+/** 
+Listing Data Table
+// Example usage in your parent Astro page
+const userHeaders = [
+    { key: 'name', label: 'Name', classes: 'font-medium text-gray-900' },
+    { key: 'email', label: 'Email', classes: 'text-gray-600' },
+    { key: 'phoneNumber', label: 'Phone', classes: 'text-gray-600', hiddenOnMobile: true },
+    { key: 'role', label: 'Role' }, // Handled as special badge case in JS
+    { key: 'status', label: 'Status' }, // Handled as special badge case in JS
+    { key: '_actions', label: 'Action' } // Handled as special links case in JS
+];
+
+Usage:
+<DataTableClient
+    itemsJson={JSON.stringify(users)}
+    itemHeadersJson={JSON.stringify(userHeaders)}
+    searchKeysJson={JSON.stringify(['name', 'email', 'phoneNumber'])}
+    title="All Users"
+    actionBaseUrl="/admin/users"
+    actionButtonLabel="Create New User"
+    actionButtonHref="/admin/users/create"
+    client:load
+  /> 
+*/
+
+---
+
+<div id="data-table-wrapper" class="mt-4 max-w-full mx-auto">
+  <!-- Header Section -->
+  <div class="flex flex-col md:flex-row items-center justify-between mb-6 pb-2 border-b border-gray-200 gap-4">
+    <h2 class="text-3xl font-extrabold text-gray-900 hidden md:block">{title}</h2>
+    
+    <!-- Search Bar -->
+    <div class="w-full max-w-lg relative flex items-center text-purple-400 focus-within:text-gray-600 order-2 md:order-1">
+      <span class="absolute left-4 h-5 flex items-center pl-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </span>
+      <input 
+        type="text" 
+        id="data-search-input"
+        placeholder="Search..."
+        class="block w-full py-2 pl-10 pr-3 border border-purple-200 rounded-lg focus:ring-violet-500 focus:border-violet-500 sm:text-sm shadow-sm"
+      />
+    </div>
+    
+    <!-- Create New Button -->
+    <div class="w-full md:w-auto flex justify-end order-1 md:order-2">
+        <a 
+            href={actionButtonHref} 
+            class="inline-flex w-full md:w-auto items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-violet-600 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 transition duration-150 ease-in-out"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+            </svg>
+            {actionButtonLabel}
+        </a>
+    </div>
+  </div>
+
+
+  <!-- Table Card Container -->
+  <div class="bg-white rounded-xl shadow-2xl overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      
+      <!-- Table Header (Dynamically rendered by JS in init()) -->
+      <thead id="data-table-head" class="bg-violet-100">
+        <!-- Content dynamically rendered by JavaScript -->
+      </thead>
+      
+      <!-- Table Body (Target for JS rendering) -->
+      <tbody id="data-table-body" class="bg-white divide-y divide-gray-100">
+        <!-- Content dynamically rendered by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination Controls (Target for JS rendering) -->
+  <div id="pagination-controls" class="flex items-center justify-between mt-4">
+    <!-- Summary and controls rendered by JS -->
+  </div>
+</div>
+
+<script define:vars={{ itemsJson, itemHeadersJson, searchKeysJson, itemsPerPage, actionBaseUrl }}>
+    // --- Client-Side JavaScript Logic for Search and Pagination ---
+
+    // Configuration from Astro props
+    const ITEMS_PER_PAGE = itemsPerPage;
+    const itemHeaders = JSON.parse(itemHeadersJson);
+    const searchKeys = JSON.parse(searchKeysJson);
+    const ACTION_BASE_URL = actionBaseUrl;
+
+    // State Variables
+    let allItems = [];
+    let filteredItems = [];
+    let currentPage = 1;
+
+    // Utility function to map role to Tailwind classes (Kept for expected 'user' role data)
+    const getRoleClasses = (role) => {
+        switch (role) {
+            case 'admin':
+                return 'bg-red-100 text-red-800';
+            case 'employer':
+                return 'bg-blue-100 text-blue-800';
+            case 'editor':
+                return 'bg-yellow-100 text-yellow-800';
+            default:
+                return 'bg-gray-100 text-gray-800';
+        }
+    }
+
+    // Utility function to map status to Tailwind classes
+    const getStatusClasses = (status) => {
+        switch (status) {
+            case 'active':
+                return 'bg-green-100 text-green-800';
+            case 'inactive':
+                return 'bg-gray-100 text-gray-800';
+            case 'pending':
+                return 'bg-yellow-100 text-yellow-800';
+            case 'suspended':
+                return 'bg-red-100 text-red-800';
+            default:
+                return 'bg-gray-100 text-gray-800';
+        }
+    }
+    
+    // Renders the table header dynamically
+    const renderHeader = () => {
+        const tableHead = document.getElementById('data-table-head');
+        if (!tableHead) return;
+
+        const headerRow = itemHeaders.map((header, index) => {
+            const isLast = index === itemHeaders.length - 1;
+            const isFirst = index === 0;
+            const hiddenClass = header.hiddenOnMobile ? 'hidden sm:table-cell' : '';
+            
+            return `
+                <th class="px-6 py-3 text-left text-xs font-semibold text-violet-700 uppercase tracking-wider ${hiddenClass} ${isFirst ? 'rounded-tl-xl' : ''} ${isLast ? 'rounded-tr-xl' : ''}">
+                    ${header.label}
+                </th>
+            `;
+        }).join('');
+
+        tableHead.innerHTML = `<tr>${headerRow}</tr>`;
+    }
+
+    // Function to filter items based on the query and provided search keys
+    const searchItems = (query) => {
+        if (!query || !searchKeys.length) return allItems;
+        const lowerQuery = query.toLowerCase();
+        
+        return allItems.filter(item => {
+            // Check if any of the defined search keys match the query
+            return searchKeys.some(key => {
+                const value = item[key];
+                // Convert value to string and check for inclusion
+                return value && String(value).toLowerCase().includes(lowerQuery);
+            });
+        });
+    }
+
+    // Function to render the table rows for the current page
+    const renderTable = () => {
+        const tableBody = document.getElementById('data-table-body');
+        const paginationControls = document.getElementById('pagination-controls');
+        
+        if (!tableBody || !paginationControls) return;
+
+        // Calculate slice indices
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+        const endIndex = startIndex + ITEMS_PER_PAGE;
+        const paginatedItems = filteredItems.slice(startIndex, endIndex);
+
+        // Render Table Rows
+        if (paginatedItems.length === 0) {
+             tableBody.innerHTML = `
+                <tr>
+                    <td colspan="${itemHeaders.length}" class="px-6 py-10 text-center text-gray-500 text-lg italic">
+                        No items found matching your search criteria.
+                    </td>
+                </tr>
+            `;
+        } else {
+            tableBody.innerHTML = paginatedItems.map(item => {
+                
+                const rowCells = itemHeaders.map(header => {
+                    // 1. Special case: Actions Column
+                    if (header.key === '_actions') {
+                        // Requires 'id' property on the item
+                        return `
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex space-x-3">
+                                <a href="${ACTION_BASE_URL}/${item.id}" class="text-violet-600 hover:text-violet-900 transition duration-150 ease-in-out font-medium" title="View Details">View</a>
+                                <a href="${ACTION_BASE_URL}/${item.id}/edit" class="text-blue-600 hover:text-blue-900 transition duration-150 ease-in-out font-medium" title="Edit Item">Edit</a>
+                                <a href="${ACTION_BASE_URL}/${item.id}/delete" class="text-red-600 hover:text-red-900 transition duration-150 ease-in-out font-medium" title="Delete Item">Delete</a>
+                            </td>
+                        `;
+                    } 
+                    // 2. Special case: Role Badge (assumes 'role' key exists)
+                    else if (header.key === 'role' && item.role) {
+                         return `
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span 
+                                    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${getRoleClasses(item.role)}"
+                                >
+                                    ${item.role}
+                                </span>
+                            </td>
+                        `;
+                    }
+                    // 3. Special case: Status Badge (assumes 'status' key exists)
+                    else if (header.key === 'status' && item.status) {
+                        return `
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span 
+                                    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${getStatusClasses(item.status)}"
+                                >
+                                    ${item.status}
+                                </span>
+                            </td>
+                        `;
+                    }
+                    // 4. General data column rendering
+                    else {
+                        const value = item[header.key] !== undefined && item[header.key] !== null ? item[header.key] : 'N/A';
+                        const classes = (header.classes || '') + (header.hiddenOnMobile ? ' hidden sm:table-cell' : '');
+                        
+                        return `<td class="px-6 py-4 whitespace-nowrap text-sm ${classes}">${value}</td>`;
+                    }
+                }).join('');
+
+                return `<tr class="hover:bg-gray-50 transition duration-100">${rowCells}</tr>`;
+            }).join('');
+        }
+        
+        // Render Pagination Controls
+        renderPagination(paginationControls);
+    }
+    
+    // Function to render pagination buttons and summary (same as before)
+    const renderPagination = (container) => {
+        const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+        const totalItems = filteredItems.length;
+        
+        if (totalPages <= 1) {
+            container.innerHTML = `<p class="text-sm text-gray-700">Showing <strong>${totalItems}</strong> results</p>`;
+            return;
+        }
+
+        const startItem = (currentPage - 1) * ITEMS_PER_PAGE + 1;
+        const endItem = Math.min(currentPage * ITEMS_PER_PAGE, totalItems);
+        
+        container.innerHTML = `
+            <div class="text-sm text-gray-700">
+                Showing <span class="font-medium">${startItem}</span> to <span class="font-medium">${endItem}</span> of <span class="font-medium">${totalItems}</span> results
+            </div>
+            <div class="flex space-x-2">
+                <button id="prev-page" class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-150 ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === 1 ? 'disabled' : ''}>
+                    Previous
+                </button>
+                <span class="px-3 py-1 text-sm font-medium text-gray-700">Page ${currentPage} of ${totalPages}</span>
+                <button id="next-page" class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-150 ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === totalPages ? 'disabled' : ''}>
+                    Next
+                </button>
+            </div>
+        `;
+        
+        // Attach listeners to new buttons
+        document.getElementById('prev-page')?.addEventListener('click', () => handlePageChange(currentPage - 1));
+        document.getElementById('next-page')?.addEventListener('click', () => handlePageChange(currentPage + 1));
+    }
+    
+    // Handler for page changes
+    const handlePageChange = (newPage) => {
+        const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+        if (newPage >= 1 && newPage <= totalPages) {
+            currentPage = newPage;
+            renderTable();
+        }
+    }
+
+    // Handler for search input
+    const handleSearch = (event) => {
+        const query = event.target.value;
+        filteredItems = searchItems(query);
+        currentPage = 1; // Reset to first page on new search
+        renderTable();
+    }
+    
+    // Initialization function
+    const init = () => {
+        try {
+            allItems = JSON.parse(itemsJson);
+            filteredItems = allItems; // Start with all items visible
+            
+            renderHeader(); // Render the dynamic header
+            renderTable(); // Render the initial table content
+            
+            // Attach search listener to the new input ID
+            document.getElementById('data-search-input')?.addEventListener('input', handleSearch);
+
+        } catch (e) {
+            console.error("Failed to initialize data table:", e);
+            document.getElementById('data-table-body').innerHTML = `
+                <tr><td colspan="${itemHeaders.length}" class="px-6 py-10 text-center text-red-500 text-lg">Error loading data. Check console for details.</td></tr>
+            `;
+        }
+    }
+    
+    // Initialize the application logic
+    init();
+
+</script>
