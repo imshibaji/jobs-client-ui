@@ -1,0 +1,40 @@
+---
+const { page } = Astro.props; 
+---
+
+{page ? (
+  <nav class="pagination">
+    <div>
+      {/* Now, if 'page' is defined, we can safely access 'page.url.prev' */}
+      {page.url.prev ? (
+        <a class="text-violet-600 hover:text-violet-800 hover:underline" href={page.url.prev}>&larr; Previous Page</a>
+      ) : (
+        <span class="text-gray-500 disabled">&larr; Previous Page</span>
+      )}
+    </div>
+  
+    <p>
+      Page <strong>{page.currentPage}</strong> of <strong>{page.totalPages}</strong>
+    </p>
+  
+    <div>
+      {page.url.next ? (
+        <a class="text-violet-600 hover:text-violet-800 hover:underline" href={page.url.next}>Next Page &rarr;</a>
+      ) : (
+        <span class="text-gray-500 disabled">Next Page &rarr;</span>
+      )}
+    </div>
+  </nav>
+) : (
+  <p>Pagination data not available.</p>
+)}
+
+<style>
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+  }
+  /* Add basic styles for the navigation links */
+</style>

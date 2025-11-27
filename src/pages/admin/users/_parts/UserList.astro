@@ -1,53 +1,110 @@
-<div class="mt-2">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">All Users</h2>
-        <div class="bg-white rounded-xl shadow overflow-hidden">
-          <table class="min-w-full text-left">
-            <thead class="bg-purple-100 text-gray-700">
-              <tr>
-                <th class="px-6 py-3 text-sm font-semibold">Name</th>
-                <th class="px-6 py-3 text-sm font-semibold">Position</th>
-                <th class="px-6 py-3 text-sm font-semibold">Status</th>
-                <th class="px-6 py-3 text-sm font-semibold">Action</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100">
-              <tr>
-                <td class="px-6 py-4">Aditi Sharma</td>
-                <td class="px-6 py-4">Admin</td>
-                <td class="px-6 py-4 text-green-600 font-medium">Active</td>
-                <td class="px-6 py-4">
-                  <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                  <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4">Neha Kapoor</td>
-                <td class="px-6 py-4">HR Executive</td>
-                <td class="px-6 py-4 text-yellow-600 font-medium">Inactive</td>
-                <td class="px-6 py-4">
-                  <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                  <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4">Riya Das</td>
-                <td class="px-6 py-4">Staff</td>
-                <td class="px-6 py-4 text-green-600 font-medium">Active</td>
-                <td class="px-6 py-4">
-                  <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                  <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4">Vikram Patel</td>
-                <td class="px-6 py-4">User</td>
-                <td class="px-6 py-4 text-yellow-600 font-medium">Inactive</td>
-                <td class="px-6 py-4">
-                  <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                  <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+---
+import { User } from '@/utils/types/User';
+
+interface Props {
+  users: User[];
+}
+const { users = [] } = Astro.props;
+
+// Helper function to determine the color of the role badge
+const getRoleClasses = (role: string) => {
+    switch (role) {
+        case 'admin':
+            return 'bg-red-100 text-red-800';
+        case 'employer':
+            return 'bg-blue-100 text-blue-800';
+        case 'editor':
+            return 'bg-yellow-100 text-yellow-800';
+        default:
+            return 'bg-gray-100 text-gray-800';
+    }
+}
+---
+
+<div class="mt-4 max-w-full mx-auto">
+  <!-- Header Section -->
+  <div class="flex items-center justify-between mb-6 pb-2 border-b border-gray-200">
+    <h2 class="text-3xl font-extrabold text-gray-900">All System Users</h2>
+    <a 
+        href="/admin/users/create" 
+        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-violet-600 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 transition duration-150 ease-in-out"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+        </svg>
+        Create New User
+    </a>
+  </div>
+
+  <!-- Table Card Container -->
+  <div class="bg-white rounded-xl shadow-2xl overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      
+      <!-- Table Header -->
+      <thead class="bg-violet-300">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-violet-600 uppercase tracking-wider rounded-tl-xl">Name</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-violet-600 uppercase tracking-wider">Email</th>
+          <th class="hidden sm:table-cell px-6 py-3 text-left text-xs font-semibold text-violet-600 uppercase tracking-wider">Phone</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-violet-600 uppercase tracking-wider">Role</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-violet-600 uppercase tracking-wider rounded-tr-xl">Action</th>
+        </tr>
+      </thead>
+      
+      <!-- Table Body -->
+      <tbody class="bg-white divide-y divide-gray-100">
+        {users.length === 0 ? (
+          <tr>
+            <td colspan="5" class="px-6 py-10 text-center text-gray-500 text-lg italic">
+              No users found in the system.
+            </td>
+          </tr>
+        ) : (
+          users.map(user => (
+            <tr class="hover:bg-gray-50 transition duration-100">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {user.name}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                {user.email}
+              </td>
+              <td class="hidden sm:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                {user.phoneNumber || 'N/A'}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span 
+                  class={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full capitalize ${getRoleClasses(user.role)}`}
+                >
+                  {user.role}
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex space-x-3">
+                <a 
+                  href={`/admin/users/${user.id}`} 
+                  class="text-violet-600 hover:text-violet-900 transition duration-150 ease-in-out font-medium"
+                  title="View Details"
+                >
+                  View
+                </a>
+                <a 
+                  href={`/admin/users/${user.id}/edit`} 
+                  class="text-blue-600 hover:text-blue-900 transition duration-150 ease-in-out font-medium"
+                  title="Edit User"
+                >
+                  Edit
+                </a>
+                <a 
+                  href={`/admin/users/${user.id}/delete`} 
+                  class="text-red-600 hover:text-red-900 transition duration-150 ease-in-out font-medium"
+                  title="Delete User"
+                >
+                  Delete
+                </a>
+              </td>
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+  </div>
+</div>

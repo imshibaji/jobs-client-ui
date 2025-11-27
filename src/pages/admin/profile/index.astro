@@ -2,7 +2,7 @@
 import AdminLayout from "@/layouts/AdminLayout.astro";
 import ProfileForm from "@/components/react/ProfileForm";
 import { APP_URL } from "astro:env/server";
-import { User } from "@/utils/User";
+import { User } from "@/utils/types/User";
 
 const token = Astro.cookies.get('token')?.value as string;
 const { id } = Astro.cookies.get('user')?.json() as User;
