@@ -9,6 +9,9 @@
 interface PaginationResult<T> {
     page: {
         data: T[]; // The sliced data for the current page
+        startItem: number;
+        endItem: number;
+        totalItems: number;
         currentPage: number;
         totalPages: number;
         url: {
@@ -42,12 +45,19 @@ export function getSSRPagination<T>(
     const totalItems = allData.length;
     const totalPages = Math.ceil(totalItems / pageSize);
 
+    // 2.5 Calculate start and end index for the current page
+    const startItem = (pageNumber - 1) * pageSize + 1;
+    const endItem = Math.min(pageNumber * pageSize, totalItems);
+
     // 3. Handle invalid or out-of-bounds page numbers (redirect if needed)
     if (pageNumber > totalPages || pageNumber < 1) {
         // If the page is invalid, redirect the user back to the first page (or base URL)
         return {
             page: {
                 data: [], // Return empty data on redirect
+                startItem: startItem,
+                endItem: endItem,
+                totalItems: totalItems,
                 currentPage: pageNumber,
                 totalPages: totalPages,
                 url: { prev: undefined, next: undefined }
@@ -81,6 +91,9 @@ export function getSSRPagination<T>(
     // 7. Return the 'page' object and null response
     return {
         page: {
+            startItem: startItem,
+            endItem: endItem,
+            totalItems: totalItems,
             data: currentPageData,
             currentPage: pageNumber,
             totalPages: totalPages,

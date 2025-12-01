@@ -1,7 +1,7 @@
 export interface Applicant{
-    id?: number;
+    id?: string | number;
     name: string;
-    image?: string;
+    image?: File | string | null;
     address?: string;
     city?: string;
     state?: string;
@@ -15,31 +15,31 @@ export interface Applicant{
     skills: string;
     experience: string;
     location: string;
-    resume: File | null;
-    userId?: number;
+    resume: File | string | null;
+    userId?: string | number;
 }
 
 export interface Skill{
-    id?: number;
+    id?: string | number;
     name: string;
     proficiency: string;
     experience: string;
-    applicantId?: number;
+    applicantId?: string | number;
 }
 
 export interface Experience{
-    id?: number;
+    id?: string | number;
     company: string;
     description: string;
     usedSkills: string[];
     location: string;
     startDate: string;
     endDate: string;
-    applicantId?: number;
+    applicantId?: string | number;
 }
 
 export interface Education{
-    id?: number;
+    id?: string | number;
     institution: string;
     degree: string;
     fieldOfStudy: string;
@@ -47,5 +47,5 @@ export interface Education{
     description?: string;
     startDate: string;
     endDate: string;
-    applicantId?: number;
+    applicantId?: string | number;
 }

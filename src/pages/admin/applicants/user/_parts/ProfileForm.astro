@@ -1,0 +1,146 @@
+<div class="bg-white shadow rounded p-6 sm:p-10 border border-gray-100">
+    <header class="text-center mb-10">
+        <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">👤 Candidate Profile</h2>
+        <p class="text-md text-gray-500 mt-2">Update your personal and professional profile details.</p>
+    </header>
+
+    <form action="" method="post" enctype="multipart/form-data" class="space-y-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 items-start">
+            
+            <div class="md:col-span-1 bg-violet-50 rounded-xl p-6 shadow-inner flex flex-col items-center justify-center relative">
+                <h3 class="text-xl font-bold text-violet-800 mb-5 text-center">Profile Photo</h3>
+                
+                <label for="profile_picture_upload" class="relative block cursor-pointer group">
+                    <img class="w-64 h-64 object-cover rounded-full shadow-lg border-4 border-violet-600 ring-2 ring-violet-200 transition-transform duration-200 group-hover:scale-105" 
+                         src="/logo-pink.jpg" 
+                         alt="Profile Picture" />
+                    
+                    <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" />
+                        </svg>
+                    </div>
+
+                    <input type="file" id="profile_picture_upload" class="hidden" accept="image/*" />
+                </label>
+                <p class="text-sm text-gray-600 mt-4 text-center">Click the image to upload a new one.</p>
+            </div>
+
+            <div class="md:col-span-2">
+                <h3 class="text-xl font-bold text-gray-800 border-b pb-2 mb-4">Personal Details</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label for="full_name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" id="full_name" placeholder="John Doe"
+                            class="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                    </div>
+                    <div>
+                        <label for="date_of_birth" class="block text-sm font-medium text-gray-700 mb-1">Date Of Birth</label>
+                        <input type="date" id="date_of_birth"
+                            class="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4 sm:col-span-2">
+                        <div class="w-full">
+                            <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                            <select id="gender" class="w-full border border-gray-300 rounded-lg p-3 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150">
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="w-full">
+                            <label for="userId" class="block text-sm font-medium text-gray-700 mb-1">Choose User</label>
+                            <select id="userId" class="w-full border border-gray-300 rounded-lg p-3 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150">
+                                <option value="1">User 1</option>
+                                <option value="2">User 2</option>
+                                <option value="3">User 3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <label for="about_me" class="block text-sm font-medium text-gray-700 mb-1">About Me</label>
+                    <textarea id="about_me" rows="3" placeholder="A brief description of yourself, your interests, and career goals..."
+                        class="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required></textarea>
+                </div>
+            </div>
+        </div>
+
+        <hr class="border-gray-300 my-8">
+        
+        <div>
+            <h3 class="text-xl font-bold text-gray-800 border-b pb-2 mb-4">Contact Information</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <input type="email" id="email" placeholder="you@example.com"
+                        class="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                </div>
+                <div>
+                    <label for="phone_number" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                    <input type="tel" id="phone_number" placeholder="(555) 555-5555"
+                        class="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
+                <textarea id="address" rows="2" placeholder="123 Main St"
+                    class="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required></textarea>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6">
+                <div>
+                    <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City / Village</label>
+                    <input type="text" id="city" placeholder="New York"
+                        class="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                </div>
+                <div>
+                    <label for="state" class="block text-sm font-medium text-gray-700 mb-1">State</label>
+                    <input type="text" id="state" placeholder="NY"
+                        class="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                </div>
+                <div>
+                    <label for="zip_code" class="block text-sm font-medium text-gray-700 mb-1">Zip Code</label>
+                    <input type="text" id="zip_code" placeholder="10001"
+                        class="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                </div>
+                <div>
+                    <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                    <input type="text" id="country" placeholder="USA"
+                        class="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                </div>
+            </div>
+        </div>
+
+        <hr class="border-gray-300 my-8">
+
+        <div>
+            <h3 class="text-xl font-bold text-gray-800 border-b pb-2 mb-4">Professional Details</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label for="top_skills" class="block text-sm font-medium text-gray-700 mb-1">Top Skills (e.g., Comma Separated)</label>
+                    <input type="text" id="top_skills" placeholder="React, Node.js, Design"
+                        class="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
+                </div>
+                <div>
+                    <label for="total_experience" class="block text-sm font-medium text-gray-700 mb-1">Total Experience (Years)</label>
+                    <input type="text" id="total_experience" placeholder="5 years"
+                        class="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
+                </div>
+                
+                <div class="sm:col-span-2">
+                    <label for="resume" class="block text-sm font-medium text-gray-700 mb-1">Upload Resume (.doc, .pdf)</label>
+                    <input type="file" id="resume" accept=".doc, .pdf"
+                        class="w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 border border-gray-300 rounded-lg p-1.5 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
+                </div>
+            </div>
+        </div>
+
+        <button type="submit"
+            class="w-full bg-violet-600 text-white font-semibold py-3 rounded-xl hover:bg-violet-700 transition duration-200 shadow-xl shadow-violet-200/50 focus:outline-none focus:ring-4 focus:ring-violet-500 focus:ring-opacity-50">
+            Save All Changes
+        </button>
+    </form>
+</div>

@@ -3,7 +3,7 @@ const { page } = Astro.props;
 ---
 
 {page ? (
-  <nav class="pagination">
+  <nav class="flex justify-between items-center py-4">
     <div>
       {/* Now, if 'page' is defined, we can safely access 'page.url.prev' */}
       {page.url.prev ? (

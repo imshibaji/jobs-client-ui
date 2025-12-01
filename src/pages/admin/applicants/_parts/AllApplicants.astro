@@ -1,43 +1,57 @@
+---
+const { data } = Astro.props;
+---
+
 <div class="mt-2">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">All Applicants</h2>
+        <div class="flex items-center justify-between my-4">
+          <h2 class="text-xl font-bold">All Applicants</h2>
+          <div class="flex items-center space-x-2">
+            <a href="/admin/applicants/user" class="btn btn-primary">Add Applicant</a>
+          </div>
+        </div>
         <div class="bg-white rounded-xl shadow overflow-hidden">
           <table class="min-w-full text-left">
             <thead class="bg-purple-100 text-gray-700">
               <tr>
                 <th class="px-6 py-3 text-sm font-semibold">Name</th>
-                <th class="px-6 py-3 text-sm font-semibold">Position</th>
-                <th class="px-6 py-3 text-sm font-semibold">Status</th>
+                <th class="px-6 py-3 text-sm font-semibold">Address</th>
+                <th class="px-6 py-3 text-sm font-semibold">Email</th>
+                <th class="px-6 py-3 text-sm font-semibold">Phone</th>
                 <th class="px-6 py-3 text-sm font-semibold">Action</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-              <tr>
-                <td class="px-6 py-4">Aditi Sharma</td>
-                <td class="px-6 py-4">Frontend Developer</td>
-                <td class="px-6 py-4 text-green-600 font-medium">Interview Scheduled</td>
-                <td class="px-6 py-4">
-                  <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                  <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4">Neha Kapoor</td>
-                <td class="px-6 py-4">HR Executive</td>
-                <td class="px-6 py-4 text-yellow-600 font-medium">Pending Review</td>
-                <td class="px-6 py-4">
-                  <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                  <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4">Riya Das</td>
-                <td class="px-6 py-4">Content Strategist</td>
-                <td class="px-6 py-4 text-green-600 font-medium">Shortlisted</td>
-                <td class="px-6 py-4">
-                  <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                  <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
-                </td>
-              </tr>
+              {data && data.map((applicant: any) => (
+                <tr>
+                  <td class="px-6 py-4">{applicant.name}</td>
+                  <td class="px-6 py-4">{applicant.address}, {applicant.city}, {applicant.state}, {applicant.country}, {applicant.zipCode}</td>
+                  <td class="px-6 py-4">{applicant.email}</td>
+                  <td class="px-6 py-4">{applicant.phoneNumber}</td>
+                  <td class="px-6 py-4">
+                    <a href={`/admin/applicants/user/${applicant.id}`} class="text-violet-600 hover:underline ml-2">View & Update Profile</a>
+                    <a href={`/admin/applicants/${applicant.id}/delete`} class="text-red-600 hover:underline ml-2">Delete</a>
+                  </td>
+                </tr>
+              ))}
+              
+              <!-- // <tr>
+              //   <td class="px-6 py-4">Neha Kapoor</td>
+              //   <td class="px-6 py-4">HR Executive</td>
+              //   <td class="px-6 py-4 text-yellow-600 font-medium">Pending Review</td>
+              //   <td class="px-6 py-4">
+              //     <a href="#" class="text-blue-600 hover:underline">Edit</a>
+              //     <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
+              //   </td>
+              // </tr>
+              // <tr>
+              //   <td class="px-6 py-4">Riya Das</td>
+              //   <td class="px-6 py-4">Content Strategist</td>
+              //   <td class="px-6 py-4 text-green-600 font-medium">Shortlisted</td>
+              //   <td class="px-6 py-4">
+              //     <a href="#" class="text-blue-600 hover:underline">Edit</a>
+              //     <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
+              //   </td>
+              // </tr> -->
             </tbody>
           </table>
         </div>
