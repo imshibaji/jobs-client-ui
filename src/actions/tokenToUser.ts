@@ -4,10 +4,9 @@ import { ActionAPIContext, defineAction } from "astro:actions";
 import { z } from "astro:schema";
 
 export default defineAction({
-    input: z.object({
-        token: z.string().min(3),
-    }),
-    handler: async ({ token }: { token: string }) => {        
+    handler: async (_, context: ActionAPIContext) => {      
+        const token = context.cookies.get('token')?.value;
+        if(!token) return null;
         const jwtToken = await verifyToken(token);
         if(jwtToken) {
             const userData = jwtToken?.user as User;

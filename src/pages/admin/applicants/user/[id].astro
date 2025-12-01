@@ -1,14 +1,14 @@
 ---
 import AdminLayout from "@/layouts/AdminLayout.astro";
 // import ApplicantProfile from "./_parts/Profile.astro";
-import ApplicantSkills from "./_parts/ApplicantSkills";
-import ApplicantExperiences from "./_parts/ApplicantExperiences";
-import ApplicantEducations from "./_parts/ApplicantEducations";
+import ApplicantSkills from "./_parts/edit/ApplicantSkills";
+import ApplicantExperiences from "./_parts/edit/ApplicantExperiences";
+import ApplicantEducations from "./_parts/edit/ApplicantEducations";
 import { useHttpClient } from "@/utils/useHttpClient";
 import { APP_URL } from "astro:env/server";
 import { Applicant } from "@/utils/types/Applicant";
-import ProfileForm from "./_parts/ProfileForm";
-import ApplicantPortfolios from "./_parts/ApplicantPortfolios";
+import ProfileForm from "./_parts/edit/ProfileForm";
+import ApplicantPortfolios from "./_parts/edit/ApplicantPortfolios";
 
 const { id } = Astro.params;
 const token = Astro.cookies.get('token')?.value as string;
@@ -30,10 +30,10 @@ const applicant = await useHttpClient(token).get(APP_URL + '/applicants/'+id).th
             <ProfileForm token={token} applicant={applicant} client:load />
         </div>
         <div class="flex flex-col gap-4 w-full self-stretch">
-            <ApplicantSkills token={token} client:load />
-            <ApplicantExperiences token={token} client:load />
-            <ApplicantEducations token={token} client:load />
-            <ApplicantPortfolios token={token} client:load />
+            <ApplicantSkills token={token} applicantId={applicant.id!} client:load />
+            <ApplicantExperiences token={token} applicantId={applicant.id!} client:load />
+            <ApplicantEducations token={token} applicantId={applicant.id!} client:load />
+            <!-- <ApplicantPortfolios token={token} client:load /> -->
         </div>
     </div>
   </div>

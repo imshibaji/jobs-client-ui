@@ -3,7 +3,7 @@ import { BASE_URL } from "astro:env/client";
 import { useEffect, useState } from "react";
 
 export function ResumeFileUploader({token, applicantId, fileName, onSubmitSuccess}: { token: string, applicantId?: string, fileName?: string, onSubmitSuccess?: (data: any) => void | Promise<void> }) {
-    const {upload} = useHttpClient(token);
+    const {upload, download} = useHttpClient(token);
     const [resumeFile, setResumeFile] = useState<File | null>(null);
 
     // File Loaded
@@ -16,7 +16,7 @@ export function ResumeFileUploader({token, applicantId, fileName, onSubmitSucces
 
     const downloadFile = async () => {
         try {
-            const response = await useHttpClient(token).download(BASE_URL + `/file/download?Folder=resumes&Filename=${fileName}`);
+            const response = await download(BASE_URL + `/file/download?Folder=resumes&Filename=${fileName}`);
             setResumeFile(new File([await response.blob()], fileName!, { type: response.headers.get('content-type') || 'application/octet-stream' }));
         } catch (error) {
             console.error('Error downloading file:', error);

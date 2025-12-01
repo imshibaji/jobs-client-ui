@@ -24,18 +24,21 @@ export interface Skill{
     name: string;
     proficiency: string;
     experience: string;
+    lastUsed: string;
     applicantId?: string | number;
+    isEditing?: boolean;
 }
 
 export interface Experience{
     id?: string | number;
     company: string;
-    description: string;
-    usedSkills: string[];
+    position: string;
+    usedSkills: string;
     location: string;
     startDate: string;
     endDate: string;
     applicantId?: string | number;
+    isEditing?: boolean;
 }
 
 export interface Education{
@@ -44,8 +47,35 @@ export interface Education{
     degree: string;
     fieldOfStudy: string;
     grade?: string;
-    description?: string;
     startDate: string;
     endDate: string;
+    applicantId?: string | number;
+    isEditing?: boolean;
+}
+
+export interface Portfolio{
+    id?: string | number;
+    title: string;
+    description: string;
+    url: string;
+    image?: string;
+    applicantId?: string | number;
+}
+
+export interface Project{
+    id?: string | number;
+    name: string;
+    description: string;
+    usedSkills: string[];
+    startDate: string;
+    endDate: string;
+    applicantId?: string | number;
+}
+
+export interface Certificate{
+    id?: string | number;
+    name: string;
+    description: string;
+    date: string;
     applicantId?: string | number;
 }

@@ -1,8 +1,6 @@
 ---
 import AdminLayout from "@/layouts/AdminLayout.astro";
-import ApplicantProfile from "./_parts/Profile.astro";
-import ProfileForm from "./_parts/ProfileForm";
-import { Applicant } from "@/utils/types/Applicant";
+import ProfileForm from "./_parts/edit/ProfileForm";
 
 const token = Astro.cookies.get('token')?.value as string;
 ---
