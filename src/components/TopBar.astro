@@ -1,3 +1,6 @@
+---
+const user = await Astro.cookies.has('user')? await Astro.cookies.get('user')?.json(): null;
+---
 <!-- ░░ TOP BAR ░░ -->
 <header class="sticky top-0 z-50 bg-white shadow-sm">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
@@ -10,7 +13,8 @@
             <a href="/about" class="hover:text-purple-700">About Us</a>
         </nav>
         <div class="space-x-3">
-            <a href="/login" class="rounded-md border border-purple-600 px-3 py-2 text-purple-600 hover:bg-purple-50">Login</a>
+            {user && <a href="/user" class="rounded-md border border-purple-600 px-3 py-2 text-purple-600 hover:bg-purple-50">Hello, {user.name.split(' ')[0]}</a>}
+            {!user && <a href="/login" class="rounded-md border border-purple-600 px-3 py-2 text-purple-600 hover:bg-purple-50">Login</a>}
             <a href="/post-job" class="hidden md:inline-block rounded-md bg-purple-600 px-3 py-2 text-white hover:bg-purple-700">Employer / Post a Job</a>
         </div>
     </div>

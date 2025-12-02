@@ -1,4 +1,4 @@
-import { User } from "@/utils/User";
+import { User } from "@/utils/types/User";
 import { ImageUpload } from "./ImageUpload";
 import { useState } from "react";
 import { BASE_URL } from "astro:env/client";

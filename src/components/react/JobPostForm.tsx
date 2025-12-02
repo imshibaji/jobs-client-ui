@@ -5,10 +5,11 @@ export default function JobPostForm() {
   const [formData, setFormData] = useState({
     jobTitle: '',
     jobDescription: '',
+    employmentType: '',
+    jobLocation: '',
     requirements: '',
     responsibilities: '',
     benefits: '',
-    location: '',
     salary: '',
     companyName: '',
     companyEmail: '',
@@ -18,6 +19,10 @@ export default function JobPostForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
+    if(!formData.jobTitle || !formData.jobDescription || !formData.employmentType || !formData.jobLocation || !formData.requirements || !formData.responsibilities || !formData.benefits || !formData.salary || !formData.companyName || !formData.companyEmail || !formData.phoneNumber) {
+        alert('Please fill in all fields');
+        return;
+    }
     // Here you would typically handle the form submission, e.g., using fetch
     localStorage.setItem('jobPost', JSON.stringify(formData));
     alert('Job Requirement posted successfully!');
@@ -40,9 +45,10 @@ export default function JobPostForm() {
               <input value={formData.requirements} onChange={(e) => setFormData({ ...formData, requirements: e.target.value })} type="text" placeholder="Requirements: Skills, Experience, etc." className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
               <input value={formData.responsibilities} onChange={(e) => setFormData({ ...formData, responsibilities: e.target.value })} type="text" placeholder="Responsibilities: Activities, Tasks, etc" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
               <input value={formData.benefits} onChange={(e) => setFormData({ ...formData, benefits: e.target.value })} type="text" placeholder="Benefits: Benefits, Training, Holidays, etc" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-              <input value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })}type="text" placeholder="Location: City, State, Country" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
+              <input value={formData.jobLocation} onChange={(e) => setFormData({ ...formData, jobLocation: e.target.value })}type="text" placeholder="Location: City, State, Country" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
               <div className="flex space-x-4">
-                <select value={formData.salary} onChange={(e) => setFormData({ ...formData, salary: e.target.value })} className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500">
+                <select value={formData.employmentType} onChange={(e) => setFormData({ ...formData, employmentType: e.target.options[e.target.selectedIndex].value })} className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required>
+                  <option>Select Employment Type</option>
                   <option value="full-time">Full Time</option>
                   <option value="part-time">Part Time</option>
                   <option value="contract">Contract</option>

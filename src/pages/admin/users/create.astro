@@ -1,0 +1,174 @@
+---
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { User } from "@/utils/types/User";
+import { useHttpClient } from "@/utils/useHttpClient";
+import { APP_URL } from "astro:env/server";
+import UserForm from "./_parts/UserForm.astro";
+
+const token = Astro.cookies.get('token')?.value as string;
+const backUrl = '/admin/users'; // Default return URL
+
+let errorMessage: string | null = null;
+let successMessage: string | null = null;
+
+// Initialize variables for form state to retain input history on error
+let name = '';
+let email = '';
+let phoneNumber = '';
+let password = '';
+let confirmPassword = '';
+let initialImageUrl = 'https://placehold.co/128x128/f3f4f6/374151?text=User';
+let role = 'user'; // Default role
+let status = 'active'; // Default status
+let instagramId = '';
+let facebookId = '';
+let youtubeId = '';
+let linkedinId = '';
+let githubId = '';
+
+
+// Handle POST request for form submission (Create User)
+if (Astro.request.method === 'POST') {
+    try {
+        const data = await Astro.request.formData();
+        
+        // Extract fields from formData and populate state variables (to re-populate form on error)
+        name = data.get('name') as string || '';
+        email = data.get('email') as string || '';
+        phoneNumber = data.get('phoneNumber') as string || '';
+        const password = data.get('password') as string;
+        const confirmPassword = data.get('confirmPassword') as string;
+        role = data.get('role') as string || 'user';
+        status = data.get('status') as string || 'active';
+        instagramId = data.get('instagramId') as string || '';
+        facebookId = data.get('facebookId') as string || '';
+        youtubeId = data.get('youtubeId') as string || '';
+        linkedinId = data.get('linkedinId') as string || '';
+        githubId = data.get('githubId') as string || '';
+        const imageFile = data.get('imageFile') as File; // The uploaded image file
+
+        // Basic validation and password check (Server-side)
+        if (password !== confirmPassword) {
+            errorMessage = "Passwords do not match.";
+        } else {
+            // Placeholder for encrypting password
+            const getEncryptedPassword = async (password: string) => {
+                const encPassword = await useHttpClient(token).post(APP_URL + `/auth/encrypt-password`, { password }).then(res => res.json());
+                return encPassword;
+            }
+            const encryptedPassword = await getEncryptedPassword(password) as { encryptedText: string };
+
+            // Placeholder for sending data to the API
+            const payload = {
+                name, email, phoneNumber, password: encryptedPassword.encryptedText, role, status,
+                instagramId, facebookId, youtubeId, linkedinId, githubId,
+            };
+
+            // Call the API to create the user
+            const response = await useHttpClient(token).post(APP_URL + `/users/`, payload);
+
+            // Error handling
+            if (!response.ok) {
+                const errorData = await response.json();
+                errorMessage = errorData.message || "Failed to create user.";
+            }
+            
+            if (response.ok) {
+                successMessage = "User created successfully!";
+
+                // File upload logic (if needed)
+                if (imageFile && imageFile.name) {
+                    const userData = await response.json() as User;
+                    const formData = new FormData();
+                    formData.append('folder', 'pictures');
+                    formData.append('customName', 'user-'+userData.id+'-profile-picture');
+                    formData.append('file', imageFile);
+
+                    const uploadResponse = await useHttpClient(token).upload(APP_URL + `/upload/`, formData);
+                    if (!uploadResponse.ok) {
+                        console.error("Image upload failed:", uploadResponse);
+                        errorMessage = "Image upload failed.";
+                    }
+                    const imageObject = await uploadResponse.json();
+                    userData.image = imageObject.filename;
+
+                    const updateUserResponse = await useHttpClient(token).put(APP_URL + `/users/${userData.id}`, userData);
+                    if (!updateUserResponse.ok) {
+                        console.error("User update failed:", updateUserResponse);
+                        errorMessage = "User update failed.";
+                    }
+                }
+                // Redirect on success
+                return Astro.redirect(backUrl);
+            } else {
+                const errorData = await response.json();
+                errorMessage = errorData.message || "Failed to create user.";
+            }
+        }
+
+    } catch (error) {
+        console.error("Submission error:", error);
+        errorMessage = "An unexpected error occurred during submission.";
+    }
+}
+---
+
+<AdminLayout>
+  <div class="mt-4 max-w-5xl mx-auto">
+    
+    <!-- Back Button & Title Header (Refactored) -->
+    <div class="flex items-center justify-between mb-6 border-b pb-3">
+        <h2 class="text-3xl font-extrabold text-violet-700">Create New User</h2>
+        <a 
+            href={backUrl}
+            class="inline-flex items-center px-4 py-2 border border-violet-300 text-sm font-medium rounded-lg text-violet-700 bg-white hover:bg-violet-50 transition duration-150 ease-in-out shadow-sm"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Users List
+        </a>
+    </div>
+
+    <!-- Display Messages -->
+    {errorMessage && (
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <span class="block sm:inline">{errorMessage}</span>
+        </div>
+    )}
+    {successMessage && (
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <span class="block sm:inline">{successMessage}</span>
+        </div>
+    )}
+
+    <!-- Main Form Container -->
+    <!-- Important: The method MUST be POST to trigger the server-side logic -->
+    <form method="POST" enctype="multipart/form-data" class="bg-white rounded-xl shadow-2xl overflow-hidden p-8">
+      
+      <!-- Grid Layout for Inputs (2 columns on desktop, 1 on mobile) -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <UserForm
+            name={name}
+            email={email}
+            phoneNumber={phoneNumber}
+            password={password}
+            confirmPassword={confirmPassword}
+            role={role}
+            status={status}
+            instagramId={instagramId}
+            facebookId={facebookId}
+            youtubeId={youtubeId}
+            linkedinId={linkedinId}
+            githubId={githubId}
+            backUrl={backUrl}
+            isEdit={false}
+            initialImageUrl={initialImageUrl}
+        />
+        
+      </div>
+
+    </form>
+  </div>
+</AdminLayout>

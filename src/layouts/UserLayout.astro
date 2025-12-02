@@ -2,14 +2,14 @@
 import "@/styles/global.css";
 import Sidebar from "@/components/back/Sidebar.astro";
 import TopBar from "@/components/back/TopBar.astro";
-import { Container, LayoutDashboard, Settings, ShieldCheck, Sparkles, Sprout } from "@lucide/astro";
-import { User } from "@/utils/User";
+import { Container, Home, LayoutDashboard, Settings, ShieldCheck, Sparkles, Sprout } from "@lucide/astro";
+import { User } from "@/utils/types/User";
 const user = Astro.cookies.get('user')?.json() as User;
 
-const menus = [
+let menus = [
     {
         name: "Dashboard",
-        icon: LayoutDashboard,
+        icon: Home,
         link: "/user",
     },
     {
@@ -31,8 +31,33 @@ const menus = [
         name: "Trust & Safety",
         icon: ShieldCheck,
         link: "/user/trust-safety",
+    }
+];
+
+// console.log(user.role);
+
+
+menus = user && user.role === "admin" ? [
+    ...menus,
+    {
+        name: "Admin Dashboard",
+        icon: LayoutDashboard,
+        link: "/admin",
     },
-]
+    {
+        name: "Employer Dashboard",
+        icon: LayoutDashboard,
+        link: "/emp",
+    },
+] : user && user.role === "employer" ? [
+    ...menus, 
+    { 
+        name: "Employer Dashboard", 
+        icon: LayoutDashboard, 
+        link: "/emp", 
+    }
+] : menus;
+
 const profileLink = "/user/profile";
 
 const settings = {

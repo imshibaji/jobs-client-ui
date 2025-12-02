@@ -1,9 +1,16 @@
 ---
 import AdminLayout from "@/layouts/AdminLayout.astro";
+import { useHttpClient } from "@/utils/useHttpClient";
+import { APP_URL } from "astro:env/server";
+import UserListClient from "./_parts/UserListClient.astro";
 import QuickHighlight from "./_parts/QuickHighlight.astro";
-import UserList from "./_parts/UserList.astro";
+
+const token = Astro.cookies.get('token')?.value as string;
+const users = await useHttpClient(token).get(APP_URL + '/users').then(res => res.json());
 ---
+
 <AdminLayout>
-  <QuickHighlight />
-  <UserList />
+  <QuickHighlight users={users} />
+  <hr class="my-4 border-gray-200 bg-gray-200 sm:mx-auto dark:border-gray-700 dark:bg-gray-700" />
+  <UserListClient itemsPerPage={7} usersJson={JSON.stringify(users)} />
 </AdminLayout>

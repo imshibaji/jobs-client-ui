@@ -1,0 +1,35 @@
+---
+const { page } = Astro.props; 
+---
+{page ? (
+    <div class="flex items-center justify-between mt-4">
+        <div class="text-sm text-gray-700">
+            Showing <span class="font-medium">{page.startItem}</span> to <span class="font-medium">{page.endItem}</span> of <span class="font-medium">{page.totalItems}</span> results
+        </div>
+        <div class="flex space-x-2">
+            {page.url.prev ? (
+                    <a href={page.url.prev} class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-150 ">
+                        Previous
+                    </a>
+                ) : (
+                    <button class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-150 opacity-50 cursor-not-allowed" disabled="">
+                        Previous
+                    </button>
+                )
+            }
+            <span class="px-3 py-1 text-sm font-medium text-gray-700">Page {page.currentPage} of {page.totalPages}</span>
+            {page.url.next ? (
+                    <a href={page.url.next} class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-150 ">
+                        Next
+                    </a>
+                ) : (
+                    <button class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-150 opacity-50 cursor-not-allowed" disabled="">
+                        Next
+                    </button>
+                )
+            }
+        </div>
+    </div>
+): (
+    <p>Pagination data not available.</p>
+)}

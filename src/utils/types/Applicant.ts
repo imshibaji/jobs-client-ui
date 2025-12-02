@@ -1,7 +1,7 @@
 export interface Applicant{
-    id?: number;
+    id?: string | number;
     name: string;
-    image?: string;
+    image?: File | string | null;
     address?: string;
     city?: string;
     state?: string;
@@ -15,37 +15,67 @@ export interface Applicant{
     skills: string;
     experience: string;
     location: string;
-    resume: File | null;
-    userId?: number;
+    resume: File | string | null;
+    userId?: string | number;
 }
 
 export interface Skill{
-    id?: number;
+    id?: string | number;
     name: string;
     proficiency: string;
     experience: string;
-    applicantId?: number;
+    lastUsed: string;
+    applicantId?: string | number;
+    isEditing?: boolean;
 }
 
 export interface Experience{
-    id?: number;
+    id?: string | number;
     company: string;
-    description: string;
-    usedSkills: string[];
+    position: string;
+    usedSkills: string;
     location: string;
     startDate: string;
     endDate: string;
-    applicantId?: number;
+    applicantId?: string | number;
+    isEditing?: boolean;
 }
 
 export interface Education{
-    id?: number;
+    id?: string | number;
     institution: string;
     degree: string;
     fieldOfStudy: string;
     grade?: string;
-    description?: string;
     startDate: string;
     endDate: string;
-    applicantId?: number;
+    applicantId?: string | number;
+    isEditing?: boolean;
+}
+
+export interface Portfolio{
+    id?: string | number;
+    title: string;
+    description: string;
+    url: string;
+    image?: string;
+    applicantId?: string | number;
+}
+
+export interface Project{
+    id?: string | number;
+    name: string;
+    description: string;
+    usedSkills: string[];
+    startDate: string;
+    endDate: string;
+    applicantId?: string | number;
+}
+
+export interface Certificate{
+    id?: string | number;
+    name: string;
+    description: string;
+    date: string;
+    applicantId?: string | number;
 }

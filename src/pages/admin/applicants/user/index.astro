@@ -1,0 +1,16 @@
+---
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import ProfileForm from "./_parts/edit/ProfileForm";
+
+const token = Astro.cookies.get('token')?.value as string;
+---
+<AdminLayout title="Applicants - JobsForWomen.com">
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="text-2xl font-bold">Applicant Profile</h1>
+    <div class="flex items-center space-x-2">
+      <a href="/admin/applicants" class="btn btn-primary">Back to Applicants</a>
+    </div>
+  </div>
+  <!-- <ApplicantProfile token={token} applicant={null} /> -->
+  <ProfileForm token={token} client:load />
+</AdminLayout>

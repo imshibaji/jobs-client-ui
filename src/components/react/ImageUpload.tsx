@@ -1,9 +1,9 @@
-import { User } from "@/utils/User";
+import { User } from "@/utils/types/User";
 import { BASE_URL } from "astro:env/client";
 import { useState, useEffect } from "react";
 
 export function ImageUpload({user, token}:{user?:User, token?:string}) {
-    const initialImage = user?.image ? `${BASE_URL}/file/image/view?filename=${user?.image}` : "/logo.jpeg";
+    const initialImage = user?.image ? `${BASE_URL}/file/view?filename=${user?.image}` : "/logo.jpeg";
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string>(initialImage);
 
@@ -67,7 +67,7 @@ export function ImageUpload({user, token}:{user?:User, token?:string}) {
             // console.log(updatedUser);
 
             // Update the image preview
-            setPreview(`${BASE_URL}/file/image/view?filename=${response.filename}`);
+            // setPreview(`${BASE_URL}/file/image/view?filename=${response.filename}`);
 
             // Clear the selected file
             setSelectedFile(null);
