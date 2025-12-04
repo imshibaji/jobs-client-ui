@@ -1,43 +1,44 @@
+---
+export interface Props {
+  data: any[];
+}
+const { data } = Astro.props;
+---
+
 <div class="mt-2">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">All Companies</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 items-center justify-between mb-4">
+          <h2 class="order-1 md:order-1 text-xl font-bold">All Companies</h2>
+          <div class="order-3 md:order-2 my-2 md:my-0 col-span-2 md:col-span-1 flex items-center space-x-0">
+            <input type="text" placeholder="Search..." class="w-full md:w-4xl px-4 py-2 border border-gray-300 rounded-tl-lg rounded-bl-lg focus:outline-none focus:border-violet-500 ">
+            <button class="bg-violet-600 text-white px-4 py-2 rounded-tr-lg rounded-br-lg hover:bg-violet-700 transition duration-200">Search</button>
+          </div>
+          <div class="order-2 flex justify-end items-center space-x-2">
+            <a href="/admin/companies/create" class="btn btn-primary">Add New</a>
+          </div>
+        </div>
         <div class="bg-white rounded-xl shadow overflow-hidden">
           <table class="min-w-full text-left">
             <thead class="bg-purple-100 text-gray-700">
               <tr>
                 <th class="px-6 py-3 text-sm font-semibold">Name</th>
-                <th class="px-6 py-3 text-sm font-semibold">Type</th>
-                <th class="px-6 py-3 text-sm font-semibold">Status</th>
+                <th class="px-6 py-3 text-sm font-semibold">Address</th>
+                <th class="px-6 py-3 text-sm font-semibold">Industry</th>
                 <th class="px-6 py-3 text-sm font-semibold">Action</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-              <tr>
-                <td class="px-6 py-4">ABC Company</td>
-                <td class="px-6 py-4">Software Development</td>
-                <td class="px-6 py-4 text-green-600 font-medium">Active</td>
-                <td class="px-6 py-4">
-                  <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                  <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4">XYZ Industries</td>
-                <td class="px-6 py-4">IT Consulting</td>
-                <td class="px-6 py-4 text-yellow-600 font-medium">Pending Review</td>
-                <td class="px-6 py-4">
-                  <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                  <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4">PQR Solutions</td>
-                <td class="px-6 py-4">Digital Marketing</td>
-                <td class="px-6 py-4 text-green-600 font-medium">Active</td>
-                <td class="px-6 py-4">
-                  <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                  <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
-                </td>
-              </tr>
+              { data && data.map((company) => (
+                <tr>
+                  <td class="px-6 py-4">{company.name}</td>
+                  <td class="px-6 py-4">{company.address}, {company.city}, {company.country}, {company.zipCode}</td>
+                  <td class="px-6 py-4 text-green-600 font-medium">{company.industryType}</td>
+                  <td class="px-6 py-4">
+                    <a href={`/admin/companies/${company.id}`} class="text-violet-600 hover:underline">View</a>
+                    <a href={`/admin/companies/${company.id}/edit`} class="text-blue-600 hover:underline ml-2">Edit</a>
+                    <a href={`/admin/companies/${company.id}/delete`} class="text-red-600 hover:underline ml-2">Delete</a>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

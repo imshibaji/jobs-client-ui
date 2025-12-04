@@ -1,15 +1,18 @@
 export interface Company {
     id?: number;
-    companyName: string;
-    companyEmail: string;
-    phoneNumber: string;
+    name: string;
     recruiterName: string;
-    companyWebsite: string;
     industryType: string;
-    companySize: string;
-    companyLocation: string;
-    companyDescription: string;
-    companyLogo: string;
+    size?: string;
+    image?: string;
+    address?: string;
+    city?: string;
+    state?: string;
+    country?: string;
+    zipCode?: string;
+    email: string;
+    phoneNumber: string;
+    website?: string;
     userId?: number;
 }
 

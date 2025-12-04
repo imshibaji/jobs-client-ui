@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Base.astro';
-import Registration from '@/components/react/Register';
+import Registration from './_parts/react/Register';
 const token = Astro.cookies.get("token")?.value;
 
 const title = "Register - JobsForWomen.com";
@@ -11,7 +11,7 @@ const title = "Register - JobsForWomen.com";
     <input type="hidden" name="token" value={token} />
 </Layout>
 <script>
-    const token = document?.querySelector("input[name='token']")?.value;
+    const token = document?.querySelector("input[name='token']")?.value as string;
     if (token) {
         localStorage.setItem("userToken", token);
         window.location.href = "/register-after";
