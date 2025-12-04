@@ -10,5 +10,5 @@ const company = await useHttpClient(token).get(APP_URL + '/companies/'+id).then(
 ---
 
 <AdminLayout>
-    <View company={company} client:load />
+    <View company={company} />
 </AdminLayout>
