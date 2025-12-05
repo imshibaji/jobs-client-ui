@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+.data-label {
+    @apply block text-gray-500 font-medium mb-1 text-sm;
+}
+.data-value {
+    @apply text-gray-900 font-semibold text-base;
+}
+.data-large {
+    @apply text-violet-700 font-extrabold text-2xl;
+}

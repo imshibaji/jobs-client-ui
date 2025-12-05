@@ -2,17 +2,12 @@
 import EmployeeLayout from "@/layouts/UserLayout.astro";
 import ProfileForm from "@/pages/_parts/react/ProfileForm";
 import { User } from "@/utils/types/User";
+import { useHttpClient } from "@/utils/useHttpClient";
 import { APP_URL } from "astro:env/server";
 
 const token = Astro.cookies.get('token')?.value as string;
 const { id } = Astro.cookies.get('user')?.json() as User;
-const user = await fetch(APP_URL + `/users/${id}`, {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${Astro.cookies.get('token')?.value}`
-  }
-}).then(res => res.json());
+const user = await useHttpClient(token).get(APP_URL + `/users/${id}`).then(res => res.json()) as User;
 
 ---
 <EmployeeLayout>

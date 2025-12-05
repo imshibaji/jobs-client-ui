@@ -15,7 +15,7 @@ export interface Applicant{
     skills: string;
     experience: string;
     location: string;
-    resume: File | string | null;
+    resume?: string;
     userId?: string | number;
 }
 

@@ -1,0 +1,9 @@
+---
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import ApplyForm from "./_parts/ApplyForm";
+const token = Astro.cookies.get('token')?.value as string;
+---
+
+<AdminLayout>
+    <ApplyForm token={token} client:load />
+</AdminLayout>

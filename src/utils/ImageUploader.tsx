@@ -2,7 +2,7 @@ import { useHttpClient } from "@/utils/useHttpClient";
 import { BASE_URL } from "astro:env/client";
 import { useEffect, useState, useCallback } from "react";
 
-export default function LogoUploader({token, fileName, onSubmitSuccess }: {token: string, fileName?: string, onSubmitSuccess?: (data: any) => void | Promise<void>}) {
+export default function ImageUploader({token, fileName, onSubmitSuccess }: {token: string, fileName?: string, onSubmitSuccess?: (data: any) => void | Promise<void>}) {
     const {upload, get} = useHttpClient(token);
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
