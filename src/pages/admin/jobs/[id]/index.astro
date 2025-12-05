@@ -1,0 +1,26 @@
+---
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { Company, getCompany, getUser, Job } from "@/utils/types/Company";
+import { User } from "@/utils/types/User";
+import { useHttpClient } from "@/utils/useHttpClient";
+import { APP_URL } from "astro:env/server";
+import View from "../_parts/View.astro";
+
+const { id } = Astro.params;
+const token = Astro.cookies.get('token')?.value as string;
+const job = await useHttpClient(token).get(APP_URL + `/jobs/${id}`).then(res => res.json()) as Job;
+const companies = await useHttpClient(token).get(APP_URL + '/companies').then(res => res.json()) as Company[];
+const users = await useHttpClient(token).get(APP_URL + '/users').then(res => res.json()) as User[];
+const company = getCompany(companies, job.companyId || 1) as Company;
+const recruiter = getUser(users, job.userId!) as User;
+const skills = job.skills?.split(',') || [];
+---
+
+<AdminLayout>
+    <View 
+        job={job}
+        company={company}
+        recruiter={recruiter}
+        skills={skills}
+    />
+</AdminLayout>

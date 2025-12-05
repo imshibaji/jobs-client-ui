@@ -1,0 +1,95 @@
+---
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { useHttpClient } from "@/utils/useHttpClient";
+import { APP_URL } from "astro:env/server";
+const { id } = Astro.params;
+const token = Astro.cookies.get('token')?.value as string;
+
+if(Astro.request.method === 'POST') {
+    try {
+        // Perform the deletion using the token and user ID
+        await useHttpClient(token).delete(APP_URL + `/jobs/${id}`);
+        
+        // Redirect the user back after successful deletion
+        return Astro.redirect('/admin/jobs');
+    } catch (error) {
+        console.error("Failed to delete job:", error);
+        // You might want to redirect to an error page or back with a message
+        return Astro.redirect('/admin/jobs?error=deletionFailed'); 
+    }
+}
+---
+<AdminLayout>
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- Delete Confirmation Card -->
+        <div class="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 mt-4 border-t-8 border-red-600">
+            
+            <!-- Header -->
+            <div class="flex items-center mb-6 pb-4 border-b border-gray-100">
+                <div class="p-3 bg-red-100 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <h3 class="text-3xl font-extrabold text-red-700 ml-4">Confirm Deletion</h3>
+            </div>
+
+            <!-- Warning Message -->
+            <div class="space-y-4 mb-8">
+                <p class="text-xl font-semibold text-gray-800">
+                    Are you absolutely sure you want to delete this job posting?
+                </p>
+                <p class="text-gray-600">
+                    This action is permanent and cannot be undone. All associated data will be removed from the system. Please verify the job details below before proceeding.
+                </p>
+            </div>
+
+            <!-- Job Details for Confirmation -->
+            <div class="bg-red-50 p-5 rounded-xl border border-red-200 shadow-inner">
+                <h1 class="text-xl font-bold text-red-700 mb-4 border-b border-red-200 pb-2">Job Details</h1>  
+                
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="space-y-1">
+                        <p class="detail-label">Job Title</p>
+                        <p class="detail-value" id="job-title">Digital Marketing Associate</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="detail-label">Company</p>
+                        <p class="detail-value" id="job-company">WomenTech</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="detail-label">Location</p>
+                        <p class="detail-value" id="job-location">Bengaluru, IN</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="detail-label">Employment Type</p>
+                        <p class="detail-value" id="job-type">Full Time</p>
+                    </div>
+                    <div class="space-y-1 col-span-2">
+                        <p class="detail-label">Key Skills</p>
+                        <p class="detail-value" id="job-skills">Digital Marketing, SEO, Content Creation</p>
+                    </div>
+                    <div class="space-y-1 col-span-2">
+                        <p class="detail-label">Description Snippet</p>
+                        <p class="text-gray-700 italic" id="job-description">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, tempora..."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Form and Buttons -->
+            <form action="" method="post" class="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 mt-6">
+                
+                <!-- Delete Button -->
+                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold text-lg py-3 px-4 rounded-xl shadow-lg shadow-red-200/50 transition duration-150 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
+                    Yes, Permanently Delete Job
+                </button>
+                
+                <!-- Cancel Button -->
+                <a href="/admin/jobs" class="block w-full text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-4 rounded-xl transition duration-150 shadow-md">
+                    Cancel and Go Back
+                </a>
+            </form>
+        </div>
+    </div>
+</AdminLayout>

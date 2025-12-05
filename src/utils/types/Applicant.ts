@@ -15,7 +15,7 @@ export interface Applicant{
     skills: string;
     experience: string;
     location: string;
-    resume: File | string | null;
+    resume?: string;
     userId?: string | number;
 }
 
@@ -67,6 +67,8 @@ export interface Project{
     name: string;
     description: string;
     usedSkills: string[];
+    image?: string;
+    url?: string;
     startDate: string;
     endDate: string;
     applicantId?: string | number;
@@ -77,5 +79,7 @@ export interface Certificate{
     name: string;
     description: string;
     date: string;
+    image?: string;
+    url?: string;
     applicantId?: string | number;
 }

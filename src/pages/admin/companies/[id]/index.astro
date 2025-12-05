@@ -1,0 +1,14 @@
+---
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import View from "../_parts/View.astro";
+import { useHttpClient } from "@/utils/useHttpClient";
+import { APP_URL } from "astro:env/server";
+import { Company } from "@/utils/types/Company";
+const { id } = Astro.params;
+const token = Astro.cookies.get('token')?.value as string;
+const company = await useHttpClient(token).get(APP_URL + '/companies/'+id).then(res => res.json()) as Company;
+---
+
+<AdminLayout>
+    <View company={company} />
+</AdminLayout>

@@ -1,0 +1,40 @@
+---
+import { useHttpClient } from "@/utils/useHttpClient";
+import JobItem from "./JobItem.astro";
+import { APP_URL } from "astro:env/server";
+import { getSSRPagination } from "@/utils/paginationUtils";
+import { Job } from "@/utils/types/Company";
+import PageNav from "@/components/PageNav.astro";
+const token = Astro.cookies.get('token')?.value as string;
+const jobs = await useHttpClient(token).get(APP_URL + '/jobs').then(res => res.json());
+const companies = await useHttpClient(token).get(APP_URL + '/companies').then(res => res.json());
+const {page} = getSSRPagination(jobs, Astro.url, 5, '/admin/jobs');
+
+---
+
+<!-- All Jobs -->
+<section class="bg-white rounded-xl shadow p-6 mb-6 mt-4">
+    <div class="flex justify-between items-center mb-4">
+        <h3 class="text-2xl font-semibold text-purple-700">All Jobs</h3>
+        <div class="flex flex-2"></div>
+        <div class="flex items-center">
+            <p class="text-sm text-gray-600 mr-2 w-20">Sort by:</p>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <option selected>Relevance</option>
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+            </select>
+        </div>
+        <a href="/admin/jobs/new" class="ml-2 bg-purple-600 text-white font-semibold py-2.5 px-4 rounded-md purple-600 hover:text-gray-100 focus:ring-2 focus:outline-none focus:ring-purple-300 text-sm text-center">Create A Job</a>
+    </div>
+    <div class="space-y-3">
+        {
+            page.data.map((job: any) => (
+                <JobItem job={job} companies={companies} />
+            ))
+        }
+    </div>
+    <div class="mt-4">
+        <PageNav page={page} />
+    </div>
+</section>

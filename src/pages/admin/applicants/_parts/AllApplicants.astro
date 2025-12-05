@@ -3,9 +3,13 @@ const { data } = Astro.props;
 ---
 
 <div class="mt-2">
-        <div class="flex items-center justify-between my-4">
-          <h2 class="text-xl font-bold">All Applicants</h2>
-          <div class="flex items-center space-x-2">
+        <div class="grid grid-cols-2 md:grid-cols-3 items-center justify-between mb-4">
+          <h2 class="order-1 md:order-1 text-xl font-bold">All Applicants</h2>
+          <div class="order-3 md:order-2 my-2 md:my-0 col-span-2 md:col-span-1 flex items-center space-x-0">
+            <input type="text" placeholder="Search..." class="w-full md:w-4xl px-4 py-2 border border-gray-300 rounded-tl-lg rounded-bl-lg focus:outline-none focus:border-violet-500 ">
+            <button class="bg-violet-600 text-white px-4 py-2 rounded-tr-lg rounded-br-lg hover:bg-violet-700 transition duration-200">Search</button>
+          </div>
+          <div class="order-2 flex justify-end items-center space-x-2">
             <a href="/admin/applicants/user" class="btn btn-primary">Add Applicant</a>
           </div>
         </div>
@@ -28,7 +32,7 @@ const { data } = Astro.props;
                   <td class="px-6 py-4">{applicant.email}</td>
                   <td class="px-6 py-4">{applicant.phoneNumber}</td>
                   <td class="px-6 py-4">
-                    <a href={`/admin/applicants/user/${applicant.id}`} class="text-violet-600 hover:underline ml-2">View & Update Profile</a>
+                    <a href={`/admin/applicants/user/${applicant.id}`} class="text-violet-600 hover:underline ml-2">View & Update</a>
                     <a href={`/admin/applicants/${applicant.id}/delete`} class="text-red-600 hover:underline ml-2">Delete</a>
                   </td>
                 </tr>

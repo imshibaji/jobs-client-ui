@@ -2,8 +2,13 @@
 import AdminLayout from "@/layouts/AdminLayout.astro";
 import QuickHighlight from "./_parts/QuickHighlight.astro";
 import AllApplications from "./_parts/AllApplications.astro";
+import { useHttpClient } from "@/utils/useHttpClient";
+import { APP_URL } from "astro:env/server";
+const token = Astro.cookies.get('token')?.value as string;
+const data = await useHttpClient(token).get(APP_URL + '/applications').then(res => res.json());
+const jobs = await useHttpClient(token).get(APP_URL + '/jobs').then(res => res.json());
 ---
 <AdminLayout>
   <QuickHighlight />
-  <AllApplications />
+  <AllApplications data={data} jobs={jobs} />
 </AdminLayout>

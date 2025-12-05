@@ -24,7 +24,7 @@ export default function ApplicantForm({token, applicant}: {token: string, applic
         formData.append('userId', applicantForm.userId?.toString() ?? '');
 
         if(applicantForm.resume) {
-            const response = await fileUpload(applicantForm.resume, applicantForm) as any;
+            const response = await fileUpload(applicantForm.resume as File, applicantForm) as any;
             formData.append('resume', response.filename);
         }
         const response = await post(BASE_URL+'/applicants', {

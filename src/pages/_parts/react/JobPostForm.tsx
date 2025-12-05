@@ -1,4 +1,4 @@
-import Hero from "@/components/react/Hero";
+import Hero from "./Hero";
 import { useState } from "react";
 
 export default function JobPostForm() {

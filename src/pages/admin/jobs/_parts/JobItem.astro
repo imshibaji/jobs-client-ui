@@ -1,10 +1,20 @@
+---
+import { Company, getCompany, Job } from '@/utils/types/Company'
+export interface Props {
+    job: Job,
+    companies: Company[]
+}
+const { job, companies } = Astro.props;
+---
+
 <div class="flex w-full p-4 border border-purple-100 rounded-lg bg-purple-50">
     <div>
-        <p class="font-medium text-purple-800">New job match for your skills!</p>
-        <p class="text-gray-600 text-sm">Digital Marketing Associate at WomenTech, Bengaluru.</p>
+        <p class="font-medium text-purple-800">{job.title} at {getCompany(companies, job.companyId || 1).name || 'Unknown'} for {job.employmentType || 'Full Time'}</p>
+        <p class="text-gray-600 text-sm">Requirements: {job.requirements || 'Not Specified'}, Experience: {job.experience || 'Not Specified'}, Location: {job.location || 'Not Specified'}, Salary: {job.salary || 'Not Specified'}, Employment Type: {job.employmentType || 'Full Time'}</p>
     </div>
     <div class="flex ml-auto border-l-2 border-purple-600 pl-2">
-        <button class="text-purple-600 hover:text-purple-900 focus:ring-2 focus:outline-none focus:ring-purple-300 font-bold rounded-lg text-sm px-5 py-1.5 text-center">Edit</button>
-        <button class="text-red-600 hover:text-red-900 focus:ring-2 focus:outline-none focus:ring-purple-300 font-bold rounded-lg text-sm px-5 py-1.5 text-center ml-2">Delete</button>
+        <a href=`/admin/jobs/${job.id}` class="text-purple-600 hover:text-purple-700 focus:ring-2 focus:outline-none focus:ring-purple-300 font-bold rounded-lg text-sm px-5 py-1.5 text-center self-center">View</a>
+        <a href=`/admin/jobs/${job.id}/edit` class="text-orange-600 hover:text-orange-900 focus:ring-2 focus:outline-none focus:ring-orange-300 font-bold rounded-lg text-sm px-5 py-1.5 text-center self-center">Edit</a>
+        <a href=`/admin/jobs/${job.id}/delete` class="text-red-600 hover:text-red-900 focus:ring-2 focus:outline-none focus:ring-purple-300 font-bold rounded-lg text-sm px-5 py-1.5 text-center self-center ml-2">Delete</a>
     </div>    
 </div>

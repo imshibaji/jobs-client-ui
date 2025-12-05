@@ -3,7 +3,7 @@ import { BASE_URL } from "astro:env/client";
 import { useEffect, useState } from "react";
 
 export function ProfileImageUpload({token, applicantId, fileName, onSubmitSuccess }: {token: string, applicantId?: string, fileName?: string, onSubmitSuccess?: (data: any) => void | Promise<void>}) {
-    const {upload} = useHttpClient(token);
+    const {upload, get} = useHttpClient(token);
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
 
@@ -36,7 +36,15 @@ export function ProfileImageUpload({token, applicantId, fileName, onSubmitSucces
         }
     };
 
+    const handleDelete = async () => {
+        if (fileName) {
+            await get(BASE_URL + `/file/delete?folder=pictures&filename=${fileName}`);
+            setImageFile(null);
+        }
+    };
+
     const handleImageUpload = async () => {
+        await handleDelete();
         try {
             if (imageFile && applicantId) {
                 const formData = new FormData();

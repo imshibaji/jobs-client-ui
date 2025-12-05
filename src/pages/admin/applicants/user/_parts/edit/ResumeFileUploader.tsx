@@ -35,8 +35,17 @@ export function ResumeFileUploader({token, applicantId, fileName, onSubmitSucces
         }
     };
 
+    const handleDelete = async () => {
+        if (fileName) {
+            await download(BASE_URL + `/file/delete?folder=resumes&filename=${fileName}`);
+            setResumeFile(null);
+        }
+    };
+
     const handleFileUpload = async () => {
-        if (resumeFile && applicantId) {
+        if (resumeFile) {
+            await handleDelete();
+
             const formData = new FormData();
             formData.append('folder', 'resumes');
             formData.append('customName', 'applicant-'+(applicantId || Date.now())+'-resume');
