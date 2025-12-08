@@ -1,9 +1,9 @@
 ---
 import AdminLayout from "@/layouts/AdminLayout.astro";
-import ApplyForm from "./_parts/ApplyForm";
+import SaveForm from "../_parts/Form";
 const token = Astro.cookies.get('token')?.value as string;
+const { id } = Astro.params;
 ---
-
 <AdminLayout>
-    <ApplyForm token={token} client:load />
+<SaveForm token={token} articleId={id} client:load />
 </AdminLayout>

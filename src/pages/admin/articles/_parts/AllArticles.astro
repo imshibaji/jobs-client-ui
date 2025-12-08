@@ -1,44 +1,55 @@
+---
+import { Article } from '@/utils/types/Article';
+import { getStatus } from './utils';
+
+export interface Props {
+  data: Article[];
+}
+const {data} = Astro.props;
+---
 <div class="mt-2">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">All Aricles</h2>
-        <div class="bg-white rounded-xl shadow overflow-hidden">
-          <table class="min-w-full text-left">
-            <thead class="bg-purple-100 text-gray-700">
+  <div class ="flex justify-between items-center mb-4">
+    <h2 class="text-lg font-semibold text-gray-800">All Articles</h2>
+    <a href="/admin/articles/create" class="bg-violet-600 hover:bg-violet-700 text-white py-2 px-6 rounded">
+      Create Article
+    </a>
+  </div>
+  <div class="bg-white rounded-xl shadow overflow-hidden">
+    <table class="min-w-full text-left">
+      <thead class="bg-purple-100 text-gray-700">
+        <tr>
+          <th class="px-6 py-3 text-sm font-semibold">Title</th>
+          <th class="px-6 py-3 text-sm font-semibold">Tags</th>
+          <th class="px-6 py-3 text-sm font-semibold">Status</th>
+          <th class="px-6 py-3 text-sm font-semibold">Action</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        {
+          data.length > 0 ? data.map(article => {
+            return (
               <tr>
-                <th class="px-6 py-3 text-sm font-semibold">Title</th>
-                <th class="px-6 py-3 text-sm font-semibold">Category</th>
-                <th class="px-6 py-3 text-sm font-semibold">Status</th>
-                <th class="px-6 py-3 text-sm font-semibold">Action</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100">
-              <tr>
-                <td class="px-6 py-4">First Article</td>
-                <td class="px-6 py-4">Technology</td>
-                <td class="px-6 py-4 text-green-600 font-medium">Published</td>
+                <td class="px-6 py-4">{article.title}</td>
+                <td class="px-6 py-4">{article.tags?.map(tag => {
+                  return (
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{tag}</span>
+                  )
+                })}</td>
+                <td class={"px-6 py-4 font-medium "+ getStatus(article.status!)}>{article.status!.charAt(0).toUpperCase() + article.status!.slice(1)}</td>
                 <td class="px-6 py-4">
-                  <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                  <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
+                  {/* <a href={`/admin/articles/${article.id}`} class="text-violet-600 hover:underline">View</a> */}
+                  <a href={`/admin/articles/${article.id}/edit`} class="text-blue-600 hover:underline ml-2">Edit</a>
+                  <a href={`/admin/articles/${article.id}/delete`} class="text-red-600 hover:underline ml-2">Delete</a>
                 </td>
               </tr>
-              <tr>
-                <td class="px-6 py-4">Second Article</td>
-                <td class="px-6 py-4">Business</td>
-                <td class="px-6 py-4 text-yellow-600 font-medium">Pending</td>
-                <td class="px-6 py-4">
-                  <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                  <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4">Third Article</td>
-                <td class="px-6 py-4">Entertainment</td>
-                <td class="px-6 py-4 text-gray-600 font-medium">Draft</td>
-                <td class="px-6 py-4">
-                  <a href="#" class="text-blue-600 hover:underline">Edit</a>
-                  <a href="#" class="text-red-600 hover:underline ml-2">Delete</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+            )
+          }): (
+            <tr>
+              <td class="px-6 py-12 text-center font-medium text-gray-500" colspan="4">No articles found</td>
+            </tr>
+          )
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

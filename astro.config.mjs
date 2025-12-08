@@ -4,15 +4,13 @@ import { defineConfig, envField } from 'astro/config';
 
 import react from '@astrojs/react';
 
-import alpinejs from '@astrojs/alpinejs';
-
 import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
   adapter: node({
-    mode: 'standalone',
+    mode: 'middleware',
   }),
   env: {
       schema: {
@@ -28,5 +26,5 @@ export default defineConfig({
       ],
   },
 
-  integrations: [react(), alpinejs()],
+  integrations: [react()],
 });
