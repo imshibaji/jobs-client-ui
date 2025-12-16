@@ -1,0 +1,40 @@
+---
+import Card from "@/components/Card.astro";
+import OfferItem from "./OfferItem.astro";
+import { useHttpClient } from "@/utils/useHttpClient";
+import { APP_URL } from "astro:env/server";
+import { setStore } from "@/utils/stores/store";
+const token = Astro.cookies.get("token")?.value as string;
+const offers = await useHttpClient(token).get(APP_URL + "/offers").then(res => res.json());
+const jobs = await useHttpClient(token).get(APP_URL + "/jobs").then(res => res.json());
+const companies = await useHttpClient(token).get(APP_URL + "/companies").then(res => res.json());
+const applicants = await useHttpClient(token).get(APP_URL + "/applicants").then(res => res.json());
+const applications = await useHttpClient(token).get(APP_URL + "/applications").then(res => res.json());
+const users = await useHttpClient(token).get(APP_URL + "/users").then(res => res.json());
+
+const combinedData = offers.map((offer: any) => {
+    const job = jobs.find((job: any) => job.id === offer.jobId);
+    const company = companies.find((company: any) => company.id === job.companyId);
+    const applicant = applicants.find((applicant: any) => applicant.id === offer.applicantId);
+    const application = applications.find((application: any) => application.id === offer.applicationId);
+    const user = users.find((user: any) => user.id === offer.userId);
+    return { ...offer, job, company, applicant, application, user };
+});
+---
+<!-- List of Interviews -->
+<Card title="All Job Offers">
+    <a slot="header-actions" href="/admin/offers/create" class="btn btn-primary px-6">Create Offer</a>
+    <div class="space-y-3">
+        {
+            combinedData.map((offer: any) => {
+                return (
+                    <OfferItem id={offer.id} 
+                        title={'Job Offer: '+ offer.job?.title+' ('+offer.company?.name!+') for '+offer.applicant?.name!+' by '+offer.user?.name! } 
+                        description={offer.message + '. Joining Date: ' + (new Date(offer.date)).toDateString().split(' ').slice(1, 4).join(' ') + ''} 
+                        status={offer.status} 
+                    />
+                )
+            })
+        }
+    </div>
+</Card>

@@ -30,7 +30,7 @@ const defaultFormData: Applicant = {
     skills: '',
     experience: '',
     location: '',
-    resume: null,
+    resume: '',
     userId: 0
 };
 

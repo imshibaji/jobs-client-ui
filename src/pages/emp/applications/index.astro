@@ -1,7 +1,15 @@
 ---
 import EmployeeLayout from "@/layouts/EmpLayout.astro";
-import RecentApplicant from "@/components/back/RecentApplicant.astro";
+import Card from "@/components/Card.astro";
+import ApplicationItem from "./_parts/ApplicationItem.astro";
 ---
 <EmployeeLayout>
-  <RecentApplicant client:load />
+  <Card title="Applications List">
+    <div class="flex flex-col gap-4">
+      <ApplicationItem />
+      <ApplicationItem />
+      <ApplicationItem />
+      <ApplicationItem />
+    </div>
+  </Card>
 </EmployeeLayout>

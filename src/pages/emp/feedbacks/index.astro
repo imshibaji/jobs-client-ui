@@ -1,0 +1,20 @@
+---
+import EmpLayout from "@/layouts/EmpLayout.astro";
+import QuickHighlight from "./_parts/QuickHighlight.astro";
+import Card from "@/components/Card.astro";
+import FeedbackItem from "./_parts/FeedbackItem.astro";
+
+---
+
+<EmpLayout>
+  <QuickHighlight />
+  <Card title="Feedbacks">
+    <a slot="header-actions" href="/admin/feedbacks/create" class="btn btn-primary px-6">Create Feedback</a>
+    <div class="flex flex-col gap-4">
+      <FeedbackItem />
+      <FeedbackItem />
+      <FeedbackItem />
+      <FeedbackItem />
+    </div>
+  </Card>
+</EmpLayout>

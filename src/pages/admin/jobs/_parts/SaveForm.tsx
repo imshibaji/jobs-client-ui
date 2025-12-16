@@ -58,8 +58,8 @@ export default function SaveForm({token, jobId}: {token: string, jobId?: string 
             return data.json();
         })
         .then((data: User[]) => {
-            // console.log(data);
-            setUsers(data);
+            const filteredData = data.filter((user: User) => user.role !== 'user');
+            setUsers(filteredData);
         }).catch((err: Error) => {
             console.log(err);
         });

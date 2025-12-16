@@ -1,6 +1,10 @@
+---
+const user = Astro.cookies.get('user')?.json();
+const name = user ? user.name.split(' ')[0] : 'Candidate';
+---
 <header class="flex flex-col md:flex-row md:items-center justify-between mb-6">
     <div>
-      <h2 class="text-3xl font-semibold text-purple-800">Welcome Back, Mahak!</h2>
+      <h2 class="text-3xl font-semibold text-purple-800">Welcome Back, {name}!</h2>
       <p class="text-gray-600">Here’s what’s happening with your job search today.</p>
     </div>
     <a href="/user/career/profile" class="mt-4 md:mt-0 bg-purple-700 text-white px-5 py-2 rounded-xl hover:bg-purple-800 transition">Edit Profile</a>

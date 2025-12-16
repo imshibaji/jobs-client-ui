@@ -1,0 +1,12 @@
+---
+import RichCard from "@/components/RichCard.astro";
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import SaveForm from "./_parts/SaveForm";
+const token = Astro.cookies.get('token')?.value as string;
+---
+<AdminLayout>
+   <RichCard title="Create Interview">
+        <a slot="header-actions" href="/admin/interviews" class="btn btn-primary px-6">Back to List</a>
+        <SaveForm token={token} client:load />
+   </RichCard>
+</AdminLayout>

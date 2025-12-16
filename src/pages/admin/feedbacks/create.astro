@@ -1,0 +1,12 @@
+---
+import RichCard from "@/components/RichCard.astro";
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import SaveForm from "./_parts/SaveForm";
+const token = Astro.cookies.get('token')?.value as string;
+---
+
+<AdminLayout>
+    <RichCard title="Create Feedback" action={{ url: "/admin/feedbacks" }}>
+        <SaveForm token={token} client:load />
+    </RichCard>
+</AdminLayout>

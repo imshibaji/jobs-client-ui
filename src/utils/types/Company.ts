@@ -1,3 +1,4 @@
+import { Applicant } from "./Applicant";
 import { User } from "./User";
 
 export interface Company {
@@ -158,7 +159,6 @@ export interface Application {
 
     interviews?: Interview[];
     offers?: Offer[];
-    joinings?: Joining[];
     createdAt?: string;
     updatedAt?: string;
 }
@@ -177,73 +177,12 @@ export enum ApplicationStatus {
     COMPLETED = 'Completed',
 }
 
-export interface Interview {
-    id?: number;
-    applicationId?: number;
-    userId?: number;
-    date: string;
-    time: string;
-    location: string;
-    notes?: string;
-    feedback?: string;
-    status?: string;
-}
-
-export enum InterviewStatus {
-    SCHEDULED = 'Scheduled',
-    IN_PROGRESS = 'In Progress',
-    COMPLETED = 'Completed',
-    CANCELLED = 'Cancelled',
-}
-
-export interface Offer {
-    id?: number;
-    applicationId?: number;
-    userId?: number;
-    jobId?: number;
-    letter: string;
-    date: string;
-    status?: string;
-    type?: string;
-    attachment?: string;
-}
-
-export enum OfferStatus {
-    PENDING = 'Pending',
-    ACCEPTED = 'Accepted',
-    DECLINED = 'Declined',
-    EXPIRED = 'Expired',
-}
-
-export enum OfferType {
-    PERMANENT = 'Permanent',
-    TEMPORARY = 'Temporary',
-    CONTRACT = 'Contract',
-}
-
-export interface Joining {
-    id?: number;
-    jobId?: number;
-    userId?: number;
-    applicantId?: number;
-    applicationId?: number;
-    letter: string;
-    date: string;
-    status?: string;
-}
-
-export enum JoiningDateStatus {
-    PENDING = 'Pending',
-    ACCEPTED = 'Accepted',
-    DECLINED = 'Declined',
-}
-
 export function getOfferByApplicationId( offers: Offer[], applicantId: number | string): Offer {
     return offers.filter((offer: Offer) => offer.applicationId === applicantId)[0];
 }
 
-export function getInterviewByApplicationId( interviews: Interview[], applicantId: number | string): Interview {
-    return interviews.filter((interview: Interview) => interview.applicationId === applicantId)[0];
+export function getInterviewByApplicationId( interviews: Interview[], applicationId: number | string): Interview {
+    return interviews.filter((interview: Interview) => interview.applicationId === applicationId)[0];
 }
 
 export function getApplication( applications: Application[], id: number | string): Application {
@@ -260,4 +199,59 @@ export function getApplicationsByUser( applications: Application[], userId: numb
 
 export function getApplicationsByStatus( applications: Application[], status: string): Application[] {
     return applications.filter((application: Application) => application.status === status);
+}
+
+export interface Interview {
+    id?: number | string;
+    applicationId?: number | string;
+    userId?: number | string;  // Interviewer / Recruiter ID
+    date: string;
+    time: string;
+    location: string;
+    notes?: string;
+    feedback?: string;
+    status?: string;
+}
+
+export enum InterviewStatus {
+    SCHEDULED = 'Scheduled',
+    PENDING = 'Pending',
+    PROGRESS = 'Progress',
+    REJECTED = 'Rejected',
+    COMPLETED = 'Completed',
+    CANCELLED = 'Cancelled',
+}
+
+export function getApplicant( applicants: Applicant[], id: number | string): Applicant {
+    return applicants.filter((applicant: Applicant) => applicant.id === id)[0];
+}
+
+export interface Offer {
+    id?: number | string;
+    applicationId?: number | string;
+    applicantId?: number | string;
+    userId?: number | string;
+    jobId?: number | string;
+    message: string;
+    date: string;
+    status?: string;
+    type?: string;
+    attachment?: string;
+}
+
+export enum OfferStatus {
+    PENDING = 'Pending',
+    ACCEPTED = 'Accepted',
+    DECLINED = 'Declined',
+    EXPIRED = 'Expired',
+}
+
+export enum OfferType {
+    PERMANENT = 'Permanent',
+    FULL_TIME = 'Full Time',
+    PART_TIME = 'Part Time',
+    INTERNSHIP = 'Internship',
+    VOLUNTEER = 'Volunteer',
+    TEMPORARY = 'Temporary',
+    CONTRACT = 'Contract',
 }

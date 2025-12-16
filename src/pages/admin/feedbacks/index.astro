@@ -1,0 +1,14 @@
+---
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import QuickHighlight from "./_parts/QuickHighlight.astro";
+import Card from "@/components/Card.astro";
+import AllFeedbacks from "./_parts/AllFeedbacks.astro";
+---
+
+<AdminLayout>
+  <QuickHighlight />
+  <Card title="Feedbacks">
+    <a slot="header-actions" href="/admin/feedbacks/create" class="btn btn-primary px-6">Create Feedback</a>
+    <AllFeedbacks />
+  </Card>
+</AdminLayout>

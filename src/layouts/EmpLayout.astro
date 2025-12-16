@@ -2,7 +2,7 @@
 import "@/styles/global.css";
 import Sidebar from "@/components/back/Sidebar.astro";
 import TopBar from "@/components/back/TopBar.astro";
-import { House, LayoutDashboard, ListTodo, Settings, StickyNote } from "@lucide/astro";
+import { MailCheckIcon, PencilRulerIcon, House, LayoutDashboard, ListTodo, Settings, StickyNote, MessageCircleMoreIcon } from "@lucide/astro";
 import { User } from "@/utils/types/User";
 const user = Astro.cookies.get('user')?.json() as User;
 
@@ -18,15 +18,30 @@ let menus = [
         link: "/emp/applications",
     },
     {
+        name: "Interviews",
+        icon: PencilRulerIcon,
+        link: "/emp/interviews",
+    },
+    {
         name: "Jobs List",
         icon: ListTodo,
         link: "/emp/jobs",
     },
     {
-        name: "Companies List",
+        name: "Offers List",
+        icon: MailCheckIcon,
+        link: "/emp/offers",
+    },
+    {
+        name: "Your Companies",
         icon: ListTodo,
         link: "/emp/company",
     },
+    {
+        name: "Feedbacks",
+        icon: MessageCircleMoreIcon,
+        link: "/emp/feedbacks",
+    }
 ];
 
 menus = user && user.role === "admin" ? [

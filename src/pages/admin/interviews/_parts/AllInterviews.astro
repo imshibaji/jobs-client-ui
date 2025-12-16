@@ -1,0 +1,57 @@
+---
+import Card from "@/components/Card.astro";
+import InterviewItem from "./InterviewItem.astro";
+import { Application, getApplicant, getApplication, Interview } from "@/utils/types/Company";
+import { useHttpClient } from "@/utils/useHttpClient";
+import { APP_URL } from "astro:env/server";
+import { Applicant } from "@/utils/types/Applicant";
+import { getUser } from "@/utils/types/Company";
+import { getJob } from "@/utils/types/Company";
+import PageNav from "@/components/PageNav.astro";
+import { getSSRPagination } from "@/utils/paginationUtils";
+import QuickHighlight from "./QuickHighlight.astro";
+
+const token = Astro.cookies.get('token')?.value as string;
+const {get} = useHttpClient(token);
+const interviews = await get(APP_URL + '/interviews').then(res => res.json()) as Interview[];
+const applicantions = await get(APP_URL + '/applications').then(res => res.json()) as Application[];
+const jobs = await get(APP_URL + '/jobs').then(res => res.json());
+const applicants = await get(APP_URL + '/applicants').then(res => res.json()) as Applicant[];
+const users = await get(APP_URL + '/users').then(res => res.json());
+
+const combined = interviews.map((interview: any) => {
+    return {
+        ...interview,
+        application: getApplication(applicantions, interview.applicationId),
+        applicant: getApplicant(applicants, getApplication(applicantions, interview.applicationId).applicantId!),
+        job: getJob(jobs, getApplication(applicantions, interview.applicationId).jobId!),
+        manager: getUser(users, interview.userId!)
+    }
+});
+
+// console.log(combined);
+
+const {page} = getSSRPagination(combined, Astro.url, 5, '/admin/interviews');
+
+---
+
+<QuickHighlight interviews={interviews} />
+
+<!-- List of Interviews -->
+<Card class="mb-4" title="Interviews Scheduled">
+    <a slot="header-actions" href="/admin/interviews/create" class="btn btn-primary px-6">Create Interview</a>
+    <div class="space-y-3">
+        {
+            page.data.map((interview: any) => (
+                <InterviewItem id={interview.id} 
+                    title={interview.notes + " for " + interview.applicant.name + ". Scheduled on " + interview.date+" at " + interview.time+" | " + interview.location} 
+                    description={"Candidate: "+ interview.applicant.name + " - " + interview.application.coverLetter + " - " + interview.job.title + ". Scheduled on " + interview.date+" at " + interview.time+" in " + interview.location+" with " + interview.manager.name}
+                    status={interview.status}
+                />
+            ))
+        }
+    </div>
+    <div>
+        <PageNav page={page} />
+    </div>
+</Card>

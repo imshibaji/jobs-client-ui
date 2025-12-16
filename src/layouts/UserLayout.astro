@@ -2,7 +2,7 @@
 import "@/styles/global.css";
 import Sidebar from "@/components/back/Sidebar.astro";
 import TopBar from "@/components/back/TopBar.astro";
-import { Container, Home, LayoutDashboard, Settings, ShieldCheck, Sparkles, Sprout } from "@lucide/astro";
+import { Container, Home, LayoutDashboard, MessageCircleMoreIcon, Settings, ShieldCheck, Sparkles, Sprout } from "@lucide/astro";
 import { User } from "@/utils/types/User";
 const user = Astro.cookies.get('user')?.json() as User;
 
@@ -18,14 +18,14 @@ let menus = [
         link: "/user/jobs",
     },
     {
-        name: "Career Growth",
+        name: "Offer Letters",
         icon: Sprout,
         link: "/user/career/growth",
     },
     {
-        name: "Empowerment & Motivation",
-        icon: Sparkles,
-        link: "/user/career/motivation",
+        name: "Feedbacks",
+        icon: MessageCircleMoreIcon,
+        link: "/user/feedbacks",
     },
     {
         name: "Trust & Safety",

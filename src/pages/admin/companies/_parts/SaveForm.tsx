@@ -40,7 +40,8 @@ export default function SaveForm({token, companyId}: {token: string, companyId?:
             }
             return res.json()
             .then((data: User[]) => {
-                setUsers(data);
+                const filteredData = data.filter((user: User) => user.role !== 'user');
+                setUsers(filteredData);
             });
         })
         .catch((err) => {

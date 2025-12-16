@@ -1,0 +1,15 @@
+---
+import DeleteCard from "@/components/DeleteCard";
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { BASE_URL } from "astro:env/client";
+const token = Astro.cookies.get('token')?.value as string;
+const { id } = Astro.params;
+---
+
+<AdminLayout>
+    <DeleteCard token={token} title="Feedback" deletePostUrl={BASE_URL + '/feedbacks/' + id} cancelUrl={'/admin/feedbacks'} client:load>
+        <div class="col-span-2">
+            <p>Are you sure you want to delete this feedback?</p>
+        </div>
+    </DeleteCard>
+</AdminLayout>

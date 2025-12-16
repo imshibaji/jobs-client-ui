@@ -1,12 +1,10 @@
 ---
 import EmployeeLayout from "@/layouts/EmpLayout.astro";
-import Card from "@/components/Card.astro";
-import JobDetailsForm from "@/components/back/JobDetailsForm.astro";
+import SaveForm from "./_parts/SaveForm";
+import { User } from "@/utils/types/User";
+const token = Astro.cookies.get('token')?.value as string;
+const user = Astro.cookies.get('user')?.json() as User;
 ---
 <EmployeeLayout>
-  <Card>
-    <div class="flex flex-col sm:flex-row gap-4 sm:gap-10">
-      <JobDetailsForm />
-    </div>
-  </Card>
+  <SaveForm token={token} user={user} client:load />
 </EmployeeLayout>

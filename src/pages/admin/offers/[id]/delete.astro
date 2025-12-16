@@ -1,0 +1,16 @@
+---
+import DeleteCard from "@/components/DeleteCard";
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { APP_URL } from "astro:env/server";
+const token = Astro.cookies.get('token')?.value as string;
+const { id } = Astro.params;
+---
+
+<AdminLayout>
+    <DeleteCard token={token} title="Offer" cancelUrl={'/admin/offers'} deletePostUrl={APP_URL + '/offers/' + id} client:load>
+        <div class="col-span-2">
+            <p>Are you sure you want to delete this offer?</p>
+            <p>Offer ID: <span class="font-mono text-sm bg-gray-100 p-1 rounded">{id}</span></p>
+        </div>
+    </DeleteCard>
+</AdminLayout>

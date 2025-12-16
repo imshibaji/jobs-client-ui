@@ -1,0 +1,19 @@
+---
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { APP_URL } from "astro:env/server";
+import { useHttpClient } from "@/utils/useHttpClient";
+import { Interview } from "@/utils/types/Company";
+import DeleteCard from "@/components/DeleteCard";
+import { BASE_URL } from "astro:env/client";
+const token = Astro.cookies.get('token')?.value as string;
+
+const { id } = Astro.params;
+const interview = await useHttpClient(token).get(APP_URL + '/interviews/'+id).then(res => res.json()) as Interview;
+---
+<AdminLayout>
+    <DeleteCard token={token} title="Interview" cancelUrl={'/admin/interviews'} deletePostUrl={BASE_URL + '/interviews/' + id} client:load>
+        <div class="col-span-2">
+            <p>Are you sure you want to delete the interview for {interview.notes} on {interview.date}?</p>
+        </div>
+    </DeleteCard>
+</AdminLayout>
