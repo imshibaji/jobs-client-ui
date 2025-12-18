@@ -1,16 +1,12 @@
 ---
 import EmployeeLayout from "@/layouts/EmpLayout.astro";
 import Card from "@/components/Card.astro";
-import CompanyItem from "./_parts/CompanyItem.astro";
+import CompaniesList from "./_parts/List.astro";
 ---
 <EmployeeLayout>
   <Card title="Company List">
     <a slot="header-actions" href="/emp/company/add" class="btn btn-primary px-6">Add Company</a>
-    <div class="flex flex-col gap-4">
-      <CompanyItem />
-      <CompanyItem />
-      <CompanyItem />
-      <CompanyItem />
-    </div>
+    <hr class="border-gray-200 my-6" />
+    <CompaniesList />
   </Card>
 </EmployeeLayout>

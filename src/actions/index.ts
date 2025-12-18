@@ -1,3 +1,4 @@
+import getServerData from "./getServerData";
 import login from "./login";
 import register from "./register";
 import token from "./token";
@@ -7,5 +8,6 @@ export const server = {
     register,
     login,
     token,
-    tokenToUser
+    tokenToUser,
+    getServerData
 };

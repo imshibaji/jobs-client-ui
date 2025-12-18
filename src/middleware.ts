@@ -46,4 +46,17 @@ const adminAuth = defineMiddleware(async (context, next) => {
     return next();
 });
 
-export const onRequest = sequence(userAuth, employerAuth, adminAuth);
+const combinedAuth = defineMiddleware(async (context, next) => {
+    // You can add combined authentication logic here if needed
+    const token = context.cookies.get("token")?.value;
+    if(token) {
+        const extract = await verifyToken(token);
+        const user = extract?.user as User;
+        user.id = extract?.sub;
+        context.locals.user = user;
+        context.locals.token = token;
+    }
+    return next();
+});
+
+export const onRequest = sequence(userAuth, employerAuth, adminAuth, combinedAuth);

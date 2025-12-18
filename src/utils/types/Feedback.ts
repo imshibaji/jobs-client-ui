@@ -41,9 +41,3 @@ export enum FeedbackRating {
 export const getDataList = (datas: Feedback[], tableName: FeedbackTableName): Feedback[] => {
     return datas.filter((data: Feedback) => data.tableName === tableName);
 }
-
-export const getDataFromServer = async (token: string, tableName: string) => {
-    const {get} = useHttpClient(token);
-    const data =  await get(BASE_URL + `/${tableName}`).then(res => res.json()) as any[];
-    return data;
-}

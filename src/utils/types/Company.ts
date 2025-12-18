@@ -16,6 +16,10 @@ export interface Company {
     email: string;
     phoneNumber: string;
     website?: string;
+    description?: string;
+    founded?: number;
+    isVerified?: boolean;
+    isDeleted?: boolean;
     userId?: number;
 }
 
