@@ -1,6 +1,5 @@
 import { BASE_URL } from "astro:env/client";
 import { useHttpClient } from "./useHttpClient";
-import { actions, getActionContext } from "astro:actions";
 
 export const getDataFromServer = async (token: string, tableName: string, userId?: string | number) => {
     const {get} = useHttpClient(token);

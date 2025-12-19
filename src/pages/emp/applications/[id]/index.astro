@@ -1,0 +1,258 @@
+---
+import EmployerLayout from "@/layouts/EmpLayout.astro";
+import { Applicant, Education, Experience, Skill } from "@/utils/types/Applicant";
+import { Application, Company, Interview, Job } from "@/utils/types/Company";
+import { User } from "@/utils/types/User";
+import { useHttpClient } from "@/utils/useHttpClient";
+import { Calendar1, CalendarCheck } from "@lucide/astro";
+import { BASE_URL } from "astro:env/client";
+import { APP_URL } from "astro:env/server";
+const token = Astro.cookies.get('token')?.value as string;
+const {get} = useHttpClient(token);
+const { id } = Astro.params;
+
+// Data Fetching with Related Data
+const data = await get(`${APP_URL}/applications/${id}`).then(res => res.json()) as Application;
+const interviewsData = await get(`${APP_URL}/interviews`).then(res => res.json()) as Interview[];
+const interviews = interviewsData && interviewsData.filter((interview) => interview.applicationId === data.id) as Interview[];
+const manager = await get(`${APP_URL}/users/${data.userId}`).then(res => res.json()) as User;
+const applicant = await get(`${APP_URL}/applicants/${data.applicantId}`).then(res => res.json()) as Applicant;
+const skillsData = await get(`${APP_URL}/skills/`).then(res => res.json()) as Skill[];
+const skills = skillsData && skillsData.filter((skill) => skill.applicantId === applicant.id) as Skill[];
+const experiencesData = await get(`${APP_URL}/experiences`).then(res => res.json()) as Experience[];
+const experiences = experiencesData && experiencesData.filter((experience) => experience.applicantId === applicant.id) as Experience[];
+const educationsData = await get(`${APP_URL}/education`).then(res => res.json()) as Education[];
+const educations = educationsData.length > 0 && educationsData.filter((education) => education.applicantId === applicant.id) as Education[];
+const job = await get(`${APP_URL}/jobs/${data.jobId}`).then(res => res.json()) as Job;
+const company = await get(`${APP_URL}/companies/${job?.companyId}`).then(res => res.json()) as Company;
+
+// Resume Download Link
+const dataExt = data.resume && data.resume.split('.').pop();
+const applicantExt = applicant.resume && applicant.resume?.split('.').pop();
+const resume = `${BASE_URL}/file/download?OutputFileName=${applicant.name+'.'+(dataExt || applicantExt)}&Filename=${data.resume || applicant.resume}&Type=*/*&Folder=resumes`;
+// console.log(resume);
+---
+
+<EmployerLayout>
+    <div class="max-w-6xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 border-t-8 border-violet-600">
+            
+            <!-- Header and Back Button -->
+            <div class="flex items-start justify-between mb-6">
+                <div>
+                    <h1 class="text-violet-700 text-3xl font-extrabold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Application Dossier
+                    </h1>
+                    <p class="text-gray-500 mt-1">Detailed view of application for {job?.title} at {company?.name}</p>
+                </div>
+                <a href="/emp/applications" class="bg-gray-200 text-gray-700 px-5 py-2 rounded-xl text-sm font-semibold hover:bg-gray-300 transition duration-200 shadow-md">
+                    &larr; Back to Applications
+                </a>
+            </div>
+            
+            <hr class="border-gray-200 my-6" />
+
+            <!-- Application Summary & Status -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 p-5 bg-violet-50 rounded-xl border border-violet-100">
+                <div class="md:col-span-2">
+                    <p class="data-label">Application Cover Letter</p>
+                    <h3 class="text-violet-700 text-lg font-bold">{data.coverLetter}</h3>
+                    <p class="data-label">{data.details}</p>
+                </div>
+                <div>
+                    <p class="data-label">Application Date</p>
+                    <h3 class="data-value text-gray-800">{new Date(data.createdAt!).toString().split('GMT')[0]}</h3>
+                </div>
+                <div>
+                    <p class="data-label">Application Status</p>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-lg font-bold bg-yellow-100 text-yellow-800 shadow-sm">
+                        {data.status}
+                    </span>
+                </div>
+                <div class="md:col-span-4">
+                    <p class="data-label">Application Details (Internal Notes)</p>
+                    <p class="data-value italic">
+                        {interviews.length > 0 ? interviews.map((interview) => `${interview.notes} `) : 'No interviews scheduled yet'}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Main Content Grid: Applicant & Job Details Side-by-Side -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                <!-- COLUMN 1: APPLICANT DETAILS (Candidate) -->
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-extrabold text-gray-800 border-b-2 border-gray-200 pb-3 mb-4 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        Applicant Details: {applicant && applicant.name}
+                    </h2>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-2">
+                            <p class="data-label">Bio Snippet</p>
+                            <p class="data-value italic">{applicant && applicant.bio}</p>
+                        </div>
+                        
+                        <div>
+                            <p class="data-label">Contact</p>
+                            <p class="data-value">{applicant && applicant.phoneNumber} / {applicant && applicant.email ? <a href={`mailto:${applicant.email}`} class="text-blue-600 hover:underline">{applicant.email}</a> : ''}</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Location</p>
+                            <p class="data-value">{applicant && applicant.address}, {applicant && applicant.city}, {applicant && applicant.state}, {applicant && applicant.country}, ({applicant && applicant.zipCode})</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Gender / DOB</p>
+                            <p class="data-value">{applicant && applicant.gender} / {applicant && applicant.dob?.slice(0, 10)}</p>
+                        </div>
+                        {(data.resume || applicant.resume) && <div>
+                            <p class="data-label">Resume Link</p>
+                            <a href={resume} target="_blank" class="data-value text-violet-600 hover:underline">Download Resume.pdf</a>
+                        </div>}
+                    </div>
+
+                    <!-- Applicant Skills/Experience Sub-Section -->
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 space-y-4">
+                        <h3 class="text-lg font-bold text-gray-700">Experience & Education</h3>
+                        
+                        <div>
+                            <p class="data-label">Top Skills</p>
+                            <div class="flex flex-wrap gap-2">
+                                {
+                                    applicant && applicant.skills && applicant.skills.split(',').map((skill: string) => (
+                                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-3 py-1 rounded-full">{skill}</span>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                        {
+                            skills && skills.length > 0 && <div>
+                            <p class="data-label">Relevant Skills</p>
+                            <div class="flex flex-wrap gap-2">
+                                <ul class="list-disc list-inside text-gray-700 text-sm ml-2 space-y-1">
+                                {
+                                    skills && skills.length > 0 && skills.map((skill: Skill) => (
+                                        <li><span class="font-semibold">{skill.name}</span>, <span class="text-violet-600">{skill.proficiency}</span>, {skill.experience} of experience. Last used: {skill.lastUsed}</li>
+                                    ))
+                                }
+                                </ul>
+                            </div>
+                        </div>}
+                        <div>
+                            <p class="data-label">Relevant Experiences</p>
+                            <ul class="list-disc list-inside text-gray-700 text-sm ml-2 space-y-1">
+                                {
+                                    experiences && experiences.length > 0 && experiences.map((experience: Experience) => (
+                                        <li><span class="font-semibold">{experience.position}</span> for <span class="font-semibold">{experience.company}</span> (Used: <span class="font-semibold">{experience.usedSkills}</span>), (<span class="font-semibold">{experience.location}</span>), Duration: <span class="font-semibold">{experience.startDate} - {experience.endDate ? experience.endDate : 'Present'}</span></li>
+                                    ))
+                                }
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <p class="data-label">Education</p>
+                            <ul class="list-disc list-inside text-gray-700 text-sm ml-2 space-y-1">
+                                {
+                                    educations && educations.map((education: Education) => (
+                                        <li><span class="font-semibold">{education.degree}</span> in <span class="font-semibold">{education.fieldOfStudy}</span> from <span class="font-semibold">{education.institution}</span>, Graduated: <span class="font-semibold">{education.startDate} - {education.endDate ? education.endDate : 'Present'}</span></li>
+                                    ))
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUMN 2: JOB & COMPANY DETAILS -->
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-extrabold text-gray-800 border-b-2 border-gray-200 pb-3 mb-4 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-violet-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15.711m0 0l-1.558 1.559m1.558-1.559l1.558 1.559M12 15.711V18c0 .354.022.698.065 1.033M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Job & Hiring Details
+                    </h2>
+
+                    <!-- Job Card -->
+                    <div class="bg-violet-50 p-4 rounded-xl border border-violet-100 shadow-md space-y-4">
+                        <h3 class="text-xl font-bold text-violet-800">Job Title: {job && job.title} at { company && company.name}</h3>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <h4 class="data-label">Location / Type</h4>
+                                <p class="data-value">{job && job.location} / {job && job.employmentType}</p>
+                            </div>
+                            <div>
+                                <h4 class="data-label">Compensation</h4>
+                                <p class="data-value">{job && job.currency} {job && job.salary}, {job && job.salaryRange} ({job && job.salaryType})</p>
+                            </div>
+                            <div class="col-span-2 space-y-3">
+                                <div>
+                                    <h4 class="data-label">Job Description</h4>
+                                    <p class="text-gray-700 text-sm">{job && job.description}</p>
+                                </div>
+                                <div>
+                                    <h4 class="data-label">Key Requirements</h4>
+                                    <p class="text-gray-700 text-sm">{job && job.requirements}</p>
+                                </div>
+                                <div>
+                                    <h4 class="data-label">Responsibilities</h4>
+                                    <p class="text-gray-700 text-sm">{job && job.responsibilities}</p>
+                                </div>
+                                <div>
+                                    <h4 class="data-label">Benefits</h4>
+                                    <p class="text-gray-700 text-sm">{job && job.benefits}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Company Card -->
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-md space-y-2">
+                        <h3 class="text-xl font-bold text-gray-700">Hiring Company: {company && company.name}</h3>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <p class="data-label">Contact Email</p>
+                                <a href={company && company.email ? `mailto:${company.email}` : '#'} class="data-value text-blue-600 hover:underline">{company && company.email}</a>
+                            </div>
+                            <div>
+                                <p class="data-label">Company Phone</p>
+                                <p class="data-value">{company && company.phoneNumber}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Manager Card -->
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-md space-y-2">
+                        <h3 class="text-xl font-bold text-gray-700">Assigned Manager: {manager && manager.name}</h3>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <p class="data-label">Manager Email</p>
+                                <a href={manager && manager.email ? `mailto:${manager.email}` : '#'} class="data-value text-blue-600 hover:underline">{manager && manager.email}</a>
+                            </div>
+                            <div>
+                                <p class="data-label">Manager Phone</p>
+                                <p class="data-value">{manager && manager.phoneNumber}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 pt-6 border-t border-gray-200 flex flex-col sm:flex-row gap-4">
+                <a href=`/emp/interviews/create?applicationId=${id}` class="flex-1 text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition duration-150 shadow-lg shadow-orange-200/50">
+                    <Calendar1 class="h-5 w-5 inline-block mr-2" />
+                    Schedule Interview
+                </a>
+                <a href=`/emp/offers/create?applicationId=${id}` class="flex-1 text-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-xl transition duration-150 shadow-lg shadow-green-200/50">
+                    <CalendarCheck class="h-5 w-5 inline-block mr-2" />
+                    Send Offer
+                </a>
+            </div>
+        </div>
+    </div>
+</EmployerLayout>

@@ -161,6 +161,10 @@ export interface Application {
     resume: string;
     status: string;
 
+    applicant?: Applicant;
+    job?: Job;
+    company?: Company;
+    user?: User;
     interviews?: Interview[];
     offers?: Offer[];
     createdAt?: string;
@@ -215,6 +219,11 @@ export interface Interview {
     notes?: string;
     feedback?: string;
     status?: string;
+
+    application?: Application;
+    applicant?: Applicant;
+    job?: Job;
+    company?: Company;
 }
 
 export enum InterviewStatus {

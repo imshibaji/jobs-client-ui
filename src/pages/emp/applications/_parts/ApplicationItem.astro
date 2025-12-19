@@ -1,15 +1,24 @@
+---
+import { Application } from '@/utils/types/Company';
+
+export interface Props{
+    application: Application;
+}
+const { application } = Astro.props;
+---
 <div class="flex flex-col md:flex-row w-full p-4 border border-purple-100 rounded-lg bg-purple-50 transition duration-200 ease-out hover:shadow-md">
     <div class="flex flex-col flex-1 mb-3 md:mb-0">
-        <p class="font-medium text-purple-800">Ajay Sharma applied for Digital Marketing Associate</p>
-        <p class="text-gray-600 text-sm">Digital Marketing Associate at WomenTech, Bengaluru.</p>
+        <p class="font-medium text-purple-800">{application.applicant?.name} Applied for {application.job?.title} at {application.company?.name}.</p>
+        <p class="text-gray-600 text-sm">{application.coverLetter}, {application.details}, set on {application.createdAt}</p>
     </div>
     <div class="flex flex-col mr-4 pl-4 border-t-2 md:border-t-0 md:border-l-2 border-purple-600">
         <div class="w-full text-center mb-3 md:mb-0">
             <p class="font-medium text-purple-80">Status</p>
-            <p class="text-green-600 text-sm">Accepted</p>
+            <p class="text-green-600 text-sm">{application.status}</p>
         </div> 
     </div>
-    <div class="flex md:ml-auto justify-center border-t-2 md:border-t-0 md:border-l-2 border-purple-600 pl-2">
-        <button class="text-purple-600 hover:text-purple-900 focus:ring-2 focus:outline-none focus:ring-purple-300 font-bold rounded-lg text-sm px-5 py-1.5 text-center ml-2">View Profile</button>
+    <div class="flex md:ml-auto justify-center items-center border-t-2 md:border-t-0 md:border-l-2 border-purple-600 pl-2">
+        <a href={`/emp/applications/${application.id}`} class="text-purple-600 hover:text-purple-900 focus:ring-2 focus:outline-none focus:ring-purple-300 font-bold rounded-lg text-sm px-5 py-1.5 text-center ml-2">View Details</a>
+        <!-- <a href={`/emp/applications/${application.id}/edit`} class="ml-4 text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-bold rounded-lg text-sm px-5 py-1.5 text-center">Edit Application</a> -->
     </div>
 </div>

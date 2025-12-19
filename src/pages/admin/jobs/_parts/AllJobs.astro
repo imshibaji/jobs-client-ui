@@ -1,13 +1,12 @@
 ---
-import { useHttpClient } from "@/utils/useHttpClient";
 import JobItem from "./JobItem.astro";
-import { APP_URL } from "astro:env/server";
 import { getSSRPagination } from "@/utils/paginationUtils";
-import { Job } from "@/utils/types/Company";
 import PageNav from "@/components/PageNav.astro";
+import { getDataFromServer } from "@/utils/getDataRequest";
+
 const token = Astro.cookies.get('token')?.value as string;
-const jobs = await useHttpClient(token).get(APP_URL + '/jobs').then(res => res.json());
-const companies = await useHttpClient(token).get(APP_URL + '/companies').then(res => res.json());
+const jobs = await getDataFromServer(token,'jobs');
+const companies = await getDataFromServer(token,'companies');
 const {page} = getSSRPagination(jobs, Astro.url, 5, '/admin/jobs');
 
 ---

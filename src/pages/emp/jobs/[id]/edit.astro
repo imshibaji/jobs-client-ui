@@ -1,0 +1,12 @@
+---
+import EmployeeLayout from '@/layouts/EmpLayout.astro';
+import SaveForm from '../_parts/SaveForm';
+import RichCard from '@/components/RichCard.astro';
+const { user, token } = Astro.locals as any;
+const { id } = Astro.params;
+---
+<EmployeeLayout>
+    <RichCard title="Edit Job" action={{ label: "Back to Job List", url: "/emp/jobs" }}>
+        <SaveForm token={token} jobId={id} user={user} client:load />
+    </RichCard>
+</EmployeeLayout>
