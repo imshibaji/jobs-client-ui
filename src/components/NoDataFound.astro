@@ -1,0 +1,7 @@
+---
+import { Database } from "@lucide/astro";
+const { title } = Astro.props;
+---
+<div class="border border-dashed border-violet-600 p-4 text-center my-2 text-violet-600 font-semibold">
+    <p class="flex flex-col items-center gap-2 text-center p-36"><Database size={48} /> {title || "No data found."}</p>
+</div>

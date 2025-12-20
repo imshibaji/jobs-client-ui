@@ -1,16 +1,12 @@
 ---
-import EmployeeLayout from "@/layouts/EmpLayout.astro";
+import EmployerLayout from "@/layouts/EmpLayout.astro";
 import Card from "@/components/Card.astro";
-import OfferItem from "./_parts/OfferItem.astro";
+import OfferList from "./_parts/OfferList.astro";
 ---
-<EmployeeLayout>
+<EmployerLayout>
   <Card title="Offers List">
     <a slot="header-actions" href="/emp/offers/create" class="btn btn-primary px-6">Create Offer</a>
-    <div class="flex flex-col gap-4">
-      <OfferItem />
-      <OfferItem />
-      <OfferItem />
-      <OfferItem />
-    </div>
+    <hr class="border-gray-200 my-6" />
+    <OfferList />
   </Card>
-</EmployeeLayout>
+</EmployerLayout>

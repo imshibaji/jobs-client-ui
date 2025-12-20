@@ -249,7 +249,7 @@ export interface Offer {
     date: string;
     status?: string;
     type?: string;
-    attachment?: string;
+    attachment?: string | File;
 }
 
 export enum OfferStatus {

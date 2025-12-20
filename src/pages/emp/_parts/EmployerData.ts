@@ -33,10 +33,24 @@ export async function getEmployerData(token: string, user?: User) {
         };
     });
 
-    const filteredOffers = offerData && offerData.filter((offer: Offer) => {
-        return filteredApplications.some((application: Application) => application.id === offer.applicationId);
+    let filteredOffers = offerData && offerData.filter((offer: Offer) => {
+        return applicationsData.some((application: Application) => application.id === offer.applicationId);
     });
 
+    filteredOffers = filteredOffers && filteredOffers.map((offer: Offer) => {
+        const application = applicationsData.find((app: Application) => app.id === offer.applicationId);
+        const applicant = applicantsData.find((applicant: Applicant) => applicant.id === offer?.applicantId);
+        const job = jobsData.find((job: Job) => job.id === offer?.jobId);
+        const company = companiesData.find((company: Company) => company.id === job?.companyId);
+        
+        return {
+            ...offer,
+            application: application,
+            applicant: applicant,
+            job: job,
+            company: company,
+        };
+    });
 
     let filteredInterviews = interviewData && interviewData.filter((interview: Interview) => {
         return filteredApplications.some((application: Application) => application.id === interview.applicationId);

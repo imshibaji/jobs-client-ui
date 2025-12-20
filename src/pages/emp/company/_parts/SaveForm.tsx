@@ -63,6 +63,7 @@ export default function SaveForm({token, companyId}: {token: string, companyId?:
                 alert("Error saving company details: " + err.message);
             });
         }
+        window.location.href = '/emp/companies';
     };
 
     return (

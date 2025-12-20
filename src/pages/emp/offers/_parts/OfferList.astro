@@ -1,0 +1,15 @@
+---
+import { getEmployerData } from "../../_parts/EmployerData";
+import OfferItem from "./OfferItem.astro";
+import NoDataFound from "@/components/NoDataFound.astro";
+const {token, user} = Astro.locals as any;
+const {offers} = await getEmployerData(token, user);
+---
+
+<div class="flex flex-col gap-4">
+    {
+        offers.length > 0 ? offers.map(offer => (
+            <OfferItem offer={offer} />
+        )): <NoDataFound title="No offers found." />
+    }
+</div>
