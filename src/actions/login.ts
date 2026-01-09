@@ -11,7 +11,7 @@ export default defineAction({
         rememberMe: z.boolean().optional(),
     }),
     handler: async ({ email, password, rememberMe }, context) => {
-        console.log(email, password, rememberMe);
+        // console.log(email, password, rememberMe);
         
         const response = await fetch(APP_URL +'/auth/login', {
             method: 'POST',
@@ -28,7 +28,7 @@ export default defineAction({
             
             // Set the cookie
             const expDate = new Date(extract?.exp! * 1000);
-            console.log(expDate);
+            // console.log(expDate);
             
             context.cookies.set('token', data.access_token, {
                 path: '/',
@@ -40,7 +40,7 @@ export default defineAction({
             // Update the user object / This error ignored because the user is not defined
             const user = extract?.user as User;
             user.id = extract?.sub;
-            console.log(user);
+            // console.log(user);
 
             // Set the cookie
             context.cookies.set('user', JSON.stringify(user), {

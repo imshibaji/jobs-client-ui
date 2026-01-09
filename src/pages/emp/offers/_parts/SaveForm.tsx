@@ -15,7 +15,7 @@ export default function SaveForm({token, user, offerId}: {token:string, user?: U
     const [jobs, setJobs] = useState<Job[]>([]);
     const [applications, setApplications] = useState<Application[]>([]);
     const [applicants, setApplicants] = useState<Applicant[]>([]);
-    const {post, put, get, upload} = useHttpClient(token);
+    const {post, put, get} = useHttpClient(token);
     const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<Offer>();
     const offerData = watch();
 

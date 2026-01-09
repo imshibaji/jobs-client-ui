@@ -135,8 +135,15 @@ export interface Job {
     salaryType?: string;
     salaryRange?: string;
     isRemote?: boolean;
+    referenceLink?: string;
     companyId?: number;
     userId?: number;
+    company?: Company;
+    applications?: Application[];
+    interviews?: Interview[];
+    offers?: Offer[];
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export function getCompany( companies: Company[], id: number | string): Company {

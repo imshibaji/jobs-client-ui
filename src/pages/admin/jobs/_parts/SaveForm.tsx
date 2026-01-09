@@ -23,6 +23,7 @@ export default function SaveForm({token, jobId}: {token: string, jobId?: string 
         salaryType: SalaryType.MONTHLY,
         salaryRange: SalaryRange.LESS_THAN_10K,
         isRemote: false,
+        referenceLink: '',
         companyId: 1,
         userId: 1
     });
@@ -161,7 +162,7 @@ export default function SaveForm({token, jobId}: {token: string, jobId?: string 
                         </select>
                     </div>
                     
-                    <div className="flex flex-col col-span-1 md:col-span-2">
+                    <div className="flex flex-col">
                         <label htmlFor="benefits">Benefits</label>
                         <input value={form.benefits} onChange={(e) => setForm({...form, benefits: e.target.value})} type="text" placeholder="Benefits" id="benefits" name="benefits" className="rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
                     </div>
@@ -169,6 +170,11 @@ export default function SaveForm({token, jobId}: {token: string, jobId?: string 
                     <div className="flex flex-col">
                         <label htmlFor="location">Job Location</label>
                         <input value={form.location} onChange={(e) => setForm({...form, location: e.target.value})} type="text" placeholder="Location" id="location" name="location" className="rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label htmlFor="referenceLink">Reference Link</label>
+                        <input value={form.referenceLink} onChange={(e) => setForm({...form, referenceLink: e.target.value})} type="text" placeholder="Reference Link" id="referenceLink" name="referenceLink" className="rounded-md border border-gray-300 px-4 py-2 focus:border-purple-500 focus:ring-purple-500" />
                     </div>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 items-end">
