@@ -1,16 +1,15 @@
 ---
-export const prerender = true;
 // NOTE: Renamed to be more generic, assuming this will be used for various data types.
 // We keep the old filename as requested, but the component logic is now a generic data table.
 
 // Define a generic structure for the data items
-interface Item {
+export interface Item {
     [key: string]: any;
     id: string; // 'id' is required for action links
 }
 
 // Define the structure for table headers/columns
-interface ItemHeader {
+export interface ItemHeader {
     key: string;       // The data key to display (e.g., 'name', 'email')
     label: string;     // The column title to show in the header
     classes?: string;  // Optional classes for the <td> element
@@ -63,8 +62,11 @@ const userHeaders = [
     { key: 'status', label: 'Status' }, // Handled as special badge case in JS
     { key: '_actions', label: 'Action' } // Handled as special links case in JS
 ];
+*/
 
-Usage:
+---
+
+<!-- Usage:
 <DataTableClient
     itemsJson={JSON.stringify(users)}
     itemHeadersJson={JSON.stringify(userHeaders)}
@@ -74,10 +76,7 @@ Usage:
     actionButtonLabel="Create New User"
     actionButtonHref="/admin/users/create"
     client:load
-  /> 
-*/
-
----
+  />  -->
 
 <div id="data-table-wrapper" class="mt-4 max-w-full mx-auto">
   <!-- Header Section -->

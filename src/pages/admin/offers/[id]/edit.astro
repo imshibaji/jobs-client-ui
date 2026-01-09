@@ -1,0 +1,13 @@
+---
+import RichCard from "@/components/RichCard.astro";
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import SaveForm from "../_parts/SaveForm";
+const token = Astro.cookies.get('token')?.value as string;
+const { id } = Astro.params;
+---
+
+<AdminLayout>
+    <RichCard title="Edit Offer" action={{ url: "/admin/offers" }}>
+        <SaveForm offerId={id} token={token} client:load />
+    </RichCard>
+</AdminLayout>

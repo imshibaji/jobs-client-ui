@@ -1,0 +1,13 @@
+---
+import { useHttpClient } from "@/utils/useHttpClient";
+import FeedbackItem from "./FeedbackItem.astro";
+import { BASE_URL } from "astro:env/client";
+import { Feedback } from "@/utils/types/Feedback";
+const token = Astro.cookies.get('token')?.value as string;
+const {get} = useHttpClient(token);
+const feedbacks = await get( BASE_URL + '/feedbacks').then(res => res.json());
+---
+
+<div class="flex flex-col gap-4">
+    {feedbacks.map((feedback: Feedback) => <FeedbackItem feedback={feedback} />)}
+</div>

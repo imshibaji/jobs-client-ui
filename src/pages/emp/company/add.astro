@@ -1,12 +1,13 @@
 ---
 import EmployeeLayout from "@/layouts/EmpLayout.astro";
-import Card from "@/components/Card.astro";
-import CompanyDetailsForm from "@/components/back/CompanyDetailsForm.astro";
+import RichCard from "@/components/RichCard.astro";
+import SaveForm from "./_parts/SaveForm";
+const token = Astro.cookies.get("token")?.value as string;
 ---
 <EmployeeLayout>
-  <Card>
+  <RichCard title="Add New Company" action={{ label: "Back to Company List", url: "/emp/company" }}>
     <div class="flex flex-col sm:flex-row gap-4 sm:gap-10">
-      <CompanyDetailsForm />
+      <SaveForm token={token} client:load />
     </div>
-  </Card>
+  </RichCard>
 </EmployeeLayout>

@@ -25,7 +25,7 @@ const educations = educationsData.length > 0 && educationsData.filter((education
 const job = await get(`${APP_URL}/jobs/${data.jobId}`).then(res => res.json()) as Job;
 const company = await get(`${APP_URL}/companies/${job?.companyId}`).then(res => res.json()) as Company;
 
-// Resume Link
+// Resume Download Link
 const dataExt = data.resume && data.resume.split('.').pop();
 const applicantExt = applicant.resume && applicant.resume?.split('.').pop();
 const resume = `${BASE_URL}/file/download?OutputFileName=${applicant.name+'.'+(dataExt || applicantExt)}&Filename=${data.resume || applicant.resume}&Type=*/*&Folder=resumes`;
@@ -159,7 +159,8 @@ const resume = `${BASE_URL}/file/download?OutputFileName=${applicant.name+'.'+(d
                                 {
                                     educations && educations.map((education: Education) => (
                                         <li><span class="font-semibold">{education.degree}</span> in <span class="font-semibold">{education.fieldOfStudy}</span> from <span class="font-semibold">{education.institution}</span>, Graduated: <span class="font-semibold">{education.startDate} - {education.endDate ? education.endDate : 'Present'}</span></li>
-                                    ))}
+                                    ))
+                                }
                             </ul>
                         </div>
                     </div>

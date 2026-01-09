@@ -56,6 +56,9 @@ export default function ApplyForm({token, id}: {token: string, id?: number | str
         get(BASE_URL + '/users')
         .then((data: Response) => {
             return data.json();
+        }).then((data: User[]) => {
+            const filteredData = data.filter((user: User) => user.role !== 'user');
+            return filteredData;
         })
         .then((data: User[]) => {
             setManagers(data);

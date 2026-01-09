@@ -40,7 +40,8 @@ export default function SaveForm({token, companyId}: {token: string, companyId?:
             }
             return res.json()
             .then((data: User[]) => {
-                setUsers(data);
+                const filteredData = data.filter((user: User) => user.role !== 'user');
+                setUsers(filteredData);
             });
         })
         .catch((err) => {
@@ -192,7 +193,7 @@ export default function SaveForm({token, companyId}: {token: string, companyId?:
                                 <input value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })}type="text" placeholder="India" id="country" name="country" className="p-3 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full shadow-sm" required/>
                             </div>
 
-                                                        <div>
+                            <div>
                                 <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700 mb-1">Zip Code</label>
                                 <input value={form.zipCode} onChange={(e) => setForm({ ...form, zipCode: e.target.value })}type="text" placeholder="700001" id="zipCode" name="zipCode" className="p-3 border border-gray-300 rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full shadow-sm" required/>
                             </div>
@@ -215,7 +216,7 @@ export default function SaveForm({token, companyId}: {token: string, companyId?:
                         </button>
                     </div>
                 </form>
-                </div>
+            </div>
         </div>
     );
 }

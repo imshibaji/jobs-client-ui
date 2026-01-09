@@ -9,3 +9,13 @@
 .data-large {
     @apply text-violet-700 font-extrabold text-2xl;
 }
+
+.input-field {
+    @apply appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150 ease-in-out placeholder-gray-400;
+}
+.input-readonly {
+    @apply appearance-none border-0 rounded-lg w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150 ease-in-out placeholder-gray-400;
+}
+.select-field {
+    @apply appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150 ease-in-out bg-white;
+}

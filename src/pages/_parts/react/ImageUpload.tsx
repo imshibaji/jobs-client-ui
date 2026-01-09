@@ -83,7 +83,7 @@ export function ImageUpload({user, token}:{user?:User, token?:string}) {
         <div className="bg-white shadow-lg rounded-2xl p-8 sm:p-8">
             <div className="flex flex-col justify-center items-center gap-4">
                 <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-3">Profile Picture</h2>
-                <img className="rounded-2xl aspect-square object-cover w-30 h-30" src={preview} alt="Profile Preview" />
+                <img className="rounded-2xl aspect-square object-cover w-60 h-60" src={preview} alt="Profile Preview" />
                 <input onChange={handleFileChange} type="file" accept="image/*" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
                 <button onClick={handleSubmit} className="w-full bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200">
                     Upload

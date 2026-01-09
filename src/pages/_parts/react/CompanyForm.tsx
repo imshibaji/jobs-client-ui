@@ -1,7 +1,7 @@
 import { HttpClient } from "@/utils/HttpClient";
 import { Company, Job } from "@/utils/types/Company";
 import { BASE_URL } from "astro:env/client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 export default function CompanyForm({token, jobPost}: { token: string, jobPost: any}) {
     const [companyForm, setCompanyForm] = useState<Company>({} as Company);
@@ -37,53 +37,30 @@ export default function CompanyForm({token, jobPost}: { token: string, jobPost: 
     }
 
      const companyRegister = async () => {
-        // Search for company
-        const companyData = await httpClient.get(BASE_URL + '/companies/search?key=name&value=' + companyForm.name);
-        if (companyData.length > 0) {
-            setCompanyForm(companyData[0]);
-            // Update Company
-            await httpClient.put(BASE_URL + '/companies/' + companyData[0].id, {
-                name: companyForm.name,
-                email: companyForm.email,
-                phoneNumber: companyForm.phoneNumber,
-                recruiterName: companyForm.recruiterName,
-                website: companyForm.website,
-                industryType: companyForm.industryType,
-                address: companyForm.address,
-                city: companyForm.city,
-                state: companyForm.state,
-                country: companyForm.country,
-                zipCode: companyForm.zipCode,
-                userId: companyForm.userId
-            });
-            setJobPostForm({...jobPostForm, companyId: companyData[0].id});
-            console.log(companyData);
+        // Register Company
+        const data = await httpClient.post(BASE_URL + '/companies', {
+            name: companyForm.name,
+            email: companyForm.email,
+            phoneNumber: companyForm.phoneNumber,
+            recruiterName: companyForm.recruiterName,
+            website: companyForm.website,
+            industryType: companyForm.industryType,
+            address: companyForm.address,
+            city: companyForm.city,
+            state: companyForm.state,
+            country: companyForm.country,
+            zipCode: companyForm.zipCode,
+            userId: companyForm.userId
+        });
+        setCompanyForm({...companyForm, id: data.id});
+        setJobPostForm({...jobPostForm, companyId: data.id});
+        console.log(data);
 
-            // Register Job
-            await jobPostRegister(companyData[0]);
-        }else{
-            // Register Company
-            const data = await httpClient.put(BASE_URL + '/companies', {
-                name: companyForm.name,
-                email: companyForm.email,
-                phoneNumber: companyForm.phoneNumber,
-                recruiterName: companyForm.recruiterName,
-                website: companyForm.website,
-                industryType: companyForm.industryType,
-                address: companyForm.address,
-                city: companyForm.city,
-                state: companyForm.state,
-                country: companyForm.country,
-                zipCode: companyForm.zipCode,
-                userId: companyForm.userId
-            });
-            setCompanyForm({...companyForm, id: data.id});
-            setJobPostForm({...jobPostForm, companyId: data.id});
-            console.log(data);
+        // Register Job
+        await jobPostRegister(data);
 
-            // Register Job
-            await jobPostRegister(data);
-        }
+        // Update User
+        await userUpdate();
     }
 
     const jobPostRegister = async (companyData: any) => {
@@ -111,6 +88,16 @@ export default function CompanyForm({token, jobPost}: { token: string, jobPost: 
         // Success
         alert('Welcome to the team!');
         window.location.href = '/emp';
+    }
+
+    const userUpdate = async () => {
+        // Update User
+        await httpClient.put(BASE_URL + '/auth/change-role', {
+            newRole: 'employer'
+        });
+        alert('Your account has been updated! Please login again.');
+        localStorage.removeItem('userToken');
+        window.location.href = '/logout';
     }
 
     return (<div>

@@ -1,0 +1,52 @@
+import { getDataFromServer } from "@/utils/getDataRequest";
+import { Applicant, Education, Experience, Skill } from "@/utils/types/Applicant";
+import { Application, Interview, Job, Offer } from "@/utils/types/Company";
+import { User } from "@/utils/types/User";
+
+export async function getUserData(token: string, user?: User) {
+    const applicantData = (await getDataFromServer(token, 'applicants', user?.id))[0] as Applicant;
+    const skillsData = await getDataFromServer(token, 'skills') as Skill[];
+    const filteredSkills = skillsData.filter((skill: Skill) => {
+        return skill.applicantId === applicantData.id
+    });
+    const experiencesData = await getDataFromServer(token, 'experiences') as Experience[];
+    const filteredExperiences = experiencesData.filter((experience: Experience) => {
+        return experience.applicantId === applicantData.id
+    });
+    const educationsData = await getDataFromServer(token, 'education') as Education[];
+    const filteredEducations = educationsData.filter((education: Education) => {
+        return education.applicantId === applicantData.id
+    });
+    const applicationsData = await getDataFromServer(token, 'applications', user?.id) as Application[];
+    const filteredApplications = applicationsData && applicationsData.filter((application: Application) => {
+        return application.applicantId === applicantData.id;
+    })
+    const jobsData = await getDataFromServer(token, 'jobs') as Job[];
+    const matchedJobs = jobsData.filter((job: Job) => {
+        return filteredSkills.some((skill: Skill) => {
+            return job.skills?.split(',').filter((jobSkill: string) => {                
+                return jobSkill === skill.name;
+            })
+        });
+    })
+    const interviewsData = await getDataFromServer(token, 'interviews') as Interview[];
+    const filteredInterviews = interviewsData.filter((interview: Interview) => {
+        return interview.applicationId === applicantData.id
+    })
+    const offersData = await getDataFromServer(token, 'offers') as Offer[];
+    const filteredOffers = offersData.filter((offer: Offer) => {
+        return offer.applicantId === applicantData.id
+    })
+    
+
+    return {
+        applicant: applicantData,
+        skills: filteredSkills,
+        experiences: filteredExperiences,
+        educations: filteredEducations,
+        jobs: matchedJobs.length > 0 ? matchedJobs : jobsData,
+        applications: filteredApplications,
+        interviews: filteredInterviews,
+        offers: filteredOffers
+    };
+}

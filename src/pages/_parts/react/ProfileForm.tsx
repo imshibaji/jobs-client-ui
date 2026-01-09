@@ -3,16 +3,21 @@ import { ImageUpload } from "./ImageUpload";
 import { useState } from "react";
 import { BASE_URL } from "astro:env/client";
 import ChangePassword from "./ChangePassword";
+import { useHttpClient } from "@/utils/useHttpClient";
 
 export default function ProfileForm({ user, token }: { user: User, token: string }) {
-  const [formData, setFormData] = useState({
+  const {put} = useHttpClient(token);
+  const [formData, setFormData] = useState<User>({
     name: user.name,
     email: user.email,
     phoneNumber: user.phoneNumber,
     linkedinId: user.linkedinId,
     instagramId: user.instagramId,
     twitterId: user.twitterId,
-    githubId: user.githubId
+    githubId: user.githubId,
+    facebookId: user.facebookId,
+    youtubeId: user.youtubeId,
+    role: user.role || 'user',
   });
   
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,26 +27,25 @@ export default function ProfileForm({ user, token }: { user: User, token: string
     console.log(BASE_URL+'/users/'+user.id);
     
     // Here you would typically handle the form submission, e.g., using fetch
-    fetch(BASE_URL+'/users/'+user.id, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({
+    put(BASE_URL+'/users/'+user.id, {
         name: formData.name || user.name,
         email: formData.email || user.email,
         phoneNumber: formData.phoneNumber || user.phoneNumber,
         linkedinId: formData.linkedinId || user.linkedinId,
         instagramId: formData.instagramId || user.instagramId,
         twitterId: formData.twitterId || user.twitterId,
-        githubId: formData.githubId || user.githubId
-      }),
+        githubId: formData.githubId || user.githubId,
+        facebookId: formData.facebookId || user.facebookId,
+        youtubeId: formData.youtubeId || user.youtubeId,
+        role: formData.role || user.role
     }).then(response => response.json()).then(data => {
       console.log(data);
 
       // Update the user object in the parent component
       alert('Profile updated successfully!');
+    }).catch(error => {
+      console.error(error);
+      alert('Error updating profile');
     });
   }
 
@@ -87,6 +91,14 @@ export default function ProfileForm({ user, token }: { user: User, token: string
               <div className="flex flex-row space-x-2 gap-2 w-full">
                 <label className="w-1/4" htmlFor="x">Github ID</label>
                 <input value={formData.githubId} onChange={(e) => setFormData({ ...formData, githubId: e.target.value })} type="text" placeholder="GitHub ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
+              </div>
+              <div className="flex flex-row space-x-2 gap-2 w-full">
+                <label className="w-1/4" htmlFor="x">Facebook ID</label>
+                <input value={formData.facebookId} onChange={(e) => setFormData({ ...formData, facebookId: e.target.value })} type="text" placeholder="Facebook ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
+              </div>
+              <div className="flex flex-row space-x-2 gap-2 w-full">
+                <label className="w-1/4" htmlFor="x">Youtube ID</label>
+                <input value={formData.youtubeId} onChange={(e) => setFormData({ ...formData, youtubeId: e.target.value })} type="text" placeholder="Youtube ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
               </div>
             </div>
             <button type="submit" className="w-full bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200">

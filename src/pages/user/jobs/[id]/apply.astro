@@ -1,0 +1,9 @@
+---
+import UserLayout from "@/layouts/UserLayout.astro";
+import ApplyForm from "../_parts/ApplyForm";
+const {token} = Astro.locals as any;
+const { id } = Astro.params;
+---
+<UserLayout>
+    <ApplyForm token={token} id={id} client:load />
+</UserLayout>

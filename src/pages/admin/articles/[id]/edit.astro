@@ -1,0 +1,9 @@
+---
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import SaveForm from "../_parts/Form";
+const token = Astro.cookies.get('token')?.value as string;
+const { id } = Astro.params;
+---
+<AdminLayout>
+<SaveForm token={token} articleId={id} client:load />
+</AdminLayout>

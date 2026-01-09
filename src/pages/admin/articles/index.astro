@@ -2,8 +2,22 @@
 import AdminLayout from "@/layouts/AdminLayout.astro";
 import QuickHighlight from "./_parts/QuickHighlight.astro";
 import AllArticles from "./_parts/AllArticles.astro";
+import { useHttpClient } from "@/utils/useHttpClient";
+import { APP_URL } from "astro:env/server";
+import { Article } from "@/utils/types/Article";
+import { getSSRPagination } from "@/utils/paginationUtils";
+import PageNav from "@/components/PageNav.astro";
+
+const token = Astro.cookies.get('token')?.value as string;
+const {get} = useHttpClient(token);
+
+const articlesData = await get(APP_URL + '/articles').then(res => res.json()) as Article[];
+const {page} = getSSRPagination(articlesData, Astro.url, 10, '/admin/articles');
 ---
 <AdminLayout>
   <QuickHighlight />
-  <AllArticles />
+  <AllArticles data={page.data} />
+  <div class="my-4">
+    <PageNav data={page} />
+  </div>
 </AdminLayout>

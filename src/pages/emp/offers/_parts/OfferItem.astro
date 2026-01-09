@@ -1,0 +1,26 @@
+---
+import { Offer } from '@/utils/types/Company';
+
+export interface Props {
+    offer: Offer & any;
+}
+const { offer } = Astro.props;
+// console.log(offer);
+
+---
+
+<div class="flex flex-col md:flex-row w-full p-4 border border-purple-100 rounded-lg bg-purple-50 transition duration-200 ease-out hover:shadow-md">
+    <div class="flex flex-col flex-1 mb-3 md:mb-0">
+        <p class="font-medium text-purple-800">Job Offer for {offer.applicant?.name} for {offer.job?.title}, at {offer.company?.name || 'N/A'}</p>
+        <p class="text-gray-600 text-sm">{offer.message || 'N/A'}, set on {offer.date}, {offer.time}, {offer.location}</p>
+    </div>
+    <div class="flex flex-col items-center mr-4 pl-4 border-t-2 md:border-t-0 md:border-l-2 border-purple-600">
+        <div class="w-full text-center mb-3 md:mb-0">
+            <p class="font-medium text-purple-80">Status</p>
+            <p class="text-yellow-600 text-sm">{offer.status}</p>
+        </div> 
+    </div>
+    <div class="flex md:ml-auto justify-center items-center border-t-2 md:border-t-0 md:border-l-2 border-purple-600 pl-2">
+        <a href={`/emp/offers/${offer.id}`} class="text-purple-600 hover:text-purple-900 focus:ring-2 focus:outline-none focus:ring-purple-300 font-bold rounded-lg text-sm px-5 py-1.5 text-center">Update Status</a>
+    </div>
+</div>

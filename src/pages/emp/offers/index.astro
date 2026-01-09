@@ -1,0 +1,12 @@
+---
+import EmployerLayout from "@/layouts/EmpLayout.astro";
+import Card from "@/components/Card.astro";
+import OfferList from "./_parts/OfferList.astro";
+---
+<EmployerLayout>
+  <Card title="Offers List">
+    <a slot="header-actions" href="/emp/offers/create" class="btn btn-primary px-6">Create Offer</a>
+    <hr class="border-gray-200 my-6" />
+    <OfferList />
+  </Card>
+</EmployerLayout>

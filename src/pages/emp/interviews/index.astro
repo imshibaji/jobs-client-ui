@@ -1,0 +1,12 @@
+---
+import EmployerLayout from "@/layouts/EmpLayout.astro";
+import Card from "@/components/Card.astro";
+import InterviewList from "./_parts/InterviewList.astro";
+---
+<EmployerLayout>
+  <Card title="Interview List">
+    <a slot="header-actions" href="/emp/interviews/create" class="btn btn-primary px-6">Schedule Interview</a>
+    <hr class="border-gray-200 my-6" />
+    <InterviewList />
+  </Card>
+</EmployerLayout>

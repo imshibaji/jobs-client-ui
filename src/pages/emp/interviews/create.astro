@@ -1,0 +1,14 @@
+---
+import RichCard from "@/components/RichCard.astro";
+import EmployerLayout from "@/layouts/EmpLayout.astro";
+import SaveForm from "./_parts/SaveForm";
+const { user, token } = Astro.locals as any;
+const id = Astro.url.searchParams.get('applicationId') as string;
+---
+<EmployerLayout title="Schedule Interview">
+  <!-- Interview scheduling form goes here -->
+   <RichCard title="Schedule Interview" action={{ label: "Back to Interview List", url: "/emp/interviews" }}>
+    <SaveForm token={token} user={user} applicationId={id} client:load />
+  </RichCard>
+
+</EmployerLayout>

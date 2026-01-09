@@ -1,0 +1,66 @@
+---
+const { interviews } = Astro.props;
+const total = interviews.length;
+const scheduled = interviews.filter((interview: any) => interview.status.toLowerCase() === "scheduled").length;
+const pending = interviews.filter((interview: any) => interview.status.toLowerCase() === "pending" || interview.status.toLowerCase() === "progress").length;
+const rejected = interviews.filter((interview: any) => interview.status.toLowerCase() === "rejected").length;
+const cancelled = interviews.filter((interview: any) => interview.status.toLowerCase() === "cancelled").length;
+const completed = interviews.filter((interview: any) => interview.status.toLowerCase() === "completed").length;
+---
+<!-- Stat Cards -->
+<div class="grid gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+  <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm text-gray-500">Total Interviews</p>
+        <h3 class="text-2xl font-bold text-purple-700">{total}</h3>
+      </div>
+      <img class="w-10 h-10" src="https://img.icons8.com/fluency/48/briefcase.png" alt="Jobs Icon" />
+    </div>
+  </div>
+  <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm text-gray-500">Scheduled</p>
+        <h3 class="text-2xl font-bold text-purple-700">{scheduled}</h3>
+      </div>
+      <img class="w-10 h-10" src="https://img.icons8.com/fluency/48/application.png" alt="Applications Icon" />
+    </div>
+  </div>
+  <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm text-gray-500">Pending / Progress</p>
+        <h3 class="text-2xl font-bold text-purple-700">{pending}</h3>
+      </div>
+      <img class="w-10 h-10" src="https://img.icons8.com/fluency/48/calendar.png" alt="Interview Icon" />
+    </div>
+  </div>
+  <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm text-gray-500">Completed</p>
+        <h3 class="text-2xl font-bold text-purple-700">{completed}</h3>
+      </div>
+      <img class="w-10 h-10" src="https://img.icons8.com/fluency/48/calendar.png" alt="Interview Icon" />
+    </div>
+  </div>
+  <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm text-gray-500">Rejected</p>
+        <h3 class="text-2xl font-bold text-purple-700">{rejected}</h3>
+      </div>
+      <img class="w-10 h-10" src="https://img.icons8.com/fluency/48/calendar.png" alt="Interview Icon" />
+    </div>
+  </div>
+  <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm text-gray-500">Cancelled</p>
+        <h3 class="text-2xl font-bold text-purple-700">{cancelled}</h3>
+      </div>
+      <img class="w-10 h-10" src="https://img.icons8.com/fluency/48/calendar.png" alt="Interview Icon" />
+    </div>
+  </div>
+</div>

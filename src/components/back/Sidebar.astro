@@ -43,11 +43,13 @@ const menuItems = menus || [
 
 <!-- Sidebar -->
   <aside id="sidebar" class="fixed top-0 left-0 h-screen w-64 bg-purple-700 text-white flex flex-col transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40">
-    <a href="/" class="p-6 text-2xl font-bold border-b border-purple-600 flex justify-between items-center">
-      <img src="/logo.png" alt="JobsForWomen" class="inline-block h-8 w-8 mr-2" />
-      JobsForWomen
+    <div class="p-6 text-2xl font-bold border-b border-purple-600 flex justify-between items-center">
+      <a class="flex" href="/">
+        <img src="/logo.png" alt="JobsForWomen" class="inline-block h-8 w-8 mr-2" />
+        JobsForWomen
+      </a>
       <button id="closeSidebar" class="absolute top-1 right-4 lg:hidden text-white text-2xl">&times;</button>
-    </a>
+    </div>
 
     <div class="flex-1 flex flex-col items-stretch">
       <nav class="flex-1 p-4 space-y-3 text-sm overflow-y-auto align-top">

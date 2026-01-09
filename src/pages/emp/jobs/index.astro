@@ -1,16 +1,12 @@
 ---
 import EmployeeLayout from "@/layouts/EmpLayout.astro";
 import Card from "@/components/Card.astro";
-import JobItem from "@/components/back/JobItem.astro";
+import JobList from "./_parts/JobList.astro";
 ---
 <EmployeeLayout>
-  <Card title="Jobs List">
+  <Card title="All Jobs">
     <a slot="header-actions" href="/emp/jobs/post" class="btn btn-primary px-6">Post a Job</a>
-    <div class="flex flex-col gap-4">
-      <JobItem />
-      <JobItem />
-      <JobItem />
-      <JobItem />
-    </div>
+    <hr class="border-gray-200 my-6" />
+    <JobList />
   </Card>
 </EmployeeLayout>

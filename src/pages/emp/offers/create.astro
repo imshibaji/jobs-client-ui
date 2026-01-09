@@ -1,0 +1,12 @@
+---
+import EmployerLayout from "@/layouts/EmpLayout.astro";
+import RichCard from "@/components/RichCard.astro";
+import SaveForm from "./_parts/SaveForm";
+const {token , user} = Astro.locals as any;
+---
+<EmployerLayout>
+ 	<RichCard title="Make a Job Offers">
+ 		<a slot="header-actions" href="/emp/offers" class="btn btn-primary px-6">Back to Offers List</a>
+        <SaveForm token={token} user={user} client:load />
+ 	</RichCard>
+</EmployerLayout>

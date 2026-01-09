@@ -1,0 +1,22 @@
+---
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { useHttpClient } from "@/utils/useHttpClient";
+import { APP_URL } from "astro:env/server";
+
+const { id } = Astro.params;
+const token = Astro.cookies.get('token')?.value as string;
+const article = await useHttpClient(token).get(APP_URL + `/articles/${id}`).then(res => res.json());
+---
+
+<AdminLayout>
+    <div class="max-w-2xl my-20 mx-auto bg-white p-10 rounded-xl border border-gray-200 shadow-inner">
+        <h1 class="text-2xl font-bold">Delete Article</h1>
+        <p>Are you sure you want to delete this article?</p>
+        <div class="my-4">
+            <p>Article ID: <span class="font-mono text-sm bg-gray-100 p-1 rounded">{article.id}</span></p>
+            <p>Article Title: {article.title}</p>
+        </div>
+        <button class=" bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-150">Yes, Permanently Delete Article</button>
+        <a href="/admin/articles" class="text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg transition duration-150 shadow-md">Cancel and Go Back</a>
+    </div>
+</AdminLayout>
