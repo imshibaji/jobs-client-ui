@@ -1,6 +1,5 @@
 import { useHttpClient } from "@/utils/useHttpClient";
 import { ReactNode } from "react";
-import { al } from "../../dist/server/chunks/astro/server_CHWq55Gc.mjs";
 
 export interface Props {
     token: string

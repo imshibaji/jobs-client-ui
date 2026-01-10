@@ -1,0 +1,37 @@
+---
+import Layout from "@/layouts/Base.astro";
+import JobList from "./_parts/front/JobList.astro";
+import CheckBox from "@/components/ReactForm/CheckBox";
+import RadioBox from "@/components/ReactForm/RadioBox";
+import FilterSection from "./_parts/front/FilterSection.astro";
+import SearchJobs from "./_parts/front/SearchJobs.astro";
+
+const title = "Searched Jobs - JobsForWomen.com";
+---
+
+<Layout title={title}>
+    <div class="bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6 md:px-8 py-8">
+            <SearchJobs />
+            <hr class="border-slate-200 my-2" />
+            
+            <div class="flex gap-3 mt-3">
+                <div class="hidden md:w-1/4 md:block">
+                    <FilterSection title="Jobs Type" btnLabel="Apply">
+                        <CheckBox name="jobType" label="Remote" badge="123" client:load />
+                        <CheckBox name="jobType" label="Onsite" badge="233" client:load />
+                        <CheckBox name="jobType" label="Hybrid" badge="453" client:load />
+                    </FilterSection>
+                    <FilterSection title="Salary Range" btnLabel="Apply">
+                        <RadioBox name="salaryRange" label="$0 - $10,000" client:load />
+                        <RadioBox name="salaryRange" label="$10,000 - $20,000" client:load />
+                        <RadioBox name="salaryRange" label="$20,000 - $30,000" client:load />
+                    </FilterSection>
+                </div>
+                <div class="gap-2 w-full md:w-3/4">
+                    <JobList />
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>

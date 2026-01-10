@@ -1,0 +1,14 @@
+---
+import Input from "@/components/ReactForm/Input";
+import Select from "@/components/ReactForm/Select";
+---
+<div class="flex flex-col gap-2">
+    <section class="bg-white rounded-xl shadow p-10 mb-2">
+        <h1 class="text-3xl font-bold text-purple-600 mb-2">Searched Jobs</h1>
+        <div class="flex flex-row">
+            <Input type="search" className="w-3/4" placeholder="Search Jobs" />
+            <Select className="ml-2 w-1/4" options={["Remote", "Onsite", "Hybrid"]} />
+            <button class="px-4 py-2 bg-purple-600 text-white rounded-lg ml-2 hover:bg-purple-700 transition">Search</button>
+        </div>
+    </section>
+</div>
