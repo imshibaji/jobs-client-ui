@@ -5,7 +5,7 @@ import ApplicantExperiences from "./ApplicantExperiences";
 import ApplicantSkills from "./ApplicantSkills";
 import ProfileForm from "./ProfileForm";
 const {token, user} = Astro.locals as any;
-const { applicant,experiences } = await getUserData(token, user);
+const { applicant } = await getUserData(token, user);
 ---
 
 <div class="py-2 bg-lavender">

@@ -23,7 +23,7 @@ const SkillsTable = ({token, applicantId}: {token: string, applicantId?: number 
       get(`${BASE_URL}/skills`)
       .then(res => res.json())
       .then((skills: Skill[]) => {
-        // console.log(skills);
+        console.log(skills);
         const data = skills.map(skill => {
           return {
             ...skill,

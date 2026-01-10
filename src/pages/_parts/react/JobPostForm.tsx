@@ -32,7 +32,7 @@ export default function JobPostForm() {
   return (
     <div className="min-h-[738px] bg-lavender flex items-center justify-center px-4 sm:px-6 lg:px-8 py-10">
       <div className="hidden sm:block sm:w-1/2">
-        <Hero />
+        <Hero btn1={{text: 'Explore Jobs', link: '/jobs'}} btn2={{text: 'Join the Community', link: '/register'}} />
       </div>
       <div className="bg-white shadow-lg rounded-2xl p-8 sm:p-8 w-full max-w-md sm:max-w-lg">
         <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-6">Post a Job Requirement</h2>

@@ -1,7 +1,8 @@
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import TextArea from "@/components/TextArea";
-import { Feedback, FeedbackStatus, FeedbackTableName, getDataFromServer } from "@/utils/types/Feedback";
+import { getDataFromServer } from "@/utils/getDataRequest";
+import { Feedback, FeedbackStatus, FeedbackTableName } from "@/utils/types/Feedback";
 import { User } from "@/utils/types/User";
 import { useHttpClient } from "@/utils/useHttpClient";
 import { BASE_URL } from "astro:env/client";
