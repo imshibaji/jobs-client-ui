@@ -6,15 +6,15 @@ import { User } from "@/utils/types/User";
 export async function getUserData(token: string, user?: User) {
     const applicantData = (await getDataFromServer(token, 'applicants', user?.id))[0] as Applicant;
     const skillsData = await getDataFromServer(token, 'skills') as Skill[];
-    const filteredSkills = skillsData.filter((skill: Skill) => {
+    const filteredSkills = skillsData && skillsData.filter((skill: Skill) => {
         return skill.applicantId === applicantData.id
     });
     const experiencesData = await getDataFromServer(token, 'experiences') as Experience[];
-    const filteredExperiences = experiencesData.filter((experience: Experience) => {
+    const filteredExperiences = experiencesData && experiencesData.filter((experience: Experience) => {
         return experience.applicantId === applicantData.id
     });
     const educationsData = await getDataFromServer(token, 'education') as Education[];
-    const filteredEducations = educationsData.filter((education: Education) => {
+    const filteredEducations = educationsData && educationsData.filter((education: Education) => {
         return education.applicantId === applicantData.id
     });
     const applicationsData = await getDataFromServer(token, 'applications', user?.id) as Application[];
@@ -22,7 +22,7 @@ export async function getUserData(token: string, user?: User) {
         return application.applicantId === applicantData.id;
     })
     const jobsData = await getDataFromServer(token, 'jobs') as Job[];
-    const matchedJobs = jobsData.filter((job: Job) => {
+    const matchedJobs = jobsData && jobsData.filter((job: Job) => {
         return filteredSkills.some((skill: Skill) => {
             return job.skills?.split(',').filter((jobSkill: string) => {                
                 return jobSkill === skill.name;
@@ -30,23 +30,23 @@ export async function getUserData(token: string, user?: User) {
         });
     })
     const interviewsData = await getDataFromServer(token, 'interviews') as Interview[];
-    const filteredInterviews = interviewsData.filter((interview: Interview) => {
+    const filteredInterviews = interviewsData && interviewsData.filter((interview: Interview) => {
         return interview.applicationId === applicantData.id
     })
     const offersData = await getDataFromServer(token, 'offers') as Offer[];
-    const filteredOffers = offersData.filter((offer: Offer) => {
+    const filteredOffers = offersData && offersData.filter((offer: Offer) => {
         return offer.applicantId === applicantData.id
     })
     
 
     return {
-        applicant: applicantData,
-        skills: filteredSkills,
-        experiences: filteredExperiences,
-        educations: filteredEducations,
-        jobs: matchedJobs.length > 0 ? matchedJobs : jobsData,
-        applications: filteredApplications,
-        interviews: filteredInterviews,
-        offers: filteredOffers
+        applicant: applicantData || {},
+        skills: filteredSkills || [],
+        experiences: filteredExperiences || [],
+        educations: filteredEducations || [],
+        jobs: matchedJobs || [],
+        applications: filteredApplications || [],
+        interviews: filteredInterviews || [],
+        offers: filteredOffers || [],
     };
 }

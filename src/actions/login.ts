@@ -23,6 +23,9 @@ export default defineAction({
         const data = await response.json();
 
         console.log(data);
+        if(data.statusCode === 401) {
+            alert('Invalid credentials');
+        }
         if(data.access_token) {
             const extract = await verifyToken(data.access_token);
             

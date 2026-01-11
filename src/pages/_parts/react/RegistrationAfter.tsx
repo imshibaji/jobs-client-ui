@@ -39,7 +39,7 @@ export default function RegistrationAfter() {
         skills: '',
         experience: '',
         location: '',
-        resume: null,
+        resume: '',
         userId: Number(data.id)
       });
 

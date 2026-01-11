@@ -2,15 +2,16 @@
 import { getDataFromServer } from "@/utils/getDataRequest";
 import CompanyItem from "./CompanyItem.astro";
 import { Company } from "@/utils/types/Company";
+import NoDataFound from "@/components/NoDataFound.astro";
 const { user, token } = Astro.locals as any;
 const companies = await getDataFromServer(token, 'companies', user.id);
 ---
 
 <div class="flex flex-col gap-4">
     { 
-        companies?.length > 0 ? companies.map((company: Company) => (
+        companies && companies?.length > 0 ? companies.map((company: Company) => (
             <CompanyItem company={company} />
         )): 
-        <p class="text-gray-500 italic">No companies found. Please add a company.</p> 
+        <NoDataFound title="No companies found. Please add one." />
     }
 </div>

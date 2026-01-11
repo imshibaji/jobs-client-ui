@@ -2,6 +2,7 @@
 import { Company, Job } from "@/utils/types/Company";
 import JobItem from "./JobItem.astro";
 import { getDataFromServer } from "@/utils/getDataRequest";
+import NoDataFound from "@/components/NoDataFound.astro";
 
 const { user, token } = Astro.locals as any;
 const companies = await getDataFromServer(token,'companies', user.id) as Company[];
@@ -26,16 +27,16 @@ const jobsByCompany = companies.map((company: Company) => {
 ---
 
 <div class="flex flex-col gap-4">
-    { jobsByCompany ? jobsByCompany.map((company) => {
+    { jobsByCompany && jobsByCompany.length > 0 ? jobsByCompany.map((company) => {
         return (
             <div>
                 <h2 class="text-lg font-semibold text-gray-700 mb-2">{company.name}</h2> 
-                {company.jobs?.map((job) => (
-                    job ? <div class="py-2"><JobItem job={job} /></div> : null
-                ))}
+                {company.jobs && company.jobs.length > 0 ? company.jobs?.map((job) => (
+                    job ? <div class="py-2"><JobItem job={job} /></div> : <NoDataFound title="No Jobs found." />
+                )): <NoDataFound title="No Jobs found in this company." />}
             </div>
         )
     }): 
-        <p class="text-gray-500 italic">No jobs found. Please add a job.</p>
+        <NoDataFound title="No Companies found." />
     }
 </div>

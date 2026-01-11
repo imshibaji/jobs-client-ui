@@ -5,7 +5,14 @@ import FeaturedJobs from '@/components/front/home/FeaturedJobs.astro';
 import Resources from '@/components/front/home/Resources.astro';
 import Stories from '@/components/front/home/Stories.astro';
 import Cta from '@/components/front/home/Cta.astro';
+import { BASE_URL } from 'astro:env/client';
+import { APP_URL } from 'astro:env/server';
+import { APP_SECRET_KEY } from 'astro:env/server';
 const title = "JobsForWomen.com – Empowering Women, One Job at a Time";
+
+console.log(BASE_URL);
+console.log(APP_URL);
+console.log(APP_SECRET_KEY);
 ---
 
 <Layout title={title}>

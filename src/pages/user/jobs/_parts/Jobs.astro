@@ -1,8 +1,11 @@
 ---
+import NoDataFound from "@/components/NoDataFound.astro";
 import JobItem from "./JobItem.astro";
 import { getUserData } from "@/pages/user/_parts/UserData";
 const {token, user} = Astro.locals as any;
 const {jobs} = await getUserData(token, user);
+console.log(jobs);
+
 ---
 
 <!-- Job Alerts & Notifications -->
@@ -10,9 +13,9 @@ const {jobs} = await getUserData(token, user);
     <h3 class="text-lg font-semibold text-purple-700 mb-4">Job Notifications</h3>
     <div class="space-y-3">
         {
-            jobs.map((job: any) => (
+            jobs && jobs.length > 0 ? jobs.map((job: any) => (
                 <JobItem job={job} />
-            ))
+            )): (<NoDataFound />)
         }
     </div>
 </section>
