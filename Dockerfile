@@ -48,9 +48,9 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 COPY . .
 
 # ENV VARIABLES
-ENV APP_URL=http://host.docker.internal:3300
-ENV BASE_URL=http://localhost:3300
-ENV APP_SECRET_KEY=asdrweweddsaxadasfsdfdsfgdffcr4fsw3232edwssdzcsdsdf
+ENV APP_URL=https://api.jobsforwoman.com
+ENV BASE_URL=https://api.jobsforwoman.com
+# ENV APP_SECRET_KEY=<your_secret_key_here>
 
 # Run the build script.
 RUN pnpm run build
@@ -79,9 +79,9 @@ COPY --from=build /usr/src/app/dist ./dist
 EXPOSE 8080
 
 # ENV VARIABLES
-ENV APP_URL=http://host.docker.internal:3300
-ENV BASE_URL=http://localhost:3300
-ENV APP_SECRET_KEY=asdrweweddsaxadasfsdfdsfgdffcr4fsw3232edwssdzcsdsdf
+ENV APP_URL=https://api.jobsforwoman.com
+ENV BASE_URL=https://api.jobsforwoman.com
+# ENV APP_SECRET_KEY=<your_secret_key_here>
 
 # Run the application.
 CMD ["node", "dist/server/entry.mjs"]

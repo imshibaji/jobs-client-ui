@@ -68,7 +68,7 @@ export default function ProfileForm({ token, applicant, onSubmitSuccess }: Profi
         event.preventDefault();
 
         try {
-            if (applicant) {
+            if (applicant && applicant.id) {
                 // Update an existing applicant
                 formData.userId = formData.userId || applicant.userId;
                 const updatedApplicant = await put(`${BASE_URL}/applicants/${applicant.id}`, formData).then(res => res.json()) as Applicant;

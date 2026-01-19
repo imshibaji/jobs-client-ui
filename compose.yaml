@@ -1,19 +1,42 @@
-# Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Docker Compose reference guide at
-# https://docs.docker.com/go/compose-spec-reference/
-
-# Here the instructions define your application as a service called "server".
-# This service is built from the Dockerfile in the current directory.
-# You can add other services your application may depend on here, such as a
-# database or a cache. For examples, see the Awesome Compose repository:
-# https://github.com/docker/awesome-compose
 services:
+  traefik:
+    image: traefik:v3.6
+    container_name: traefik-app
+    restart: unless-stopped
+    command:
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entryPoints.web.proxyProtocol.trustedIPs=127.0.0.1/32,10.0.0.0/8"
+      - "--entryPoints.websecure.proxyProtocol.trustedIPs=127.0.0.1/32,10.0.0.0/8"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.email=shepreneurinfo@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+
+      - "--api=true"
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./letsencrypt:/letsencrypt"
+
   app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: app
     restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.app.rule=Host(`localhost`)
+      - traefik.http.routers.app.entrypoints=web,websecure
+      - traefik.http.routers.app.tls.certresolver=myresolver
+      - traefik.http.routers.app.tls=false
+      - traefik.http.services.app.loadbalancer.server.port=8080
     # env_file:
     #   - .env
     environment:
@@ -28,7 +51,15 @@ services:
   server:
     image: imshibaji/jobs-api-server:latest
     container_name: server_app
-    restart: unless-stopped
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.server.rule=Host(`api.localhost`)
+      - traefik.http.routers.server.entrypoints=web,websecure
+      - traefik.http.routers.server.tls.certresolver=myresolver
+      - traefik.http.routers.server.tls=false
+      - traefik.http.services.server.loadbalancer.server.port=3300
+
     environment:
       NODE_ENV: production
       APP_NAME: "Jobs API Server"
@@ -70,7 +101,7 @@ services:
       - POSTGRES_DB=jobs_for_woman
       - POSTGRES_PASSWORD=Spaceranger@123
     ports:
-      - 5433:5432
+      - 5432:5432
     healthcheck:
       test: [ "CMD", "pg_isready" ]
       interval: 10s
@@ -82,7 +113,7 @@ services:
     container_name: redis_app
     restart: always
     ports:
-      - 6378:6379
+      - 6379:6379
     volumes:
       - redis_data:/data
     healthcheck:

@@ -7,19 +7,19 @@ export async function getUserData(token: string, user?: User) {
     const applicantData = (await getDataFromServer(token, 'applicants', user?.id))[0] as Applicant;
     const skillsData = await getDataFromServer(token, 'skills') as Skill[];
     const filteredSkills = skillsData && skillsData.filter((skill: Skill) => {
-        return skill.applicantId === applicantData.id
+        return applicantData && skill.applicantId === applicantData.id
     });
     const experiencesData = await getDataFromServer(token, 'experiences') as Experience[];
     const filteredExperiences = experiencesData && experiencesData.filter((experience: Experience) => {
-        return experience.applicantId === applicantData.id
+        return applicantData && experience.applicantId === applicantData.id
     });
     const educationsData = await getDataFromServer(token, 'education') as Education[];
     const filteredEducations = educationsData && educationsData.filter((education: Education) => {
-        return education.applicantId === applicantData.id
+        return applicantData && education.applicantId === applicantData.id
     });
     const applicationsData = await getDataFromServer(token, 'applications', user?.id) as Application[];
     const filteredApplications = applicationsData && applicationsData.filter((application: Application) => {
-        return application.applicantId === applicantData.id;
+        return applicantData && application.applicantId === applicantData.id;
     })
     const jobsData = await getDataFromServer(token, 'jobs') as Job[];
     const matchedJobs = jobsData && jobsData.filter((job: Job) => {
@@ -31,11 +31,11 @@ export async function getUserData(token: string, user?: User) {
     })
     const interviewsData = await getDataFromServer(token, 'interviews') as Interview[];
     const filteredInterviews = interviewsData && interviewsData.filter((interview: Interview) => {
-        return interview.applicationId === applicantData.id
+        return applicantData && interview.applicationId === applicantData.id
     })
     const offersData = await getDataFromServer(token, 'offers') as Offer[];
     const filteredOffers = offersData && offersData.filter((offer: Offer) => {
-        return offer.applicantId === applicantData.id
+        return applicantData && offer.applicantId === applicantData.id
     })
     
 
