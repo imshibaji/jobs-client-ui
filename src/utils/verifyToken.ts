@@ -3,8 +3,8 @@ import { jwtVerify } from "jose";
 
 export async function verifyToken(token: string) {
     try {
-        // const jwt_secret = getSecret('APP_SECRET_KEY') || process.env.APP_SECRET_KEY;
-        const jwt_secret = import.meta.env.APP_SECRET_KEY;
+        const jwt_secret = APP_SECRET_KEY || getSecret('APP_SECRET_KEY') || process.env.APP_SECRET_KEY;
+        // const jwt_secret = import.meta.env.APP_SECRET_KEY;
 
 
         if (!jwt_secret || jwt_secret.length === 0) {

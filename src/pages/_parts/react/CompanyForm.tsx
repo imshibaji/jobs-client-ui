@@ -1,7 +1,7 @@
 import { HttpClient } from "@/utils/HttpClient";
 import { Company, Job } from "@/utils/types/Company";
 import { BASE_URL } from "astro:env/client";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CompanyForm({token, jobPost}: { token: string, jobPost: any}) {
     const [companyForm, setCompanyForm] = useState<Company>({} as Company);
@@ -37,6 +37,7 @@ export default function CompanyForm({token, jobPost}: { token: string, jobPost: 
     }
 
      const companyRegister = async () => {
+        if(!companyForm) return;
         // Register Company
         const data = await httpClient.post(BASE_URL + '/companies', {
             name: companyForm.name,
@@ -64,6 +65,7 @@ export default function CompanyForm({token, jobPost}: { token: string, jobPost: 
     }
 
     const jobPostRegister = async (companyData: any) => {
+        if(!jobPostForm) return;
         const data = await httpClient.post(BASE_URL + '/jobs', {
             title: jobPostForm.title,
             description: jobPostForm.description,

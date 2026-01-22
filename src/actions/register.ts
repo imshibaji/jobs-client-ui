@@ -1,3 +1,4 @@
+import { Applicant } from "@/utils/types/Applicant";
 import { User } from "@/utils/types/User";
 import { verifyToken } from "@/utils/verifyToken";
 import { defineAction } from "astro:actions";
@@ -43,6 +44,28 @@ export default defineAction({
         // Update the user object / This error ignored because the user is not defined
         user.id = extract?.sub;
         console.log(user);
+
+        // Register as Applicant
+        const response2 = await fetch(APP_URL + '/applicants', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${response.access_token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: user.email,
+                name: user.name,
+                experience: '',
+                location: '',
+                phoneNumber: user.phoneNumber,
+                resume: '',
+                skills: '',
+                userId: user.id
+            } as Applicant),
+        }).then(response => response.json());
+
+        console.log(response2);
+        
 
         // Set the cookie
         context.cookies.set('user', JSON.stringify(user), {

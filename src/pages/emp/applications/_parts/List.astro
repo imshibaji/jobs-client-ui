@@ -1,4 +1,5 @@
 ---
+import NoDataFound from "@/components/NoDataFound.astro";
 import ApplicationItem from "./ApplicationItem.astro";
 import { getEmployerData } from "@/pages/emp/_parts/EmployerData";
 const { user, token } = Astro.locals as any;
@@ -6,9 +7,9 @@ const {applications} = await getEmployerData(token, user);
 ---
 
 <div class="flex flex-col gap-4">
-    { applications ? applications.map((app) => (
+    { applications && applications.length > 0 ? applications.map((app) => (
         <ApplicationItem application={app} />
     )): 
-        <p class="text-gray-500 italic">No applications found. Please add an application.</p> 
+        <NoDataFound title="No applications found." /> 
     }
 </div>

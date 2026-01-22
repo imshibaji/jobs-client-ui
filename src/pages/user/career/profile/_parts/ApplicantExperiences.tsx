@@ -25,7 +25,7 @@ const ExperienceTable = ({token, applicantId}: {token: string, applicantId?: str
       get(`${BASE_URL}/experiences`)
       .then((res: Response) => res.json())
       .then((data: Experience[]) => {
-        // console.log(data);
+        console.log(data);
         
         const res = data.map((item: Experience) => ({ ...item, isEditing: false }))
         .filter((item) => item.applicantId === Number(applicantId));

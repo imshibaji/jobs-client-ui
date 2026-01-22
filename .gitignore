@@ -3,6 +3,8 @@ dist/
 
 # generated types
 .astro/
+letsencrypt/
+
 
 # dependencies
 node_modules/
@@ -25,3 +27,10 @@ pnpm-debug.log*
 
 # Local Netlify folder
 .netlify
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

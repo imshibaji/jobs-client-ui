@@ -10,16 +10,19 @@ import node from '@astrojs/node';
 export default defineConfig({
   output: 'server',
   adapter: node({
-    mode: 'middleware',
+    mode: 'standalone',
   }),
+  server: {
+      host: true,
+      port: 8080
+  },
   env: {
       schema: {
-        APP_URL: envField.string({ context: 'server', access: 'public' }),
+        APP_URL: envField.string({ context: 'server', access: 'public'}),
         BASE_URL: envField.string({ context: 'client', access: 'public' }),
-        APP_SECRET_KEY: envField.string({ context: 'server', access: 'secret', default: 'app_key' }),
+        APP_SECRET_KEY: envField.string({ context: 'server', access: 'secret' }),
       }
   },
-
   vite: {
       plugins: [
           tailwindcss(),

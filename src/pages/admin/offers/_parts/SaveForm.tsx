@@ -1,6 +1,6 @@
-import Input from "@/components/Input";
-import Select from "@/components/Select";
-import TextArea from "@/components/TextArea";
+import Input from "@/components/ReactForm/Input";
+import Select from "@/components/ReactForm/Select";
+import TextArea from "@/components/ReactForm/TextArea";
 import { Applicant } from "@/utils/types/Applicant";
 import { Application, Job, Offer, OfferStatus, OfferType } from "@/utils/types/Company";
 import { User } from "@/utils/types/User";

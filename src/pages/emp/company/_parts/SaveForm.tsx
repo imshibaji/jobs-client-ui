@@ -1,5 +1,5 @@
-import Input from "@/components/Input";
-import TextArea from "@/components/TextArea";
+import Input from "@/components/ReactForm/Input";
+import TextArea from "@/components/ReactForm/TextArea";
 import { Company } from "@/utils/types/Company";
 import { useHttpClient } from "@/utils/useHttpClient";
 import { actions } from "astro:actions";

@@ -1,0 +1,22 @@
+---
+import { useHttpClient } from "@/utils/useHttpClient";
+import JobItem from "./JobItem.astro";
+import { BASE_URL } from "astro:env/client";
+import PaginationNav from "@/components/PaginationNav.astro";
+import { getSSRPagination } from "@/utils/paginationUtils";
+const jobs = await useHttpClient('').get(BASE_URL + '/jobs').then(res => res.json());
+const data = await getSSRPagination(jobs, Astro.url, 5, '/jobs');
+---
+
+<!-- Job Alerts & Notifications -->
+<section class="bg-white rounded-xl shadow p-6 mb-6">
+    <h3 class="text-xl font-bold text-violet-700 mb-4">Jobs List</h3>
+    <div class="space-y-3">
+        {
+            data.page.data.map((job: any) => (
+                <JobItem job={job} />
+            ))
+        }
+        <PaginationNav page={data.page} />
+    </div>
+</section>
