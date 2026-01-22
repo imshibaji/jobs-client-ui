@@ -35,4 +35,4 @@ jobs:
                 password: ${{ secrets.PASSWORD }}
                 script: |
                   cd "/root/client-app"
-                  docker compose -f compose.yaml up -d --build
+                  docker compose -f compose-deploy.yaml up -d --build

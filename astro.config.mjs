@@ -20,7 +20,7 @@ export default defineConfig({
       schema: {
         APP_URL: envField.string({ context: 'server', access: 'public', default: 'http://localhost:3300' }),
         BASE_URL: envField.string({ context: 'client', access: 'public', default: 'http://localhost:3300' }),
-        APP_SECRET_KEY: envField.string({ context: 'server', access: 'secret' }),
+        APP_SECRET_KEY: envField.string({ context: 'server', access: 'secret', default: 'app_key' }),
       }
   },
   vite: {
