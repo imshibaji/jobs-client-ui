@@ -18,8 +18,8 @@ export default defineConfig({
   },
   env: {
       schema: {
-        APP_URL: envField.string({ context: 'server', access: 'public'}),
-        BASE_URL: envField.string({ context: 'client', access: 'public' }),
+        APP_URL: envField.string({ context: 'server', access: 'public', default: 'http://localhost:3300' }),
+        BASE_URL: envField.string({ context: 'client', access: 'public', default: 'http://localhost:3300' }),
         APP_SECRET_KEY: envField.string({ context: 'server', access: 'secret' }),
       }
   },
