@@ -1,29 +1,26 @@
 name: deployment workflow
 on: push
 jobs:
-    demo-job:
+    deployment:
         runs-on: ubuntu-latest
         # environment: development
-        env:
-            SERVER_NAME: ${{ vars.SERVER_NAME}}
-            PASSWORD: ${{ secrets.PASSWORD }}
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v3
             - name: Upload Files to Server via SCP
               uses: appleboy/scp-action@v1
               with:
-                host: $SERVER_NAME
+                host: ${{ vars.SERVER_NAME }}
                 username: root
-                password: $PASSWORD
+                password: ${{ secrets.PASSWORD }}
                 source: "."
                 target: "/root/client-app"
             - name: SSH into Server and Run Application
               uses: appleboy/ssh-action@v1
               with:
-                host: $SERVER_NAME
+                host: ${{ vars.SERVER_NAME }}
                 username: root
-                password: $PASSWORD
+                password: ${{ secrets.PASSWORD }}
                 script: |
                   cd "/root/client-app"
                   docker compose -f compose.yaml up -d --build
