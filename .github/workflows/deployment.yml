@@ -1,12 +1,24 @@
 name: deployment workflow
-on: push
+on:
+  push:
+    branches:
+      - main
+      - dev
+      # - development
+      # - staging
+      # - production
+  workflow_run:
+    workflows: ["Playwright Tests"]
+    types:
+      - completed
+
 jobs:
     deployment:
         runs-on: ubuntu-latest
         # environment: development
         steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v3
+            - name: Deploy to VPS
+              uses: actions/checkout@v5
             - name: Upload Files to Server via SCP
               uses: appleboy/scp-action@v1
               with:
