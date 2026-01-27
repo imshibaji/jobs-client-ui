@@ -69,7 +69,7 @@ export default function ApplicantForm({token, applicant}: {token: string, applic
             <input value={applicantForm.experience} onChange={(e) => setApplicantForm({ ...applicantForm, experience: e.target.value })} type="text" placeholder="Experience (Years)" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
             <input value={applicantForm.location} onChange={(e) => setApplicantForm({ ...applicantForm, location: e.target.value })} type="text" placeholder="Preferred Job Location" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
             <input onChange={(e) => setApplicantForm({ ...applicantForm, resume: e.target.files?.[0] ?? null })} type="file" accept=".pdf,.docx" className="w-full text-sm border bg-gray-200 border-gray-400 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 font-semibold" />
-            <button type="submit" className="w-full bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200">
+            <button type="submit" className="w-full bg-primary text-white py-2 rounded-lg hover:bg-violet-800 transition duration-200">
                 Register as Candidate
             </button>
         </form>

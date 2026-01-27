@@ -51,13 +51,13 @@ export default function LoginForm() {
                 </label>
               </div>
               <div className="ml-auto">
-                <a href="/forget" className="text-sm text-violet-600 hover:underline">
+                <a href="/forget" className="text-sm text-primary hover:underline">
                   Forgot your password?
                 </a>
               </div>
             </div>
           </div>
-          <button type="submit" className="w-full bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200">
+          <button type="submit" className="w-full bg-primary text-white py-2 rounded-lg hover:bg-violet-800 transition duration-200">
             Login
           </button>
         </form>
@@ -80,7 +80,7 @@ export default function LoginForm() {
         <div className="text-center mt-6">
           <p className="text-sm text-gray-600">
             Don't have an account?{" "}
-            <a href="/register" className="text-violet-600 hover:underline">
+            <a href="/register" className="text-primary hover:underline">
               Sign up
             </a>
           </p>

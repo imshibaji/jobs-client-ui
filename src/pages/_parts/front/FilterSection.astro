@@ -5,7 +5,7 @@ import Select from "@/components/ReactForm/Select";
 const { title, form, btnLabel} = Astro.props;
 ---
 <form {...form} class="bg-white rounded-xl shadow px-4 py-4 mb-6">
-    <h2 class="text-lg font-bold text-violet-600 mb-2">{title || "Filter Section"}</h2>
+    <h2 class="text-lg font-bold text-primary mb-2">{title || "Filter Section"}</h2>
     <div class="flex flex-col gap-2 mb-3">
         <slot>
             <Input type="search" placeholder="Search Jobs" />
@@ -13,6 +13,6 @@ const { title, form, btnLabel} = Astro.props;
         </slot>
     </div>
     <slot name="button">
-        <button type="submit" class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-violet-700 transition">{btnLabel || "Search"}</button>
+        <button type="submit" class="w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-violet-800 transition">{btnLabel || "Search"}</button>
     </slot>
 </form>

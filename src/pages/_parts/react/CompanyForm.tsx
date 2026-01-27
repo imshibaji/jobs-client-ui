@@ -116,7 +116,7 @@ export default function CompanyForm({token, jobPost}: { token: string, jobPost: 
                 <input value={companyForm.country} onChange={(e) => setCompanyForm({ ...companyForm, country: e.target.value })} type="text" placeholder="Country" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
                 <input value={companyForm.zipCode} onChange={(e) => setCompanyForm({ ...companyForm, zipCode: e.target.value })} type="text" placeholder="Zip Code" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
             </div>
-            <button type="submit" className="w-full bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200">
+            <button type="submit" className="w-full bg-primary text-white py-2 rounded-lg hover:bg-violet-800 transition duration-200">
                 Register as Recruiter
             </button>
         </form>

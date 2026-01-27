@@ -101,7 +101,7 @@ export default function ProfileForm({ user, token }: { user: User, token: string
                 <input value={formData.youtubeId} onChange={(e) => setFormData({ ...formData, youtubeId: e.target.value })} type="text" placeholder="Youtube ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
               </div>
             </div>
-            <button type="submit" className="w-full bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200">
+            <button type="submit" className="w-full bg-primary text-white py-2 rounded-lg hover:bg-violet-800 transition duration-200">
               Update Profile
             </button>
           </form>

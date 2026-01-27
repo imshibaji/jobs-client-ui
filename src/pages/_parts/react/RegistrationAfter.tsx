@@ -65,7 +65,7 @@ export default function RegistrationAfter() {
           <button
             onClick={() => setRole("candidate")}
             className={`px-4 py-2 rounded-lg flex-1 ${
-              role === "candidate" ? "bg-violet-600 text-white" : "bg-gray-200"
+              role === "candidate" ? "bg-primary text-white" : "bg-gray-200"
             } transition duration-200`}
           >
             Candidate
@@ -73,7 +73,7 @@ export default function RegistrationAfter() {
           <button
             onClick={() => setRole("recruiter")}
             className={`px-4 py-2 rounded-lg flex-1 ${
-              role === "recruiter" ? "bg-violet-600 text-white" : "bg-gray-200"
+              role === "recruiter" ? "bg-primary text-white" : "bg-gray-200"
             } transition duration-200`}
           >
             Recruiter
