@@ -34,7 +34,7 @@ export default function LoginForm() {
         <Hero />
       </div>
       <div className="bg-white shadow-lg rounded-2xl p-8 sm:p-8 w-full max-w-md sm:max-w-lg">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-6">Logon Job Platform</h2>
+        <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-6">Login Job Platform</h2>
 
         {/* Form Fields */}
         <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
