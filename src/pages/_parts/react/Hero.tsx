@@ -20,7 +20,7 @@ export default function Hero({btn1, btn2}: HeroProps) {
                 <a href={btn1?.link!} className="border-0 rounded-full py-3 px-6 font-semibold cursor-pointer text-base bg-gradient-to-r from-purple-700 to-purple-500 text-white shadow-xl shadow-purple-700/10 transition duration-150 ease-in-out hover:-translate-y-0.5">
                     {btn1?.text || "Explore Jobs"}
                 </a>
-                <a href={btn2?.link!} className="bg-transparent text-primary border border-purple-700/10 rounded-full py-3 px-6 font-semibold cursor-pointer text-base hover:bg-purple-700/5">
+                <a href={btn2?.link!} className="bg-transparent text-primary border border-primary rounded-full py-3 px-6 font-semibold cursor-pointer hover:text-white hover:bg-purple-800">
                     {btn2?.text || "Join the Community"}
                 </a>
                 </div>
