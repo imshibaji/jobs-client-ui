@@ -2,7 +2,7 @@
 const user = await Astro.cookies.has('user')? await Astro.cookies.get('user')?.json(): null;
 ---
 <!-- ░░ TOP BAR ░░ -->
-<header class="top-nav sticky top-0 z-50 shadow-sm">
+<!-- <header class="top-nav sticky top-0 z-50 shadow-sm">
     <div class="flex items-center justify-between px-4 py-3 md:px-6">
         <a href="/" class="text-2xl font-semibold text-primary">
             <img src="/logo.png" alt="JobsForWomen" class="inline-block h-8 w-8 mr-1" />
@@ -12,17 +12,55 @@ const user = await Astro.cookies.has('user')? await Astro.cookies.get('user')?.j
             <a href="/" class="hover:text-primary">Home</a>
             <a href="#vision" class="hover:text-primary">Explore</a>
             <a href="https://chat.whatsapp.com/JMasqTYB5Lj1tT4J3uhbeD" class="hover:text-primary">Join Our Community</a>
-            <!-- <a href="/about" class="hover:text-primary">About Us</a> -->
+            <!-- <a href="/about" class="hover:text-primary">About Us</a> 
         </nav>
         <div class="space-x-3">
             {user && <a href="/user" class="rounded-md border border-primary px-3 py-2 text-primary hover:bg-purple-50">Hello, {user.name.split(' ')[0]}</a>}
             <!-- {!user && <a href="/login" class="rounded-md border border-primary px-3 py-2 text-primary hover:bg-purple-50">Login</a>}
-            <a href="/post-job" class="hidden md:inline-block rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">Employer / Post a Job</a> -->
+            <a href="/post-job" class="hidden md:inline-block rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">Employer / Post a Job</a> --
             <a href="/login" class="rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">JOIN THE NETWORK</a>
         </div>
     </div>
-</header>
+</header> -->
 
+<header class="top-nav sticky top-0 z-50 shadow-sm bg-white">
+    <div class="flex items-center justify-between px-4 py-3 md:px-6">
+        <a href="/" class="text-2xl font-semibold text-primary flex items-center">
+            <img src="/logo.png" alt="JobsForWomen" class="inline-block h-8 w-8 mr-1" />
+            JobsForWoman
+        </a>
+
+        <nav class="hidden space-x-6 text-sm md:flex uppercase tracking-[0.25em] font-extrabold text-gray-400">
+            <a href="/" class="hover:text-primary">Home</a>
+            <a href="#vision" class="hover:text-primary">Explore</a>
+            <a href="https://chat.whatsapp.com/JMasqTYB5Lj1tT4J3uhbeD" class="hover:text-primary">Join Our Community</a>
+        </nav>
+
+        <div class="flex items-center space-x-3">
+            <div class="hidden md:flex items-center space-x-3">
+                {user && <a href="/user" class="rounded-md border border-primary px-3 py-2 text-primary hover:text-white hover:bg-purple-800">Hello, {user.name.split(' ')[0]}</a>}
+                {!user && <a href="/login" class="rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">JOIN THE NETWORK</a>}
+            </div>
+
+            <button id="menu-btn" class="block md:hidden text-gray-600 focus:outline-none">
+                <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-6 py-6 shadow-xl">
+        <nav class="flex flex-col space-y-5 text-sm uppercase tracking-[0.2em] font-extrabold text-gray-400">
+            <a href="/" class="hover:text-primary">Home</a>
+            <a href="#vision" class="hover:text-primary">Explore</a>
+            <a href="https://chat.whatsapp.com/JMasqTYB5Lj1tT4J3uhbeD" class="hover:text-primary">Join Our Community</a>
+            <hr class="border-gray-100">
+            {user && <a href="/user" class="rounded-md border border-primary px-3 py-2 text-primary hover:text-white hover:bg-purple-800">Hello, {user.name.split(' ')[0]}, Your Dashboard</a>}
+            {!user && <a href="/login" class="rounded-md bg-primary px-3 py-3 text-white text-center tracking-normal">JOIN THE NETWORK</a>}
+        </nav>
+    </div>
+</header>
 
 <style is:inline>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background: #FFFDF9; color: #1a1a1a; scroll-behavior: smooth; }
@@ -33,3 +71,21 @@ const user = await Astro.cookies.has('user')? await Astro.cookies.get('user')?.j
     .top-nav { background: rgba(255, 253, 249, 0.9); }
     .btn-hover:active { transform: scale(0.96); transition: 0.1s; }
 </style>
+
+<script is:inline>
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const icon = document.getElementById('menu-icon');
+
+    btn.addEventListener('click', () => {
+        // Toggle the menu visibility
+        menu.classList.toggle('hidden');
+
+        // Optional: Change the icon to an 'X' when open
+        if (menu.classList.contains('hidden')) {
+            icon.setAttribute('d', 'M4 6h16M4 12h16m-7 6h7'); // Hamburger icon
+        } else {
+            icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // X icon
+        }
+    });
+</script>
