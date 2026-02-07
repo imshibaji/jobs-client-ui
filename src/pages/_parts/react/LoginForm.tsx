@@ -67,14 +67,14 @@ export default function LoginForm() {
           <p className="text-center font-semibold mx-4 mb-0">OR</p>
         </div>
         {/* Social Login */}
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200">
             <i className="fab fa-facebook-f mr-2"></i> Login with Facebook
           </button>
           <button className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition duration-200">
             <i className="fab fa-google mr-2"></i> Login with Google
           </button>
-        </div>
+        </div> */}
 
         {/* Footer */}
         <div className="text-center mt-6">
