@@ -1,28 +1,14 @@
 ---
 const user = await Astro.cookies.has('user')? await Astro.cookies.get('user')?.json(): null;
+
+const nevs = [
+    { name: "Home", href: "/" },
+    { name: "Explore", href: "#vision" },
+    { name: "Join Our Community", href: "https://chat.whatsapp.com/JMasqTYB5Lj1tT4J3uhbeD" },
+];
+
 ---
 <!-- ░░ TOP BAR ░░ -->
-<!-- <header class="top-nav sticky top-0 z-50 shadow-sm">
-    <div class="flex items-center justify-between px-4 py-3 md:px-6">
-        <a href="/" class="text-2xl font-semibold text-primary">
-            <img src="/logo.png" alt="JobsForWomen" class="inline-block h-8 w-8 mr-1" />
-            JobsForWoman
-        </a>
-        <nav class="hidden space-x-6 text-sm md:flex uppercase tracking-[0.25em] font-extrabold text-gray-400">
-            <a href="/" class="hover:text-primary">Home</a>
-            <a href="#vision" class="hover:text-primary">Explore</a>
-            <a href="https://chat.whatsapp.com/JMasqTYB5Lj1tT4J3uhbeD" class="hover:text-primary">Join Our Community</a>
-            <!-- <a href="/about" class="hover:text-primary">About Us</a> 
-        </nav>
-        <div class="space-x-3">
-            {user && <a href="/user" class="rounded-md border border-primary px-3 py-2 text-primary hover:bg-purple-50">Hello, {user.name.split(' ')[0]}</a>}
-            <!-- {!user && <a href="/login" class="rounded-md border border-primary px-3 py-2 text-primary hover:bg-purple-50">Login</a>}
-            <a href="/post-job" class="hidden md:inline-block rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">Employer / Post a Job</a> --
-            <a href="/login" class="rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">JOIN THE NETWORK</a>
-        </div>
-    </div>
-</header> -->
-
 <header class="top-nav sticky top-0 z-50 shadow-sm bg-white">
     <div class="flex items-center justify-between px-4 py-3 md:px-6">
         <a href="/" class="text-2xl font-semibold text-primary flex items-center">
@@ -31,9 +17,7 @@ const user = await Astro.cookies.has('user')? await Astro.cookies.get('user')?.j
         </a>
 
         <nav class="hidden space-x-6 text-sm md:flex uppercase tracking-[0.25em] font-extrabold text-gray-400">
-            <a href="/" class="hover:text-primary">Home</a>
-            <a href="#vision" class="hover:text-primary">Explore</a>
-            <a href="https://chat.whatsapp.com/JMasqTYB5Lj1tT4J3uhbeD" class="hover:text-primary">Join Our Community</a>
+            {nevs.map((nav) => <a href={nav.href} class="hover:text-primary">{nav.name}</a>)}
         </nav>
 
         <div class="flex items-center space-x-3">
@@ -52,9 +36,7 @@ const user = await Astro.cookies.has('user')? await Astro.cookies.get('user')?.j
 
     <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 px-6 py-6 shadow-xl">
         <nav class="flex flex-col space-y-5 text-sm uppercase tracking-[0.2em] font-extrabold text-gray-400">
-            <a href="/" class="hover:text-primary">Home</a>
-            <a href="#vision" class="hover:text-primary">Explore</a>
-            <a href="https://chat.whatsapp.com/JMasqTYB5Lj1tT4J3uhbeD" class="hover:text-primary">Join Our Community</a>
+            {nevs.map((nav) => <a href={nav.href} class="hover:text-primary">{nav.name}</a>)}
             <hr class="border-gray-100">
             {user && <a href="/user" class="rounded-md border border-primary px-3 py-2 text-primary hover:text-white hover:bg-purple-800">Hello, {user.name.split(' ')[0]}, Your Dashboard</a>}
             {!user && <a href="/login" class="rounded-md bg-primary px-3 py-3 text-white text-center tracking-normal">JOIN THE NETWORK</a>}
