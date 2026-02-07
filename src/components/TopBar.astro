@@ -6,7 +6,7 @@ const user = await Astro.cookies.has('user')? await Astro.cookies.get('user')?.j
     <div class="flex items-center justify-between px-4 py-3 md:px-6">
         <a href="/" class="text-2xl font-semibold text-primary">
             <img src="/logo.png" alt="JobsForWomen" class="inline-block h-8 w-8 mr-1" />
-            JobsForWoman.com
+            JobsForWoman
         </a>
         <nav class="hidden space-x-6 text-sm md:flex uppercase tracking-[0.25em] font-extrabold text-gray-400">
             <a href="/" class="hover:text-primary">Home</a>
@@ -18,7 +18,7 @@ const user = await Astro.cookies.has('user')? await Astro.cookies.get('user')?.j
             {user && <a href="/user" class="rounded-md border border-primary px-3 py-2 text-primary hover:bg-purple-50">Hello, {user.name.split(' ')[0]}</a>}
             <!-- {!user && <a href="/login" class="rounded-md border border-primary px-3 py-2 text-primary hover:bg-purple-50">Login</a>}
             <a href="/post-job" class="hidden md:inline-block rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">Employer / Post a Job</a> -->
-            <a href="/login" class="hidden md:inline-block rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">JOIN THE NETWORK</a>
+            <a href="/login" class="rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">JOIN THE NETWORK</a>
         </div>
     </div>
 </header>
