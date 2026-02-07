@@ -34,7 +34,7 @@ export default function LoginForm() {
         <Hero />
       </div>
       <div className="bg-white shadow-lg rounded-2xl p-8 sm:p-8 w-full max-w-md sm:max-w-lg">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-6">Logon Job Platform</h2>
+        <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-6">Login Job Platform</h2>
 
         {/* Form Fields */}
         <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
@@ -51,13 +51,13 @@ export default function LoginForm() {
                 </label>
               </div>
               <div className="ml-auto">
-                <a href="/forget" className="text-sm text-violet-600 hover:underline">
+                <a href="/forget" className="text-sm text-primary hover:underline">
                   Forgot your password?
                 </a>
               </div>
             </div>
           </div>
-          <button type="submit" className="w-full bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200">
+          <button type="submit" className="w-full bg-primary text-white py-2 rounded-lg hover:bg-purple-800 transition duration-200">
             Login
           </button>
         </form>
@@ -67,20 +67,20 @@ export default function LoginForm() {
           <p className="text-center font-semibold mx-4 mb-0">OR</p>
         </div>
         {/* Social Login */}
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200">
             <i className="fab fa-facebook-f mr-2"></i> Login with Facebook
           </button>
           <button className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition duration-200">
             <i className="fab fa-google mr-2"></i> Login with Google
           </button>
-        </div>
+        </div> */}
 
         {/* Footer */}
         <div className="text-center mt-6">
           <p className="text-sm text-gray-600">
             Don't have an account?{" "}
-            <a href="/register" className="text-violet-600 hover:underline">
+            <a href="/register" className="text-primary hover:underline">
               Sign up
             </a>
           </p>

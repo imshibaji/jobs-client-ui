@@ -13,7 +13,7 @@ export default function ForgetForm() {
             <div className="space-y-3 sm:space-y-4">
               <input type="email" placeholder="Put Your Registered Email" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
             </div>
-            <button type="submit" className="w-full bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200">
+            <button type="submit" className="w-full bg-primary text-white py-2 rounded-lg hover:bg-purple-800 transition duration-200">
               Send Reset Link
             </button>
         </form>

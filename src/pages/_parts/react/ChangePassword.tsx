@@ -1,4 +1,3 @@
-import { User } from "@/utils/User";
 import { BASE_URL } from "astro:env/client";
 import { useState } from "react";
 
@@ -42,10 +41,10 @@ export default function ChangePassword({ token }: { token: string }) {
           <form onSubmit={handleChangePasswordSubmit} className="space-y-3 sm:space-y-4">
               <h2 className="text-lg sm:text-3xl font-semibold text-center mb-6">Change Password</h2>
               <div className="flex space-x-4">
-                    <input value={changePassForm.password} onChange={(e) => setChangePassForm({ ...changePassForm, password: e.target.value })} type="password" placeholder="Password" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
-                    <input value={changePassForm.confirmPassword} onChange={(e) => setChangePassForm({ ...changePassForm, confirmPassword: e.target.value })} type="password" placeholder="Confirm Password" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                    <input value={changePassForm.password} onChange={(e) => setChangePassForm({ ...changePassForm, password: e.target.value })} type="password" placeholder="Password" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                    <input value={changePassForm.confirmPassword} onChange={(e) => setChangePassForm({ ...changePassForm, confirmPassword: e.target.value })} type="password" placeholder="Confirm Password" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" />
               </div>
-              <button type="submit" className="w-full bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200">
+              <button type="submit" className="w-full bg-primary text-white py-2 rounded-lg hover:bg-purple-800 transition duration-200">
                 Change Password
               </button>
           </form>

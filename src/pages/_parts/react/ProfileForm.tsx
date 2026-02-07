@@ -65,10 +65,10 @@ export default function ProfileForm({ user, token }: { user: User, token: string
             </div>
             {/* Form Fields */}
             <div className="space-y-3 sm:space-y-4">
-              <input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} type="text" placeholder="Full Name" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
+              <input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} type="text" placeholder="Full Name" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" required />
               <div className="flex space-x-4">
-                <input value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} type="email" placeholder="Email" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
-                <input value={formData.phoneNumber} onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })} type="text" placeholder="Phone Number" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" required />
+                <input value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} type="email" placeholder="Email" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" required />
+                <input value={formData.phoneNumber} onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })} type="text" placeholder="Phone Number" className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" required />
               </div>
             </div>
             {/* Divider */}
@@ -78,30 +78,30 @@ export default function ProfileForm({ user, token }: { user: User, token: string
             <div className="flex flex-col justify-center items-center gap-4">
               <div className="flex flex-row space-x-2 gap-2 w-full">
                 <label className="w-1/4" htmlFor="linkedin">LinkedIn ID</label>
-                <input value={formData.linkedinId} onChange={(e) => setFormData({ ...formData, linkedinId: e.target.value })} type="text" placeholder="LinkedIn ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                <input value={formData.linkedinId} onChange={(e) => setFormData({ ...formData, linkedinId: e.target.value })} type="text" placeholder="LinkedIn ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" />
               </div>
               <div className="flex flex-row space-x-2 gap-2 w-full">
                 <label className="w-1/4" htmlFor="instagram">Instagram ID</label>
-                <input value={formData.instagramId} onChange={(e) => setFormData({ ...formData, instagramId: e.target.value })} type="text" placeholder="Instagram ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                <input value={formData.instagramId} onChange={(e) => setFormData({ ...formData, instagramId: e.target.value })} type="text" placeholder="Instagram ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" />
               </div>
               <div className="flex flex-row space-x-2 gap-2 w-full">
                 <label className="w-1/4" htmlFor="x">Twitter/X ID</label>
-                <input value={formData.twitterId} onChange={(e) => setFormData({ ...formData, twitterId: e.target.value })} type="text" placeholder="Twitter/X ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                <input value={formData.twitterId} onChange={(e) => setFormData({ ...formData, twitterId: e.target.value })} type="text" placeholder="Twitter/X ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" />
               </div>
               <div className="flex flex-row space-x-2 gap-2 w-full">
                 <label className="w-1/4" htmlFor="x">Github ID</label>
-                <input value={formData.githubId} onChange={(e) => setFormData({ ...formData, githubId: e.target.value })} type="text" placeholder="GitHub ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                <input value={formData.githubId} onChange={(e) => setFormData({ ...formData, githubId: e.target.value })} type="text" placeholder="GitHub ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" />
               </div>
               <div className="flex flex-row space-x-2 gap-2 w-full">
                 <label className="w-1/4" htmlFor="x">Facebook ID</label>
-                <input value={formData.facebookId} onChange={(e) => setFormData({ ...formData, facebookId: e.target.value })} type="text" placeholder="Facebook ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                <input value={formData.facebookId} onChange={(e) => setFormData({ ...formData, facebookId: e.target.value })} type="text" placeholder="Facebook ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" />
               </div>
               <div className="flex flex-row space-x-2 gap-2 w-full">
                 <label className="w-1/4" htmlFor="x">Youtube ID</label>
-                <input value={formData.youtubeId} onChange={(e) => setFormData({ ...formData, youtubeId: e.target.value })} type="text" placeholder="Youtube ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                <input value={formData.youtubeId} onChange={(e) => setFormData({ ...formData, youtubeId: e.target.value })} type="text" placeholder="Youtube ID" className="w-3/4 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500" />
               </div>
             </div>
-            <button type="submit" className="w-full bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700 transition duration-200">
+            <button type="submit" className="w-full bg-primary text-white py-2 rounded-lg hover:bg-purple-800 transition duration-200">
               Update Profile
             </button>
           </form>
