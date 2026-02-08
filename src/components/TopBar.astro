@@ -23,7 +23,7 @@ const nevs = [
         <div class="flex items-center space-x-3">
             <div class="hidden md:flex items-center space-x-3">
                 {user && <a href="/user" class="rounded-md border border-primary px-3 py-2 text-primary hover:text-white hover:bg-purple-800">Hello, {user.name.split(' ')[0]}</a>}
-                {!user && <a href="/login" class="rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">JOIN THE NETWORK</a>}
+                {!user && <a href="/join" class="rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">JOIN THE NETWORK</a>}
             </div>
 
             <button id="menu-btn" class="block md:hidden text-gray-600 focus:outline-none">
@@ -39,7 +39,7 @@ const nevs = [
             {nevs.map((nav) => <a href={nav.href} class="hover:text-primary">{nav.name}</a>)}
             <hr class="border-gray-100">
             {user && <a href="/user" class="rounded-md border border-primary px-3 py-2 text-primary hover:text-white hover:bg-purple-800">Hello, {user.name.split(' ')[0]}, Your Dashboard</a>}
-            {!user && <a href="/login" class="rounded-md bg-primary px-3 py-3 text-white text-center tracking-normal">JOIN THE NETWORK</a>}
+            {!user && <a href="/join" class="rounded-md bg-primary px-3 py-3 text-white text-center tracking-normal">JOIN THE NETWORK</a>}
         </nav>
     </div>
 </header>

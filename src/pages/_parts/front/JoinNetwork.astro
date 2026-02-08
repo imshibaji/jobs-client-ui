@@ -1,0 +1,20 @@
+---
+import Hero from "../react/Hero";
+import LoginInline from "../react/LoginInline";
+import RegisterInline from "../react/RegisterInline";
+---
+<div class="h-auto py-6 md:py-8 bg-lavender flex items-center justify-center px-4">
+    <div class="hidden sm:block sm:w-1/2 justify-center items-center">
+      {/* <img className="rounded-2xl" src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=80" /> */}
+      <Hero />
+    </div>
+    <div class="w-full sm:w-1/2 flex items-center justify-center">
+      <div class="bg-white shadow-lg rounded-2xl p-8 sm:p-8 w-full max-w-md sm:max-w-lg">
+        <LoginInline client:load />
+        <div class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300">
+          <p class="text-center font-semibold mx-4 mb-0">OR</p>
+        </div>
+        <RegisterInline client:load />
+      </div>
+    </div>
+</div>
