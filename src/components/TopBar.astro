@@ -6,24 +6,27 @@ const nevs = [
     { name: "Explore", href: "#vision" },
     { name: "Join Our Community", href: "https://chat.whatsapp.com/JMasqTYB5Lj1tT4J3uhbeD" },
 ];
-
 ---
 <!-- ░░ TOP BAR ░░ -->
 <header class="top-nav sticky top-0 z-50 shadow-sm bg-white">
     <div class="flex items-center justify-between px-4 py-3 md:px-6">
         <a href="/" class="text-2xl font-semibold text-primary flex items-center">
             <img src="/logo.png" alt="JobsForWomen" class="inline-block h-8 w-8 mr-1" />
-            JobsForWoman
+            <div class="flex items-center">
+                JobsForWoman
+                <span class="text-xs text-gray-400 ml-1">Beta</span>
+            </div>
         </a>
 
         <nav class="hidden space-x-6 text-sm md:flex uppercase tracking-[0.25em] font-extrabold text-gray-400">
-            {nevs.map((nav) => <a href={nav.href} class="hover:text-primary">{nav.name}</a>)}
+            <!-- {nevs.map((nav) => <a href={nav.href} class="hover:text-primary">{nav.name}</a>)} -->
         </nav>
 
         <div class="flex items-center space-x-3">
             <div class="hidden md:flex items-center space-x-3">
-                {user && <a href="/user" class="rounded-md border border-primary px-3 py-2 text-primary hover:text-white hover:bg-purple-800">Hello, {user.name.split(' ')[0]}</a>}
-                {!user && <a href="/join" class="rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">JOIN THE NETWORK</a>}
+                <!-- {user && <a href="/user" class="rounded-md border border-primary px-3 py-2 text-primary hover:text-white hover:bg-purple-800">Hello, {user.name.split(' ')[0]}</a>} -->
+                <!-- {!user && <a href="/join" class="rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">JOIN THE NETWORK</a>} -->
+                 <a href="https://chat.whatsapp.com/JMasqTYB5Lj1tT4J3uhbeD" class="rounded-md bg-primary px-3 py-2 text-white hover:bg-purple-800">Join Our Community</a>
             </div>
 
             <button id="menu-btn" class="block md:hidden text-gray-600 focus:outline-none">
