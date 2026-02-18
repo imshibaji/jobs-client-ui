@@ -1,0 +1,259 @@
+---
+import Layout from "@/layouts/Base.astro";
+
+---
+<Layout title="Candidate Registration - JobsForWomen.com">
+<div class="min-h-screen bg-lavender py-12 px-4 sm:px-6 lg:px-8 font-sans">
+  <div class="max-w-7xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-sm border border-purple-100">
+    
+    <header class="mb-10 border-b pb-6">
+      <h1 class="text-3xl font-extrabold text-primary">Candidate Registration</h1>
+      <p class="mt-2 text-sm text-gray-600">Where Talent Meets Opportunity. A platform built for women, by women. More than a job search; a better way for women to work.</p>
+    </header>
+
+    <form action="https://n8n.jobsforwoman.com/webhook/register-candidate" method="POST" enctype="multipart/form-data" class="space-y-10">
+      <section>
+        <div class="space-y-5">
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Full Name *</label>
+            <input type="text" name="name" required class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Email Address *</label>
+            <input type="email" name="email" required class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-xs font-bold text-primary uppercase tracking-wider">Phone Number *</label>
+              <input type="tel" name="phone" required class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-primary uppercase tracking-wider">Current City *</label>
+              <input type="text" name="city" required class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-primary border-b border-purple-100 pb-1 mb-4">Career Life-Stage</h2>
+        <div class="space-y-3">
+          <label class="block text-sm font-semibold text-gray-700">Which best describes your current professional status? *</label>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <label class="flex items-center text-sm text-gray-600 cursor-pointer hover:text-purple-700">
+              <input type="radio" name="professional_status" value="Student (Final Year)" class="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+              <span class="ml-3">Student (Final Year)</span>
+            </label>
+            <label class="flex items-center text-sm text-gray-600 cursor-pointer hover:text-purple-700">
+              <input type="radio" name="professional_status" value="Fresher (Graduated, no work experience)" class="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+              <span class="ml-3">Fresher (Graduated, no work experience)</span>
+            </label>
+            <label class="flex items-center text-sm text-gray-600 cursor-pointer hover:text-purple-700">
+              <input type="radio" name="professional_status" value="Working Professional (Looking for growth/change)" class="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+              <span class="ml-3">Working Professional (Looking for growth/change)</span>
+            </label>
+            <label class="flex items-center text-sm text-gray-600 cursor-pointer hover:text-purple-700">
+              <input type="radio" name="professional_status" value="Career Restarter (Returning after a break of 6+ months)"class="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+              <span class="ml-3">Career Restarter (Returning after a break of 6+ months)</span>
+            </label>
+            <label class="flex items-center text-sm text-gray-600 cursor-pointer hover:text-purple-700">
+              <input type="radio" name="professional_status" value="Freelancer / Entrepreneur" class="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+              <span class="ml-3">Freelancer / Entrepreneur</span>
+            </label>
+            <label class="flex items-center text-sm text-gray-600 cursor-pointer hover:text-purple-700">
+              <input type="radio" name="professional_status" value="Other" class="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+              <span class="ml-3">Other</span>
+            </label>
+          </div>
+          <div class="mt-4">
+            <label class="block text-xs font-bold text-primary uppercase">If other, please specify:</label>
+            <input type="text" name="other_professional_status" class="mt-1 block w-full border-purple-300 rounded-md p-2 border outline-none">
+          </div>
+        </div>
+        <div class="space-y-3 mt-6">
+          <label class="block text-sm font-semibold text-gray-700">Highest Educational Qualification *</label>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <label class="flex items-center text-sm text-gray-600 cursor-pointer hover:text-purple-700">
+              <input type="radio" name="highest_education" value="High School (10th, 12th, etc.)" class="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+              <span class="ml-3">High School (10th, 12th, etc.)</span>
+            </label>
+            <label class="flex items-center text-sm text-gray-600 cursor-pointer hover:text-purple-700">
+              <input type="radio" name="highest_education" value="Undergraduate (B.A., B.Com, B.Sc, B.Tech, etc.)" class="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+              <span class="ml-3">Undergraduate (B.A., B.Com, B.Sc, B.Tech, etc.)</span>
+            </label>
+            <label class="flex items-center text-sm text-gray-600 cursor-pointer hover:text-purple-700">
+              <input type="radio" name="highest_education" value="Postgraduate (M.A., MBA, M.Tech, etc.)" class="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+              <span class="ml-3">Postgraduate (M.A., MBA, M.Tech, etc.)</span>
+            </label>
+            <label class="flex items-center text-sm text-gray-600 cursor-pointer hover:text-purple-700">
+              <input type="radio" name="highest_education" value="Diploma / Certification Course" class="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+              <span class="ml-3">Diploma / Certification Course</span>
+            </label>
+            <label class="flex items-center text-sm text-gray-600 cursor-pointer hover:text-purple-700">
+              <input type="radio" name="highest_education" value="Doctorate / PhD" class="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+              <span class="ml-3">Doctorate / PhD</span>
+            </label>
+            <label class="flex items-center text-sm text-gray-600 cursor-pointer hover:text-purple-700">
+              <input type="radio" name="highest_education" value="Other" class="w-4 h-4 text-purple-600 border-gray-300 focus:ring-purple-500">
+              <span class="ml-3">Other</span>
+            </label>
+          </div>
+          <div class="mt-4">
+            <label class="block text-xs font-bold text-primary uppercase">If other, please specify:</label>
+            <input type="text" name="other_education" class="mt-1 block w-full border-purple-300 rounded-md p-2 border outline-none">
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-primary border-b border-purple-100 pb-1 mb-4">Professional Interests & Skills</h2>
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-3">Which industry are you primarily interested in? *</label>
+            <select name="interested_industry" class="w-full border-purple-300 rounded-md p-2.5 border text-gray-600 outline-none focus:ring-2 focus:ring-purple-200">
+              <option>IT, Tech & Software</option>
+              <option>Marketing, Creative & PR</option>
+              <option>HR & Administration</option>
+              <option>Finance, Banking & Fintech</option>
+              <option>Healthcare & Pharma</option>
+              <option>Education & EdTech</option>
+              <option>Sales & Business Development</option>
+              <option>Customer Support & Operations</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-3">What is your preferred work arrangement? *</label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <label class="flex items-center text-sm text-gray-600"><input type="radio" name="preferred_work" value="Work from Home (100% Remote)" class="rounded text-purple-600 mr-2"> Work from Home (100% Remote)</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="radio" name="preferred_work" value="Hybrid (Office + Home)" class="rounded text-purple-600 mr-2"> Hybrid (Office + Home)</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="radio" name="preferred_work" value="On-site (Office-based)" class="rounded text-purple-600 mr-2"> On-site (Office-based)</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="radio" name="preferred_work" value="Flexible / Part-time" class="rounded text-purple-600 mr-2"> Flexible / Part-time</label>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-3">Which modern work tools are you comfortable using? *</label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <label class="flex items-center text-sm text-gray-600"><input type="checkbox" class="rounded text-purple-600 mr-2" name="using_tools" value="AI Tools (ChatGPT, Gemini)"> AI Tools (ChatGPT, Gemini)</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="checkbox" class="rounded text-purple-600 mr-2" name="using_tools" value="MS Office (Excel, Word, PowerPoint)"> MS Office (Excel, Word, PowerPoint)</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="checkbox" class="rounded text-purple-600 mr-2" name="using_tools" value="Design Tools (Figma, Adobe XD)"> Design Tools (Figma, Adobe XD)</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="checkbox" class="rounded text-purple-600 mr-2" name="using_tools" value="Collaboration ToolsManagement Tools (Slack, Notion)"> Collaboration ToolsManagement Tools (Slack, Notion)</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="checkbox" class="rounded text-purple-600 mr-2" name="using_tools" value="Social Media Management (Instagram, LinkedIn, Meta Business)"> Social Media Management (Instagram, LinkedIn, Meta Business)</label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-primary border-b border-purple-100 pb-1 mb-4">Work Environment & Culture</h2>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-3">What are your top 3 priorities in a work environment? *</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-600">
+            <label class="flex items-start"><input type="checkbox" class="mt-1 rounded text-purple-600 mr-2" name="work_environment" value="Flexible working hours"> <span>Flexible working hours</span></label>
+            <label class="flex items-start"><input type="checkbox" class="mt-1 rounded text-purple-600 mr-2" name="work_environment" value="Menstrual/Period Leave policy"> <span>Menstrual/Period Leave policy</span></label>
+            <label class="flex items-start"><input type="checkbox" class="mt-1 rounded text-purple-600 mr-2" name="work_environment" value="Safe office location/transport"> <span>Safe office location/transport</span></label>
+            <label class="flex items-start"><input type="checkbox" class="mt-1 rounded text-purple-600 mr-2" name="work_environment" value="Strong female representation"> <span>Strong female representation</span></label>
+            <label class="flex items-start"><input type="checkbox" class="mt-1 rounded text-purple-600 mr-2" name="work_environment" value="Mental health support & wellness programs"> <span>Mental health support & wellness programs</span></label>
+            <label class="flex items-start"><input type="checkbox" class="mt-1 rounded text-purple-600 mr-2" name="work_environment" value="Childcare support / Creche facilities"> <span>Childcare support / Creche facilities</span></label>
+            <label class="flex items-start"><input type="checkbox" class="mt-1 rounded text-purple-600 mr-2" name="work_environment" value="Mentorship & Career growth path"> <span>Mentorship & Career growth path</span></label>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-primary border-b border-purple-100 pb-1 mb-4">Final Logistics & Verification</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-3">How soon can you start a new role? *</label>
+            <div class="space-y-2">
+              <label class="flex items-center text-sm text-gray-600"><input type="radio" name="joining_time" value="Immediately" class="text-purple-600 mr-2"> Immediately</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="radio" name="joining_time" value="Within 15 days" class="text-purple-600 mr-2"> Within 15 days</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="radio" name="joining_time" value="1 month" class="text-purple-600 mr-2"> 1 month</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="radio" name="joining_time" value="Currently just exploring" class="text-purple-600 mr-2"> Currently just exploring</label>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-3">Expected Monthly Salary (Take-home) *</label>
+            <div class="space-y-2">
+              <label class="flex items-center text-sm text-gray-600"><input type="radio" name="salary" value="₹15k - ₹30k" class="text-purple-600 mr-2"> ₹15k - ₹30k</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="radio" name="salary" value="₹30k - ₹50k" class="text-purple-600 mr-2"> ₹30k - ₹50k</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="radio" name="salary" value="₹50k - ₹80k" class="text-purple-600 mr-2"> ₹50k - ₹80k</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="radio" name="salary" value="₹80k - ₹1.2L" class="text-purple-600 mr-2"> ₹80k - ₹1.2L</label>
+              <label class="flex items-center text-sm text-gray-600"><input type="radio" name="salary" value="₹1.2L+" class="text-purple-600 mr-2"> ₹1.2L+</label>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-3">Please provide your Resume *</label>
+            <div id="drop-zone" class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-purple-300 border-dashed rounded-md bg-purple-50">
+              <div class="space-y-1 text-center">
+                <svg class="mx-auto h-10 w-10 text-purple-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                  <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 00-4 4H12a4 4 0 00-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 005.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div class="flex text-sm text-gray-600">
+                  <label class="relative cursor-pointer bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus-within:outline-none">
+                    <span>Upload a file</span>
+                    <input id="file-upload" name="resume" type="file" class="sr-only" accept=".pdf,.doc,.docx">
+                  </label>
+                  <p class="pl-1">or drag and drop</p>
+                </div>
+                <p id="file-name" class="text-xs text-gray-500">PDF, DOC up to 3MB</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="pt-6">
+        <button type="submit" class="w-full bg-primary text-white py-3 px-4 rounded-lg font-bold text-lg hover:bg-primary transition duration-300 shadow-md">
+          COMPLETE REGISTRATION
+        </button>
+      </div>
+      
+    </form>
+  </div>
+</div>
+</Layout>
+
+<script is:inline>
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-upload');
+const fileNameDisplay = document.getElementById('file-name');
+
+// 1. Highlight drop zone when dragging over it
+['dragenter', 'dragover'].forEach(eventName => {
+  dropZone.addEventListener(eventName, (e) => {
+    e.preventDefault();
+    dropZone.classList.add('border-purple-500', 'bg-purple-100');
+  });
+});
+
+// 2. Remove highlight when dragging leaves
+['dragleave', 'drop'].forEach(eventName => {
+  dropZone.addEventListener(eventName, (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('border-purple-500', 'bg-purple-100');
+  });
+});
+
+// 3. Handle dropped files
+dropZone.addEventListener('drop', (e) => {
+  const files = e.dataTransfer.files;
+  if (files.length) {
+    fileInput.files = files; // Sync the dropped file to the hidden input
+    updateFileName(files[0].name);
+  }
+});
+
+// 4. Handle manual selection
+fileInput.addEventListener('change', () => {
+  if (fileInput.files.length) {
+    updateFileName(fileInput.files[0].name);
+  }
+});
+
+// Helper function to update UI
+function updateFileName(name) {
+  fileNameDisplay.textContent = `Selected: ${name}`;
+  fileNameDisplay.classList.remove('text-gray-500');
+  fileNameDisplay.classList.add('text-purple-700', 'font-bold');
+}
+</script>

@@ -1,0 +1,211 @@
+---
+import Layout from "@/layouts/Base.astro";
+
+---
+<Layout title="Employer Registration - JobsForWomen.com">
+<div class="min-h-screen bg-lavender py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto bg-white p-8 rounded-xl shadow-md">
+    <header class="mb-10 border-b pb-6">
+      <h1 class="text-3xl font-bold text-primary">Employer Registration Form</h1>
+      <p class="mt-2 text-gray-600">Help us connect you with the right talent by filling out the details below.</p>
+    </header>
+    <form action="https://n8n.jobsforwoman.com/webhook/register-as-employer" method="POST" enctype="multipart/form-data" class="space-y-12">
+      <section>
+        <h2 class="text-xl font-semibold text-primary mb-6 flex items-center">
+          <span class="bg-indigo-100 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">1</span>
+          Company & Contact Information
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Company Name*</label>
+            <input type="text" name="company_name" required class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Full Name of Point of Contact*</label>
+            <input type="text" name="contact_name" required class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Designation / Job Title*</label>
+            <input type="text" name="job_title" required class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Official Work Email Address*</label>
+            <input type="email" name="email" required class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Direct Contact Number (WhatsApp preferred)*</label>
+            <input type="tel" name="phone" required class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Office Headquarter City</label>
+            <input type="text" name="city" class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+          </div>
+          <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-primary uppercase tracking-wider">Company Website URL</label>
+              <input type="url" name="website" class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-primary uppercase tracking-wider">Company LinkedIn Profile Link</label>
+              <input type="url" name="linkedin" class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold text-primary mb-6 flex items-center">
+          <span class="bg-indigo-100 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">2</span>
+          Company Profile & Industry
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-2">Industry</label>
+            <select name="industry" class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+              <option>IT, Tech & Software</option>
+              <option>Marketing, Creative & PR</option>
+              <option>HR & Admin</option>
+              <option>Finance & Fintech</option>
+              <option>Healthcare</option>
+              <option>Education</option>
+              <option>Sales</option>
+              <option>Customer Support</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-2">Company Culture</label>
+            <div class="space-y-2">
+              <label class="flex items-center text-sm"><input type="radio" name="culture" class="mr-2"> Fast-paced Startup</label>
+              <label class="flex items-center text-sm"><input type="radio" name="culture" class="mr-2"> Established Corporate</label>
+              <label class="flex items-center text-sm"><input type="radio" name="culture" class="mr-2"> Social Impact / NGO</label>
+              <label class="flex items-center text-sm"><input type="radio" name="culture" class="mr-2"> Women-led Business</label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold text-primary mb-6 flex items-center">
+          <span class="bg-indigo-100 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">3</span>
+          Hiring & Logistics
+        </h2>
+        <div class="space-y-6">
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Primary Roles you are looking to fill</label>
+            <input type="text" name="hiring_for_roles" placeholder="e.g. Full Stack Developer, HR Manager" class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-2">Work Arrangement</label>
+              <select name="work_arrangement" class="w-full border-purple-300 rounded-md p-2.5 border text-sm">
+                <option>Work from Home</option>
+                <option>Hybrid</option>
+                <option>On-site</option>
+                <option>Flexible / Part-time</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-2">Equipment Policy</label>
+              <select name="equipment_policy" class="w-full border-purple-300 rounded-md p-2.5 border text-sm">
+                <option>Company provides hardware</option>
+                <option>Candidate uses own setup</option>
+                <option>Reimbursable/Stipend provided</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-2">Desired Time-to-Hire</label>
+              <select name="time_to_hire" class="w-full border-purple-300 rounded-md p-2.5 border text-sm">
+                <option>Urgent (1 week)</option>
+                <option>Standard (2-4 weeks)</option>
+                <option>Talent Pipeline</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold text-primary mb-6 flex items-center">
+          <span class="bg-indigo-100 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">4</span>
+          Skills & Compensation
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-3">Modern tools comfort (Select relevant)</label>
+            <div class="grid grid-cols-2 gap-2">
+              <label class="flex items-center text-xs bg-purple-100 p-2 rounded cursor-pointer"><input type="checkbox" class="mt-1 rounded text-purple-600 mr-2" name="using_tools" value="AI Tools"> AI Tools</label>
+              <label class="flex items-center text-xs bg-purple-100 p-2 rounded cursor-pointer"><input type="checkbox" class="mt-1 rounded text-purple-600 mr-2" name="using_tools" value="MS Office"> MS Office</label>
+              <label class="flex items-center text-xs bg-purple-100 p-2 rounded cursor-pointer"><input type="checkbox" class="mt-1 rounded text-purple-600 mr-2" name="using_tools" value="Design Tools"> Design Tools</label>
+              <label class="flex items-center text-xs bg-purple-100 p-2 rounded cursor-pointer"><input type="checkbox" class="mt-1 rounded text-purple-600 mr-2" name="using_tools" value="Collaboration Tools"> Collaboration Tools</label>
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-3">Monthly Salary Range (Take-home)</label>
+            <select name="salary_range" class="w-full border-purple-300 rounded-md p-2.5 border">
+              <option>₹15k-₹30k</option>
+              <option>₹30k-₹50k</option>
+              <option>₹50k-₹80k</option>
+              <option>₹80k-₹1.2L</option>
+              <option>₹1.2L+</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-purple-50 p-6 rounded-lg border border-purple-100">
+        <h2 class="text-xl font-semibold text-primary mb-6">Diversity, Inclusion & Support</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-3">Company Offerings (Select all that apply)</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+              <label><input type="checkbox" class="mr-2" name="company_offerings" value="Flexible working hours"> Flexible working hours</label>
+              <label><input type="checkbox" class="mr-2" name="company_offerings" value="Menstrual/Period Leave"> Menstrual/Period Leave</label>
+              <label><input type="checkbox" class="mr-2" name="company_offerings" value="Safe office location/transport"> Safe office location/transport</label>
+              <label><input type="checkbox" class="mr-2" name="company_offerings" value="Strict No-Call hours"> Strict "No-Call" hours</label>
+              <label><input type="checkbox" class="mr-2" name="company_offerings" value="Female representation in leadership"> Female representation in leadership</label>
+              <label><input type="checkbox" class="mr-2" name="company_offerings" value="Mental health programs"> Mental health programs</label>
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-2">Onboarding Support</label>
+            <select name="onboard_support" class="w-full border-gray-300 rounded-md p-2 border bg-white">
+              <option>Yes (Mentor provided)</option>
+              <option>No</option>
+              <option>Upon Request</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-2">Career Restarters Openness</label>
+            <select name="career_restarters" class="w-full border-gray-300 rounded-md p-2 border bg-white">
+              <option>Yes, we actively encourage it</option>
+              <option>Yes, open with training</option>
+              <option>Not at the moment</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold text-gray-800 mb-6">Final Verification</h2>
+        <div class="space-y-6">
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Upload Company Logo</label>
+            <input type="file" name="company_logo" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-purple-700 hover:file:bg-purple-100">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Any specific notes for the candidates?</label>
+            <textarea name="notes" rows="3" class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2 border"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <div class="pt-6">
+        <button type="submit" class="w-full bg-primary text-white py-3 px-6 rounded-md font-bold hover:bg-purple-900 transition duration-200 shadow-lg">
+          Complete Registration
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+</Layout>
