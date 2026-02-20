@@ -25,8 +25,8 @@ import Layout from "@/layouts/Base.astro";
             <input type="text" name="contact_name" required class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
           </div>
           <div>
-            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Designation / Job Title*</label>
-            <input type="text" name="job_title" required class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Designation in Company*</label>
+            <input type="text" name="designation" required class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
           </div>
           <div>
             <label class="block text-xs font-bold text-primary uppercase tracking-wider">Official Work Email Address*</label>
@@ -76,10 +76,10 @@ import Layout from "@/layouts/Base.astro";
           <div>
             <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-2">Company Culture</label>
             <div class="space-y-2">
-              <label class="flex items-center text-sm"><input type="radio" name="culture" class="mr-2"> Fast-paced Startup</label>
-              <label class="flex items-center text-sm"><input type="radio" name="culture" class="mr-2"> Established Corporate</label>
-              <label class="flex items-center text-sm"><input type="radio" name="culture" class="mr-2"> Social Impact / NGO</label>
-              <label class="flex items-center text-sm"><input type="radio" name="culture" class="mr-2"> Women-led Business</label>
+              <label class="flex items-center text-sm"><input type="radio" name="culture" value="Fast-paced Startup" class="mr-2"> Fast-paced Startup</label>
+              <label class="flex items-center text-sm"><input type="radio" name="culture" value="Established Corporate" class="mr-2"> Established Corporate</label>
+              <label class="flex items-center text-sm"><input type="radio" name="culture" value="Social Impact / NGO" class="mr-2"> Social Impact / NGO</label>
+              <label class="flex items-center text-sm"><input type="radio" name="culture" value="Women-led Business" class="mr-2"> Women-led Business</label>
             </div>
           </div>
         </div>
@@ -92,8 +92,52 @@ import Layout from "@/layouts/Base.astro";
         </h2>
         <div class="space-y-6">
           <div>
-            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Primary Roles you are looking to fill</label>
-            <input type="text" name="hiring_for_roles" placeholder="e.g. Full Stack Developer, HR Manager" class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Primary Job Role / Title you are looking to fill*</label>
+            <input type="text" name="job_title" required placeholder="e.g. Urgent Hiring - Full Stack Developer" class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-primary uppercase tracking-wider">Job Description</label>
+            <textarea rows="3" name="description" placeholder="e.g. You should be able to work with the React, Node.js, Python. You takes care of the front-end and back-end development." class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none"></textarea>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-primary uppercase tracking-wider">Job Responsibilities / Duties</label>
+              <input type="text" name="responsibilities" placeholder="e.g. 8 hours a day, 5 days a week" class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none"></input>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-primary uppercase tracking-wider">Job Location</label>
+              <input type="text" name="job_location" placeholder="e.g. Hyderabad, India" class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none"></input>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-2">Qualifications (Select relevant ones)</label>
+              <select name="qualifications" class="mt-1 block w-full border-purple-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2.5 border outline-none">
+                <option>Secondary (10th)</option>
+                <option>Higher Secondary (12th)</option>
+                <option>High School Diploma / Certificate</option>
+                <option>Bachelor's Degree(BCA, B.Com, B.Arch, B.Sc, B.Ed, B.Pharma)</option>
+                <option>Post Graduate(MCA, M.Com, M.Arch, M.Sc, M.Ed, M.Pharma)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-2">Job Type</label>
+              <select name="job_type" class="w-full border-purple-300 rounded-md p-2.5 border text-sm">
+                <option>Full Time</option>
+                <option>Part Time</option>
+                <option>Contract</option>
+                <option>Internship</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-primary uppercase tracking-wider mb-2">Job Experience</label>
+              <select name="job_experience" class="w-full border-purple-300 rounded-md p-2.5 border text-sm">
+                <option>0-2 years</option>
+                <option>2-5 years</option>
+                <option>5-10 years</option>
+                <option>10+ years</option>
+              </select>
+            </div>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
