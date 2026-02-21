@@ -13,6 +13,11 @@ let menus = [
         link: "/emp",
     },
     {
+        name: "Jobs List",
+        icon: ListTodo,
+        link: "/emp/jobs",
+    },
+    {
         name: "Applications",
         icon: StickyNote,
         link: "/emp/applications",
@@ -21,11 +26,6 @@ let menus = [
         name: "Interviews",
         icon: PencilRulerIcon,
         link: "/emp/interviews",
-    },
-    {
-        name: "Jobs List",
-        icon: ListTodo,
-        link: "/emp/jobs",
     },
     {
         name: "Offers List",
@@ -37,11 +37,11 @@ let menus = [
         icon: ListTodo,
         link: "/emp/company",
     },
-    {
-        name: "Feedbacks",
-        icon: MessageCircleMoreIcon,
-        link: "/emp/feedbacks",
-    }
+    // {
+    //     name: "Feedbacks",
+    //     icon: MessageCircleMoreIcon,
+    //     link: "/emp/feedbacks",
+    // }
 ];
 
 menus = user && user.role === "admin" ? [
