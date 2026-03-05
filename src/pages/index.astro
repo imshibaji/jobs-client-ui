@@ -8,6 +8,7 @@ import Cta from '@/components/front/home/Cta.astro';
 import { BASE_URL } from 'astro:env/client';
 import { APP_URL } from 'astro:env/server';
 import { APP_SECRET_KEY } from 'astro:env/server';
+import Certificate from '@/components/Certificate.astro';
 const title = "JobsForWoman.com – Empowering Women, One Job at a Time";
 
 console.log(BASE_URL);
@@ -61,6 +62,8 @@ console.log(APP_SECRET_KEY);
             </div>
         </div>
     </section>
+
+    <Certificate />
 
     <section class="py-20 px-6 max-w-7xl mx-auto">
         <div class="flex justify-between items-center mb-16">
