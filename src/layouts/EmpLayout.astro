@@ -13,6 +13,11 @@ let menus = [
         link: "/emp",
     },
     {
+        name: "Jobs List",
+        icon: ListTodo,
+        link: "/emp/jobs",
+    },
+    {
         name: "Applications",
         icon: StickyNote,
         link: "/emp/applications",
@@ -21,11 +26,6 @@ let menus = [
         name: "Interviews",
         icon: PencilRulerIcon,
         link: "/emp/interviews",
-    },
-    {
-        name: "Jobs List",
-        icon: ListTodo,
-        link: "/emp/jobs",
     },
     {
         name: "Offers List",
@@ -37,11 +37,11 @@ let menus = [
         icon: ListTodo,
         link: "/emp/company",
     },
-    {
-        name: "Feedbacks",
-        icon: MessageCircleMoreIcon,
-        link: "/emp/feedbacks",
-    }
+    // {
+    //     name: "Feedbacks",
+    //     icon: MessageCircleMoreIcon,
+    //     link: "/emp/feedbacks",
+    // }
 ];
 
 menus = user && user.role === "admin" ? [
@@ -83,6 +83,7 @@ const settings = {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <meta name="google-site-verification" content="2UKvOVd3IX8XrDrcrsklPNtRxk_wRqjKxOs6wNpDRtM" />
 </head>
 <body class="bg-gray-50 font-sans">
     <Sidebar menus={menus} settings={settings} />
@@ -107,3 +108,12 @@ const settings = {
     </script>
 </body>
 </html>
+
+<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-TD9HPH0QNH"></script>
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TD9HPH0QNH');
+</script>
