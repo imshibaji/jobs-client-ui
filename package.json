@@ -14,14 +14,14 @@
     "test:report": "npx playwright show-report"
   },
   "dependencies": {
-    "@astrojs/node": "^9.5.4",
-    "@astrojs/react": "4.4.2",
+    "@astrojs/node": "^10.0.4",
+    "@astrojs/react": "5.0.3",
     "@lucide/astro": "^0.548.0",
     "@nanostores/react": "^1.0.0",
     "@tailwindcss/vite": "^4.1.16",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "astro": "^5.18.0",
+    "astro": "^6.1.5",
     "dayjs": "^1.11.19",
     "express": "^5.2.1",
     "jose": "^6.1.2",

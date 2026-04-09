@@ -1,0 +1,157 @@
+---
+import '../styles/quiz.css';
+import Navbar from './_parts/front/Navbar.astro';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Quiz – Jobs for Women Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<nav>
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <img src="/logo.png" alt="JobsForWomen" class="inline-block h-8 w-8" />
+      <div class="flex items-center text-2xl font-black">
+          JobsForWoman
+          <span class="text-xs text-gray-400 ml-1">Beta</span>
+      </div>
+    </a>
+    <div class="nl">
+      <a href="/" class="nk"><svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</a>
+      <a href="/explore" class="nk"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Explore</a>
+      <a href="/quiz" class="nk"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Quiz</a>
+    </div>
+    <div class="nr">
+      <a href="https://n8n.jobsforwoman.com/form/registration" class="bo"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Candidate</a>
+      <a href="/register-as-employer" class="bf"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Company</a>
+    </div>
+    <button class="hbg" id="hbg"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mm" id="mm">
+  <a href="/" class="nk">Home</a>
+  <a href="/explore" class="nk">Explore</a>
+  <a href="/quiz" class="nk">Quiz</a>
+  <div class="mmb">
+    <a href="https://n8n.jobsforwoman.com/form/registration" class="bo">Candidate</a>
+    <a href="/register-as-employer" class="bf">Company</a>
+  </div>
+</div>
+<div class="hero">
+  <div class="hbadge"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Personality Quiz</div>
+  <h1 id="htitle">Find Out Who You Are at Work</h1>
+  <p id="hsub">Two quizzes. One for candidates. One for companies. Answer honestly and discover your true professional personality.</p>
+</div>
+<div class="pg on" id="pgS">
+  <div class="si">
+    <div class="sw">I am taking this quiz as…</div>
+    <div class="sg">
+      <div class="sc">
+        <span class="stag">For Job Seekers</span>
+        <span class="sem">👩‍💼</span>
+        <h2>I'm a Candidate</h2>
+        <p>Discover your career personality — your work style, your strengths, and the culture where you'll do the best work of your life.</p>
+        <button class="sbtn" id="btnC">Start Candidate Quiz →</button>
+      </div>
+      <div class="sc">
+        <span class="stag">For Employers</span>
+        <span class="sem">🏢</span>
+        <h2>I'm a Company</h2>
+        <p>Uncover your company's inclusion DNA — how diversity-ready your culture really is and what kind of talent you're truly built to attract.</p>
+        <button class="sbtn" id="btnCo">Start Company Quiz →</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pg" id="pgQ">
+  <div class="qi">
+    <button class="bk" id="btnBk"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Back to quiz selection</button>
+    <div class="pw">
+      <div class="pm"><span class="pl" id="pl">Question 1 of 7</span><span class="pn" id="pn">1 / 7</span></div>
+      <div class="pt"><div class="pb" id="pb" style="width:14%"></div></div>
+    </div>
+    <div class="qc" id="qc">
+      <div class="qn" id="qnum">Question 01</div>
+      <div class="qt" id="qtext"></div>
+      <div class="qo" id="qopts"></div>
+      <button class="qnb" id="qnb">Continue →</button>
+    </div>
+    <div class="rc" id="resc" style="display:none">
+      <span class="re" id="re"></span>
+      <div class="rl" id="rl"></div>
+      <h2 class="rt" id="rtitle"></h2>
+      <div class="rq" id="rtagline"></div>
+      <p class="rd" id="rdesc"></p>
+      <div class="rtr" id="rtraits"></div>
+      <div class="ra">
+        <button class="rtk" id="btnRtk">Retake Quiz</button>
+        <button class="rct" id="rcta">Register Now →</button>
+      </div>
+    </div>
+  </div>
+</div>
+<footer><p>© 2026 Shepreneur Era Private Limited · Made for women, by women <svg style="display:inline;vertical-align:middle;margin-left:4px" width="13" height="13" fill="#c084fc" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></p></footer>
+<script is:inline>
+(function(){var c=document.getElementById('stars');for(var i=0;i<90;i++){var s=document.createElement('div');s.className='star';var z=Math.random()*2.4+0.8;s.style.cssText='width:'+z+'px;height:'+z+'px;left:'+Math.random()*100+'%;top:'+Math.random()*100+'%;--dur:'+(Math.random()*4+2).toFixed(1)+'s;--delay:-'+(Math.random()*6).toFixed(1)+'s;';c.appendChild(s);}})();
+document.getElementById('hbg').addEventListener('click',function(){this.classList.toggle('open');document.getElementById('mm').classList.toggle('open');});
+var D={
+candidate:{
+  ht:"What Kind of Professional Are You?",
+  hs:"7 creative questions. Real insights. Discover your career personality — your work style, strengths, and the culture where you'll truly thrive.",
+  cta:"Register as Candidate →",rl:"Your Career Personality",
+  qs:[
+    {t:"It's Monday morning. You walk into your dream office. What does it look like?",o:[{l:'A',t:'Open space, whiteboards everywhere, people brainstorming loudly — creative chaos.',s:'C'},{l:'B',t:'Calm and minimal with natural light. A place where deep thinking actually happens.',s:'F'},{l:'C',t:'A buzzing team floor — energy, collaboration, laughter between meetings.',s:'N'},{l:'D',t:'Data on screens, structured processes, clear goals pinned on the wall.',s:'S'}]},
+    {t:"You've just been handed a big project with zero instructions. Your first move?",o:[{l:'A',t:'Pull up a blank page and start firing off ideas immediately.',s:'C'},{l:'B',t:'Research everything first — you need context before you act.',s:'F'},{l:'C',t:'Call a quick brainstorm. You think best when bouncing ideas off people.',s:'N'},{l:'D',t:'Break it into steps, set milestones, build a timeline.',s:'S'}]},
+    {t:"Your manager gives you unexpected public praise in a team meeting. Your reaction?",o:[{l:'A',t:'Inspired — now you want to go even bigger with your next idea.',s:'C'},{l:'B',t:'Quietly satisfied. Recognition is nice, but results matter more.',s:'F'},{l:'C',t:'Energized! You love when the whole team vibe is high.',s:'N'},{l:'D',t:'Motivated to document what worked and replicate the formula.',s:'S'}]},
+    {t:"Which phrase feels most like you at work?",o:[{l:'A',t:'"What if we tried something completely different this time?"',s:'C'},{l:'B',t:'"Let me think about this properly before we move forward."',s:'F'},{l:'C',t:'"How can I help the team get through this together?"',s:'N'},{l:'D',t:'"Here\'s the plan, the metrics, and the expected outcome."',s:'S'}]},
+    {t:"A workplace conflict breaks out. You tend to…",o:[{l:'A',t:'Reframe the tension as a creative challenge to solve differently.',s:'C'},{l:'B',t:'Step back, process privately, then respond with clarity.',s:'F'},{l:'C',t:'Bring people together — you hate when the team energy drops.',s:'N'},{l:'D',t:'Look at the facts, find the root cause, propose a concrete solution.',s:'S'}]},
+    {t:"Your ideal manager is someone who…",o:[{l:'A',t:'Gives you total creative freedom and completely trusts your instincts.',s:'C'},{l:'B',t:'Sets clear expectations and then gets completely out of your way.',s:'F'},{l:'C',t:'Checks in often, gives real feedback, and genuinely cares about you.',s:'N'},{l:'D',t:'Is goal-obsessed, data-driven, and rewards measurable impact.',s:'S'}]},
+    {t:"Five years from now, you see yourself as…",o:[{l:'A',t:'A creative director or brand lead — the person who made it look iconic.',s:'C'},{l:'B',t:'A deep expert in your field — the undisputed go-to for your niche.',s:'F'},{l:'C',t:'A people leader, mentor, or culture builder at a company you love.',s:'N'},{l:'D',t:'A senior strategist, founder, or the person driving growth from the top.',s:'S'}]}
+  ],
+  res:{
+    C:{e:'🎨',ti:'The Visionary Creator',tg:'"You don\'t just think outside the box — you redecorate it."',d:'You bring fresh energy wherever you go. Ideas flow naturally and you thrive in environments that celebrate originality. You need room to experiment, freedom to fail fast, and a culture that values "what if" over "we\'ve always done it this way." Companies building something new will absolutely love working with you.',tr:['Creative Thinker','Risk Taker','Trend Setter','Visionary','Expressive']},
+    F:{e:'🔍',ti:'The Deep Diver',tg:'"Quiet, focused, unstoppable — you do your best work in flow state."',d:'You\'re the person who actually reads the full brief. You think carefully, speak precisely, and deliver work that is thorough and considered. You thrive in roles requiring expertise, research, and independent thinking. A company that respects your depth will get extraordinary work from you.',tr:['Detail-Oriented','Analytical','Independent','Thorough','Expert']},
+    N:{e:'🤝',ti:'The Culture Catalyst',tg:'"Every team is better because you\'re in it."',d:'You\'re the glue. You remember people\'s names, notice when someone\'s quiet, and know exactly how to lift a team\'s energy. You thrive in collaborative environments where relationships matter as much as output. You\'ll do your best work at companies that genuinely invest in their people.',tr:['Collaborative','Empathetic','People-First','Communicator','Team Builder']},
+    S:{e:'♟️',ti:'The Power Strategist',tg:'"You see ten moves ahead while everyone else is still on move one."',d:'You are goal-obsessed in the best way. You thrive on structure, metrics, and outcomes that matter. You\'re not satisfied with effort alone — you want to see impact. You do your best work in high-performance environments where ambition is celebrated and results open doors.',tr:['Goal-Driven','Strategic','Decisive','Ambitious','Systems Thinker']}
+  }
+},
+company:{
+  ht:"What Kind of Employer Are You?",
+  hs:"7 honest questions about your culture, hiring, and values. Discover your company's true inclusion personality — and what kind of talent you're really built to attract.",
+  cta:"Register Your Company →",rl:"Your Company Culture Type",
+  qs:[
+    {t:"When a highly qualified woman applies for a senior role, your hiring team's gut reaction is…",o:[{l:'A',t:'"Perfect — we actively build leadership diversity at every level."',s:'X'},{l:'B',t:'"Great candidate! We hire on merit and always welcome strong talent."',s:'P'},{l:'C',t:'"We\'re open to it, but we don\'t have a formal diversity policy yet."',s:'E'},{l:'D',t:'"We know we need to do better here — we\'re working on it."',s:'G'}]},
+    {t:"How does your company handle parental leave and return-to-work?",o:[{l:'A',t:'Generous leave, flexible return, and a dedicated re-onboarding program.',s:'X'},{l:'B',t:'We meet legal requirements and support flexibility case by case.',s:'P'},{l:'C',t:'Leave is offered but re-integration is still a work in progress.',s:'E'},{l:'D',t:'We\'re in the process of formalizing better policies right now.',s:'G'}]},
+    {t:"What does your leadership team actually look like today?",o:[{l:'A',t:'Diverse across gender, background, and thought — intentionally built this way.',s:'X'},{l:'B',t:'A reasonable mix — proud of some areas but honest there\'s more to do.',s:'P'},{l:'C',t:'Mostly homogeneous right now, but we\'re aware and making changes.',s:'E'},{l:'D',t:'Honestly it\'s a real gap we\'re only just starting to address.',s:'G'}]},
+    {t:"How does gender equality show up in your company's internal culture?",o:[{l:'A',t:'Embedded in our values — we measure it, track it, hold people accountable.',s:'X'},{l:'B',t:'We have active conversations, ERGs, and visible allyship from leadership.',s:'P'},{l:'C',t:'It comes up occasionally but isn\'t a consistent structured conversation yet.',s:'E'},{l:'D',t:'Rarely — which is exactly why we\'re trying to change things.',s:'G'}]},
+    {t:"If a woman on your team raised a gender-related workplace concern, your company would…",o:[{l:'A',t:'Have a clear confidential process — and always follow through with action.',s:'X'},{l:'B',t:'Take it seriously and escalate appropriately, even if processes aren\'t perfect.',s:'P'},{l:'C',t:'Listen carefully, but our formal processes are still being developed.',s:'E'},{l:'D',t:'Struggle — we don\'t have a clear process and this is a known blind spot.',s:'G'}]},
+    {t:"How do you approach salary equity across genders in your organisation?",o:[{l:'A',t:'Regular pay audits, transparent reporting, and we publish our gender pay gap data.',s:'X'},{l:'B',t:'We actively aim for fairness and are working toward formal audit processes.',s:'P'},{l:'C',t:'We try to be fair but don\'t have a structured audit process yet.',s:'E'},{l:'D',t:'This is something we genuinely know we need to address more seriously.',s:'G'}]},
+    {t:"Why does your company want to hire from a women-focused job platform?",o:[{l:'A',t:'We have diversity targets, leadership pipelines to fill, and representation goals.',s:'X'},{l:'B',t:'Diverse teams build better products — it\'s a genuine strategic advantage.',s:'P'},{l:'C',t:'We want to do better and see this as a concrete step toward improving our culture.',s:'E'},{l:'D',t:'We\'re just beginning this journey and know we need to start somewhere.',s:'G'}]}
+  ],
+  res:{
+    X:{e:'🏆',ti:'The Diversity Champion',tg:'"You\'re not just talking about inclusion — you\'re engineering it."',d:'Your company is a trailblazer. You have deliberate structures, policies, and a culture that genuinely supports women at every level. Women who join your team will find real opportunities to lead, grow, and belong. JFW is proud to connect you with exceptional talent that matches your standard.',tr:['Inclusive Culture','Pay Equity','Women in Leadership','Clear Accountability','Measurable Progress']},
+    P:{e:'🌱',ti:'The Progressive Builder',tg:'"You\'re walking the walk — and your culture shows it."',d:'You\'re doing the real work. Your company believes in diversity not as a checkbox but as a genuine strength. There are gaps to close, but your intentions are backed by visible action. Talented women will be drawn to your transparency and momentum. Keep building.',tr:['Growth Mindset','Intentional Hiring','Active Culture','Open to Feedback','Visible Momentum']},
+    E:{e:'🔆',ti:'The Emerging Ally',tg:'"The awareness is there — now comes the action."',d:'Your company is at an important inflection point. You know what needs to change and you\'re genuinely open to changing it. Willingness to evolve is half the battle. Partnering with JFW is a powerful next step — attracting mission-aligned women who can help accelerate your transformation from within.',tr:['Self-Aware','Open to Change','Developing Policies','Learning Culture','Willing to Evolve']},
+    G:{e:'🌿',ti:'The Honest Starter',tg:'"Being brave enough to admit where you are — that\'s where real change begins."',d:'Your company is at the start of its diversity journey, and the fact that you\'re here taking this quiz genuinely matters. Change starts with honesty. JFW can connect you with women who are passionate about building something better — not just joining something already perfect.',tr:['Honest','Willing to Grow','Building Awareness','Early Stage','Real Potential']}
+  }
+}
+};
+var type=null,qi=0,ans=[],chosen=null;
+function showPg(id){document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});document.getElementById(id).classList.add('on');}
+function startQ(t){type=t;qi=0;ans=[];chosen=null;document.getElementById('htitle').textContent=D[t].ht;document.getElementById('hsub').textContent=D[t].hs;document.getElementById('qc').style.display='block';document.getElementById('resc').style.display='none';showPg('pgQ');renderQ();window.scrollTo({top:0,behavior:'smooth'});}
+function renderQ(){chosen=null;var d=D[type],q=d.qs[qi],tot=d.qs.length;document.getElementById('qnum').textContent='Question '+('0'+(qi+1)).slice(-2);document.getElementById('qtext').textContent=q.t;document.getElementById('pl').textContent='Question '+(qi+1)+' of '+tot;document.getElementById('pn').textContent=(qi+1)+' / '+tot;document.getElementById('pb').style.width=Math.round(((qi+1)/tot)*100)+'%';var nb=document.getElementById('qnb');nb.classList.remove('rdy');nb.textContent=(qi===tot-1)?'See My Result →':'Continue →';var oel=document.getElementById('qopts');oel.innerHTML='';q.o.forEach(function(o){var div=document.createElement('div');div.className='qop';div.innerHTML='<div class="ql">'+o.l+'</div><div class="qot">'+o.t+'</div>';div.addEventListener('click',function(){pickO(div,o.s);});oel.appendChild(div);});var card=document.getElementById('qc');card.style.animation='none';void card.offsetWidth;card.style.animation='slr .38s ease both';}
+function pickO(el,sc){document.querySelectorAll('.qop').forEach(function(o){o.classList.remove('sel');});el.classList.add('sel');chosen=sc;document.getElementById('qnb').classList.add('rdy');}
+document.getElementById('qnb').addEventListener('click',function(){if(!chosen)return;ans.push(chosen);if(qi<D[type].qs.length-1){qi++;renderQ();}else{showRes();}});
+function showRes(){var tally={};ans.forEach(function(a){tally[a]=(tally[a]||0)+1;});var top=Object.entries(tally).sort(function(a,b){return b[1]-a[1];})[0][0];var r=D[type].res[top],d=D[type];document.getElementById('re').textContent=r.e;document.getElementById('rl').textContent=d.rl;document.getElementById('rtitle').textContent=r.ti;document.getElementById('rtagline').textContent=r.tg;document.getElementById('rdesc').textContent=r.d;document.getElementById('rcta').textContent=d.cta;var te=document.getElementById('rtraits');te.innerHTML='';r.tr.forEach(function(t){var p=document.createElement('span');p.className='tr';p.textContent=t;te.appendChild(p);});document.getElementById('qc').style.display='none';var rc=document.getElementById('resc');rc.style.display='block';rc.style.animation='none';void rc.offsetWidth;rc.style.animation='fup .5s ease both';rc.scrollIntoView({behavior:'smooth',block:'start'});}
+document.getElementById('btnRtk').addEventListener('click',function(){qi=0;ans=[];chosen=null;document.getElementById('resc').style.display='none';document.getElementById('qc').style.display='block';renderQ();document.getElementById('qc').scrollIntoView({behavior:'smooth',block:'start'});});
+document.getElementById('btnBk').addEventListener('click',function(){type=null;qi=0;ans=[];chosen=null;document.getElementById('resc').style.display='none';document.getElementById('qc').style.display='block';document.getElementById('htitle').textContent='Find Out Who You Are at Work';document.getElementById('hsub').textContent='Two quizzes. One for candidates. One for companies. Answer honestly and discover your true professional personality.';showPg('pgS');window.scrollTo({top:0,behavior:'smooth'});});
+document.getElementById('btnC').addEventListener('click',function(){startQ('candidate');});
+document.getElementById('btnCo').addEventListener('click',function(){startQ('company');});
+</script>
+</body>
+</html>
