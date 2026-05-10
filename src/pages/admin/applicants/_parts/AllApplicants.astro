@@ -2,15 +2,27 @@
 import { BASE_URL } from "astro:env/client";
 
 const { data } = Astro.props;
+
+const searchParams = new URLSearchParams(Astro.url.searchParams);
+const q = searchParams.get('q');
+
+const filteredData = data.filter((item: any) => {
+  if (q) {
+    return (item.name && item.name.toLowerCase().includes(q.toLowerCase())) || item.email.toLowerCase().includes(q.toLowerCase() || item.phoneNumber.toLowerCase().includes(q.toLowerCase()));
+  }
+  return item;
+});
+
 ---
 
 <div class="mt-2">
         <div class="grid grid-cols-2 md:grid-cols-3 items-center justify-between mb-4">
           <h2 class="order-1 md:order-1 text-xl font-bold">All Applicants</h2>
-          <div class="order-3 md:order-2 my-2 md:my-0 col-span-2 md:col-span-1 flex items-center space-x-0">
-            <input type="text" placeholder="Search..." class="w-full md:w-4xl px-4 py-2 border border-gray-300 rounded-tl-lg rounded-bl-lg focus:outline-none focus:border-violet-500 ">
-            <button class="bg-violet-600 text-white px-4 py-2 rounded-tr-lg rounded-br-lg hover:bg-violet-700 transition duration-200">Search</button>
-          </div>
+          <form class="order-3 md:order-2 my-2 md:my-0 col-span-2 md:col-span-1 flex items-center space-x-0">
+            <input name="q" type="text" placeholder="Search..." class="w-full md:w-4xl px-4 py-2 border border-gray-300 rounded-tl-lg rounded-bl-lg focus:outline-none focus:border-violet-500 ">
+            <button type="submit" class="bg-violet-600 text-white px-4 py-2 hover:bg-violet-700 transition duration-200">Search</button>
+            <a href="/admin/applicants" class="bg-violet-600 text-white px-4 py-2 rounded-tr-lg rounded-br-lg hover:bg-violet-700 transition duration-200 border-l-2 border-violet-400">Reset</a>
+          </form>
           <div class="order-2 flex justify-end items-center space-x-2">
             <a href="/admin/applicants/user" class="btn btn-primary">Add Applicant</a>
           </div>
@@ -28,7 +40,7 @@ const { data } = Astro.props;
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-              {data && data.map((applicant: any) => (
+              {filteredData && filteredData.map((applicant: any) => (
                 <tr>
                   <td class="px-6 py-4">{applicant.name}</td>
                   <td class="px-6 py-4">{applicant.city}</td>
