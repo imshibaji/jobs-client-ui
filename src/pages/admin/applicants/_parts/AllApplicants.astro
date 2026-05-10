@@ -1,4 +1,6 @@
 ---
+import { BASE_URL } from "astro:env/client";
+
 const { data } = Astro.props;
 ---
 
@@ -18,9 +20,10 @@ const { data } = Astro.props;
             <thead class="bg-purple-100 text-gray-700">
               <tr>
                 <th class="px-6 py-3 text-sm font-semibold">Name</th>
-                <th class="px-6 py-3 text-sm font-semibold">Address</th>
+                <th class="px-6 py-3 text-sm font-semibold">City</th>
                 <th class="px-6 py-3 text-sm font-semibold">Email</th>
                 <th class="px-6 py-3 text-sm font-semibold">Phone</th>
+                <th class="px-6 py-3 text-sm font-semibold">Resume</th>
                 <th class="px-6 py-3 text-sm font-semibold">Action</th>
               </tr>
             </thead>
@@ -28,9 +31,12 @@ const { data } = Astro.props;
               {data && data.map((applicant: any) => (
                 <tr>
                   <td class="px-6 py-4">{applicant.name}</td>
-                  <td class="px-6 py-4">{applicant.address}, {applicant.city}, {applicant.state}, {applicant.country}, {applicant.zipCode}</td>
+                  <td class="px-6 py-4">{applicant.city}</td>
                   <td class="px-6 py-4">{applicant.email}</td>
                   <td class="px-6 py-4">{applicant.phoneNumber}</td>
+                  <td class="px-6 py-4">
+                    {applicant.resume ? <a class="text-green-600 font-medium hover:underline" href={BASE_URL + `/file/download?Folder=resumes&Filename=${applicant.resume}`} target="_blank">Download Resume</a> : <span class="text-red-600 font-medium">No Resume</span>} 
+                  </td>
                   <td class="px-6 py-4">
                     <a href={`/admin/applicants/user/${applicant.id}`} class="text-violet-600 hover:underline ml-2">View & Update</a>
                     <a href={`/admin/applicants/${applicant.id}/delete`} class="text-red-600 hover:underline ml-2">Delete</a>
