@@ -1,47 +1,40 @@
 ---
 const { data = [] } = Astro.props;
 
-const filterData = data.length > 3 ? data.slice(data.length - 3) : data;
+// sort data by id field as Descending
+data.sort((a: any, b: any) => {
+  return a.id - b.id;
+});
+
+const filterData = data.length > 4 ? data.slice(data.length - 4) : data;
 ---
 <div class="mt-2">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">Recent Applicants</h2>
-        <div class="bg-white rounded-xl shadow overflow-hidden">
-          <table class="min-w-full text-left">
-            <thead class="bg-purple-100 text-gray-700">
+  <div class="flex justify-between items-center mx-3">
+      <h2 class="text-lg font-semibold text-gray-800 mb-4">Recent Applicants</h2>
+      <a href="/admin/applicants" class="text-primary">View All</a>
+  </div>
+  <div class="bg-white rounded-xl shadow overflow-hidden">
+    <table class="min-w-full text-left">
+      <thead class="bg-purple-100 text-gray-700">
+        <tr>
+          <th class="px-6 py-3 text-sm font-semibold">Name</th>
+          <th class="px-6 py-3 text-sm font-semibold">Email</th>
+          <th class="px-6 py-3 text-sm font-semibold">Mobile</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        {
+          filterData.map((item: any) => {
+            return (
               <tr>
-                <th class="px-6 py-3 text-sm font-semibold">Name</th>
-                <th class="px-6 py-3 text-sm font-semibold">Email</th>
-                <th class="px-6 py-3 text-sm font-semibold">Mobile</th>
+                <td class="px-6 py-4">{item.name}</td>
+                <td class="px-6 py-4">{item.email}</td>
+                <td class="px-6 py-4">{item.phoneNumber}</td>
               </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100">
-              {
-                filterData.map((item: any) => {
-                  return (
-                    <tr>
-                      <td class="px-6 py-4">{item.name}</td>
-                      <td class="px-6 py-4">{item.email}</td>
-                      <td class="px-6 py-4">{item.phoneNumber}</td>
-                    </tr>
-                  )
-                })
-              }
-              <!-- <tr>
-                <td class="px-6 py-4">Aditi Sharma</td>
-                <td class="px-6 py-4">Frontend Developer</td>
-                <td class="px-6 py-4 text-green-600 font-medium">Interview Scheduled</td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4">Neha Kapoor</td>
-                <td class="px-6 py-4">HR Executive</td>
-                <td class="px-6 py-4 text-yellow-600 font-medium">Pending Review</td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4">Riya Das</td>
-                <td class="px-6 py-4">Content Strategist</td>
-                <td class="px-6 py-4 text-green-600 font-medium">Shortlisted</td>
-              </tr> -->
-            </tbody>
-          </table>
-        </div>
-      </div>
+            )
+          })
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

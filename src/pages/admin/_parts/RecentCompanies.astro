@@ -1,10 +1,18 @@
 ---
 const { data = [] } = Astro.props;
 
-const filterData = data.length > 3 ? data.slice(data.length - 3) : data;
+// sort data by id field
+data.sort((a: any, b: any) => {
+    return a.id - b.id;
+});
+
+const filterData = data.length > 4 ? data.slice(data.length - 4) : data;
 ---
 <div class="mt-2">
-    <h2 class="text-lg font-semibold text-gray-800 mb-4">Recent Companies</h2>
+    <div class="flex justify-between items-center mx-3">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Recent Companies</h2>
+        <a href="/admin/companies" class="text-primary">View All</a>
+    </div>
     <div class="bg-white rounded-xl shadow overflow-hidden">
         <table class="min-w-full text-left">
         <thead class="bg-purple-100 text-gray-700">
