@@ -9,7 +9,23 @@ import PageNav from "@/components/PageNav.astro";
 const token = Astro.cookies.get('token')?.value as string;
 const applicants = await useHttpClient(token).get(APP_URL + '/applicants').then(res => res.json());
 
-const {page} = getSSRPagination(applicants, Astro.url, 10, '/admin/applicants');
+const searchParams = new URLSearchParams(Astro.url.searchParams);
+const q = searchParams.get('q');
+const length = q ? applicants.length : 10;
+
+const filteredData = applicants.filter((item: any) => {
+  if(q) {
+    const searchTerm = q.toLowerCase();
+    const nameMatch = item.name.toLowerCase().includes(searchTerm);
+    const emailMatch = item.email.toLowerCase().includes(searchTerm);
+    const cityMatch = item.city && item.city.toLowerCase().includes(searchTerm);
+    const phoneNumberMatch = item.phoneNumber.toLowerCase().includes(searchTerm);
+    return nameMatch || emailMatch || cityMatch || phoneNumberMatch;
+  }
+  return true;
+});
+
+const {page} = getSSRPagination(filteredData, Astro.url, length, '/admin/applicants');
 ---
 <AdminLayout title="Applicants - JobsForWomen.com">
   <!-- <QuickHighlight /> -->
