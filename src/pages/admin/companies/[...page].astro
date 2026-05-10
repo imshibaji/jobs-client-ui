@@ -11,7 +11,7 @@ const companies = await useHttpClient(token).get(BASE_URL + '/companies').then(r
 const {page} = getSSRPagination(companies, Astro.url, 10, '/admin/companies');
 ---
 <AdminLayout>
-  <QuickHighlight />
+  <!-- <QuickHighlight /> -->
   <AllCompanies data={page.data} />
   <PageNav page={page} />
 </AdminLayout>
