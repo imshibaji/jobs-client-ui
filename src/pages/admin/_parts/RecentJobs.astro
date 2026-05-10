@@ -1,0 +1,48 @@
+---
+const { data = [] } = Astro.props;
+
+const filterData = data.length > 3 ? data.slice(data.length - 3) : data;
+---
+<div class="mt-2">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Recent Jobs</h2> <div class="bg-white rounded-xl shadow overflow-hidden">
+          <table class="min-w-full text-left">
+            <thead class="bg-purple-100 text-gray-700">
+              <tr>
+                <th class="px-6 py-3 text-sm font-semibold">Title</th>
+                <th class="px-6 py-3 text-sm font-semibold">Location</th>
+                <th class="px-6 py-3 text-sm font-semibold">Experiences</th>
+                <th class="px-6 py-3 text-sm font-semibold">Salary</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                {
+                    filterData.map((item: any) => {
+                        return (
+                            <tr>
+                                <td class="px-6 py-4">{item.title}</td>
+                                <td class="px-6 py-4">{item.location}</td>
+                                <td class="px-6 py-4">{item.experience}</td>
+                                <td class="px-6 py-4">{item.salary}</td>
+                            </tr>
+                        )
+                    })
+                }
+              <!-- <tr>
+                <td class="px-6 py-4">Aditi Sharma</td>
+                <td class="px-6 py-4">Frontend Developer</td>
+                <td class="px-6 py-4 text-green-600 font-medium">Interview Scheduled</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4">Neha Kapoor</td>
+                <td class="px-6 py-4">HR Executive</td>
+                <td class="px-6 py-4 text-yellow-600 font-medium">Pending Review</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4">Riya Das</td>
+                <td class="px-6 py-4">Content Strategist</td>
+                <td class="px-6 py-4 text-green-600 font-medium">Shortlisted</td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
