@@ -24,13 +24,23 @@ const defaultFormData: Applicant = {
     zipCode: '',
     bio: '',
     dob: '',
-    gender: '',
+    gender: 'female',
     email: '',
     phoneNumber: '',
     skills: '',
     experience: '',
     location: '',
     resume: '',
+    professionalStatus: '',
+    highestEducation: '',
+    interestedIndustry: '',
+    preferredWork: '',
+    workTools: '',
+    workEnvironments: '',
+    companyCulture: '',
+    preferredCommunication: '',
+    joiningTime: '',
+    expectedMonthlySalary: '',
     userId: 0
 };
 
@@ -49,7 +59,9 @@ export default function ProfileForm({ token, applicant, onSubmitSuccess }: Profi
             // Fetch all users for the dropdown (assuming this is required for assignment)
             if (users.length === 0) {
                 const usersData = await get(BASE_URL + '/users').then(res => res.json()) as User[];
-                setUsers(usersData);
+                // Sort users by id as DESC
+                const uu = usersData.sort((a:any, b: any) => b.id - a.id);
+                setUsers(uu);
             }
 
             // If applicantId is provided, fetch existing data for EDIT mode
@@ -130,16 +142,15 @@ export default function ProfileForm({ token, applicant, onSubmitSuccess }: Profi
                             <div>
                                 <label htmlFor="dob" className="block text-sm font-medium text-gray-700 mb-1">Date Of Birth</label>
                                 <input value={formData.dob} onChange={(e) => setFormData({ ...formData, dob: e.target.value })} type="date" id="dob" name="dob"
-                                    className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                                    className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
                             </div>
                             <div className="flex flex-col sm:flex-row gap-4 sm:col-span-2">
                                 {/* Select: Gender */}
                                 <div className="w-full">
                                     <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
                                     <select value={formData.gender} onChange={(e) => setFormData({ ...formData, gender: e.target.value })} id="gender" name="gender" className="w-full border border-gray-300 rounded-lg p-3 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150">
-                                        <option value="">Select Gender</option>
                                         <option value="female">Female</option>
-                                        <option value="male">Male</option>
+                                        <option value="transgender">Transgender</option>
                                         <option value="other">Other</option>
                                     </select>
                                 </div>
@@ -160,7 +171,7 @@ export default function ProfileForm({ token, applicant, onSubmitSuccess }: Profi
                         <div className="mt-6">
                             <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-1">About Me (Bio)</label>
                             <textarea value={formData.bio} onChange={(e) => setFormData({ ...formData, bio: e.target.value })} id="bio" rows={2} placeholder="A brief description of yourself, your interests, and career goals..."
-                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required></textarea>
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150"></textarea>
                         </div>
 
                         {/* **SECTION: Professional Details** */}
@@ -186,6 +197,76 @@ export default function ProfileForm({ token, applicant, onSubmitSuccess }: Profi
 
                 <hr className="border-gray-300 my-8" />
 
+                {/* **SECTION 1: Additional Details ** */}
+                <div>
+                    <h3 className="text-xl font-bold text-gray-800 border-b pb-2 mb-4">Additional Details</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {/* Input: Professional Status */}
+                        <div>
+                            <label htmlFor="professionalStatus" className="block text-sm font-medium text-gray-700 mb-1">Professional Status</label>
+                            <input value={formData.professionalStatus} onChange={(e) => setFormData({ ...formData, professionalStatus: e.target.value })} type="text" id="professionalStatus" placeholder="Professional Status"
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
+                        </div>
+                        {/* Input: Highest Education */}
+                        <div>
+                            <label htmlFor="highestEducation" className="block text-sm font-medium text-gray-700 mb-1">Highest Education</label>
+                            <input value={formData.highestEducation} onChange={(e) => setFormData({ ...formData, highestEducation: e.target.value })} type="text" id="highestEducation" placeholder="Bachelor's Degree"
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
+                        </div>
+                        {/* Input: Interested Industry */}
+                        <div>
+                            <label htmlFor="interestedIndustry" className="block text-sm font-medium text-gray-700 mb-1">Interested Industry</label>
+                            <input value={formData.interestedIndustry} onChange={(e) => setFormData({ ...formData, interestedIndustry: e.target.value })} type="text" id="interestedIndustry" placeholder="Software Development"
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
+                        </div>
+                        {/* Input: Preferred Work */}
+                        <div>
+                            <label htmlFor="preferredWork" className="block text-sm font-medium text-gray-700 mb-1">Preferred Work</label>
+                            <input value={formData.preferredWork} onChange={(e) => setFormData({ ...formData, preferredWork: e.target.value })} type="text" id="preferredWork" placeholder="Full-time or Remote"
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
+                        </div>
+                        {/* Input: Work Tools */}
+                        <div>
+                            <label htmlFor="workTools" className="block text-sm font-medium text-gray-700 mb-1">Work Tools</label>
+                            <input value={formData.workTools} onChange={(e) => setFormData({ ...formData, workTools: e.target.value })} type="text" id="workTools" placeholder="Git, VS Code, etc."
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
+                        </div>
+                        {/* Input: Work Environments */}
+                        <div>
+                            <label htmlFor="workEnvironments" className="block text-sm font-medium text-gray-700 mb-1">Work Environments</label>
+                            <input value={formData.workEnvironments} onChange={(e) => setFormData({ ...formData, workEnvironments: e.target.value })} type="text" id="workEnvironments" placeholder="AWS, Linux, etc."
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
+                        </div>
+                        {/* Input: Company Culture */}
+                        <div>
+                            <label htmlFor="companyCulture" className="block text-sm font-medium text-gray-700 mb-1">Company Culture</label>
+                            <input value={formData.companyCulture} onChange={(e) => setFormData({ ...formData, companyCulture: e.target.value })} type="text" id="companyCulture" placeholder="Collaboration, Flexibility, etc."
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
+                        </div>
+                        {/* Input: Preferred Communication */}
+                        <div>
+                            <label htmlFor="preferredCommunication" className="block text-sm font-medium text-gray-700 mb-1">Preferred Communication</label>
+                            <input value={formData.preferredCommunication} onChange={(e) => setFormData({ ...formData, preferredCommunication: e.target.value })} type="text" id="preferredCommunication" placeholder="Email, Phone, etc."
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
+                        </div>
+                        {/* Input: Joining Time */}
+                        <div>
+                            <label htmlFor="joiningTime" className="block text-sm font-medium text-gray-700 mb-1">Joining Time</label>
+                            <input value={formData.joiningTime} onChange={(e) => setFormData({ ...formData, joiningTime: e.target.value })} type="text" id="joiningTime" placeholder="Immediately, 1 month, etc."
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
+                        </div>
+                        {/* Input: Expected Monthly Salary */}
+                        <div>
+                            <label htmlFor="expectedMonthlySalary" className="block text-sm font-medium text-gray-700 mb-1">Expected Monthly Salary</label>
+                            <input value={formData.expectedMonthlySalary} onChange={(e) => setFormData({ ...formData, expectedMonthlySalary: e.target.value })} type="text" id="expectedMonthlySalary" placeholder="₹10,000 - ₹15,000"
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
+                        </div>
+                    </div>
+                </div>
+
+
+                <hr className="border-gray-300 my-8" />
+
                 {/* **SECTION 2: Contact Information** */}
                 <div>
                     <h3 className="text-xl font-bold text-gray-800 border-b pb-2 mb-4">Contact Information</h3>
@@ -208,7 +289,7 @@ export default function ProfileForm({ token, applicant, onSubmitSuccess }: Profi
                     <div className="mt-6">
                         <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
                         <input value={formData.address} onChange={(e) => setFormData({ ...formData, address: e.target.value })} type="text" id="address" placeholder="123 Main St"
-                            className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                            className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
                     </div>
 
                     {/* Location Details (City, State, Zip, Country) */}
@@ -216,22 +297,22 @@ export default function ProfileForm({ token, applicant, onSubmitSuccess }: Profi
                         <div>
                             <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">City / Village</label>
                             <input value={formData.city} onChange={(e) => setFormData({ ...formData, city: e.target.value })} type="text" id="city" placeholder="New York"
-                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
                         </div>
                         <div>
                             <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">State</label>
                             <input value={formData.state} onChange={(e) => setFormData({ ...formData, state: e.target.value })} type="text" id="state" placeholder="NY"
-                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
                         </div>
                         <div>
                             <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700 mb-1">Zip Code</label>
                             <input value={formData.zipCode} onChange={(e) => setFormData({ ...formData, zipCode: e.target.value })} type="text" id="zipCode" placeholder="10001"
-                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
                         </div>
                         <div>
                             <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">Country</label>
                             <input value={formData.country} onChange={(e) => setFormData({ ...formData, country: e.target.value })} type="text" id="country" placeholder="USA"
-                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" required />
+                                className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition duration-150" />
                         </div>
                     </div>
                 </div>

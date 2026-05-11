@@ -16,6 +16,16 @@ export interface Applicant{
     experience: string;
     location: string;
     resume?: string;
+    professionalStatus?: string;
+    highestEducation?: string;
+    interestedIndustry?: string;
+    preferredWork?: string;
+    workTools?: string;
+    workEnvironments?: string;
+    companyCulture?: string;
+    preferredCommunication?: string;
+    joiningTime?: string;
+    expectedMonthlySalary?: string;
     userId?: string | number;
 }
 
