@@ -7,10 +7,12 @@ import QuickHighlight from "./_parts/QuickHighlight.astro";
 
 const token = Astro.cookies.get('token')?.value as string;
 const users = await useHttpClient(token).get(APP_URL + '/users').then(res => res.json());
+// short by user id
+const shortedUsers = users.sort((a: any, b: any) => b.id - a.id);
 ---
 
 <AdminLayout>
-  <QuickHighlight users={users} />
+  <QuickHighlight users={shortedUsers} />
   <hr class="my-4 border-gray-200 bg-gray-200 sm:mx-auto dark:border-gray-700 dark:bg-gray-700" />
-  <UserListClient itemsPerPage={10} usersJson={JSON.stringify(users)} />
+  <UserListClient itemsPerPage={10} usersJson={JSON.stringify(shortedUsers)} />
 </AdminLayout>
